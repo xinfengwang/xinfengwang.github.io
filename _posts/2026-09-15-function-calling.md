@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "02"
 category: Tech
 tags: [Agent, Function-Calling, Tool-Use, JSON-Schema]
+content_kind: 工程方法
 ---
 
 很多人第一次接触 Function Calling，会误以为“LLM 可以直接运行代码”。其实模型本身通常只负责两件事：**理解用户意图**，以及**生成一个符合约束的工具调用请求**。真正执行函数的是模型外部的 Agent Runtime。

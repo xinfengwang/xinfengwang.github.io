@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "02"
 category: Tech
 tags: [LangGraph, Multi-Agent, Agent, Workflow]
+content_kind: 工程方法
 ---
 
 很多 Multi-Agent Demo 的核心只是：一个 Agent 调另一个 Agent。但工程上的 Multi-Agent，需要回答更困难的问题：任务由谁拆、状态存在哪里、失败怎么回退、谁有权调用哪些 Tool、什么时候结束。

@@ -9,6 +9,7 @@ series_index: "02"
 category: Tech
 tags: [Agent, Evaluation, Benchmark, Reliability]
 updated: 2026-11-05
+content_kind: 工程方法
 ---
 
 假设给 Coding Agent 换了一套代码库检索策略。新版更容易找到目标文件，但有时会顺手改动任务范围外的配置。要判断是否发布，我需要同时看到最终补丁、测试结果，以及它从哪个文件开始偏离任务。只对比最后一句回复，很难发现这些变化。
@@ -40,4 +41,4 @@ updated: 2026-11-05
 
 这份评测最有用的输出是一条具体的发布决定，以及能追到证据的失败列表。本文示例用于说明设计，没有报告实测结果。
 
-延伸阅读 [读阿甘的 Agent Harness 系列：失败能不能重放？](/2026/11/05/agent-replay-reading-notes/) · [确定性执行结果比对](/2026/09/15/deterministic-agent-evaluation/)。
+延伸阅读 [Agent Harness 学习心得：失败重放能验证什么？](/2026/11/05/agent-replay-reading-notes/) · [确定性执行结果比对](/2026/09/15/deterministic-agent-evaluation/)。

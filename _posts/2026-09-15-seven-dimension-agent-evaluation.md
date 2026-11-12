@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "05"
 category: Tech
 tags: [Evaluation, Agent, Benchmark, Reliability]
+content_kind: 工程方法
 ---
 
 如果一个 Agent 的任务完成率是 85%，这个数字有用，但远远不够。它没有告诉你失败发生在哪，也没有告诉你“完成的那 85%”是不是付出了巨大的 token、工具调用和不稳定成本。

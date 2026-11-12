@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "06"
 category: Tech
 tags: [Multi-Agent, Context-Engineering, State, Workspace]
+content_kind: 工程方法
 ---
 
 Multi-Agent 系统里一个很自然的问题是：多个 Agent 怎么共享上下文？

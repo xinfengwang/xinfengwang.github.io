@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "04"
 category: Tech
 tags: [Agent, Evaluation, AST, Assertion, Reliability]
+content_kind: 工程方法
 ---
 
 Agent 评测里，一个很重要的原则是：**只要结果可以通过程序确定，就优先做确定性验证。**

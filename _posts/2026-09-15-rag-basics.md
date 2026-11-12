@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "01"
 category: Tech
 tags: [RAG, Embedding, Vector-Search, Chunking]
+content_kind: 工程方法
 ---
 
 RAG 的基本目标很简单：模型不知道的信息，不直接要求它“想出来”，而是先从外部知识库里找相关内容，再把检索结果交给模型生成答案。

@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Archive
+title: 文章归档
 permalink: /archive/
 ---
 <div class="narrow-page">
   <p class="eyebrow">ARCHIVE</p>
-  <h1>All Posts</h1>
-  <p class="lead">按时间回看学习与工程实践。</p>
+  <h1>文章归档</h1>
+  <p class="lead">按时间回看项目拆解、工程方法与学习笔记。也可以<a class="text-link" href="{{ "/tech/" | relative_url }}">按主题浏览 →</a></p>
   <div class="archive-list">
     {% for post in site.posts %}
-      <div class="archive-row"><time>{{ post.date | date: "%Y-%m-%d" }}</time><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.series %}<span>{{ post.series }}</span>{% endif %}</div>
+      <div class="archive-row"><time>{{ post.date | date: "%Y-%m-%d" }}</time><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.series %}<span>{{ post.content_kind }}</span>{% endif %}</div>
     {% endfor %}
   </div>
 </div>

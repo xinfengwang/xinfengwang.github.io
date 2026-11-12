@@ -9,6 +9,7 @@ series_index: "01"
 category: Tech
 homepage: false
 tags: [Agent, LLM, Tool-Use, State]
+content_kind: 工程方法
 ---
 
 很多“Agent 入门”会从框架开始讲：LangChain、LangGraph、AutoGen。更容易建立稳定认知的方法，是先问一个更基础的问题：**普通 LLM 应用和 Agent 到底差在哪里？**

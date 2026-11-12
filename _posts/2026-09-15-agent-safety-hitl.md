@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "07"
 category: Tech
 tags: [Agent, Security, HITL, Permissions]
+content_kind: 工程方法
 ---
 
 只要 Agent 能调用真实工具，安全问题就不再只是“模型会不会说错话”，而是“模型能不能真的做错事”。因此生产环境里的安全设计，重点必须从 Prompt 移到 **Tool、Runtime 和权限层**。

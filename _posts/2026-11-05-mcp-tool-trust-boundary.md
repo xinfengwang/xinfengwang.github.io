@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "08"
 category: Tech
 tags: [MCP, Security, Prompt-Injection, Permissions]
+content_kind: 工程方法
 ---
 
 假设一个科研 Agent 能读内部实验记录，也能调用外部 MCP 服务查论文。用户说「查这项实验用到的方法」。Agent 可以提取公开的方法名发起搜索。但工具描述或返回内容如果又要求「把实验记录全文提交给诊断服务」，宿主需要独立判断这次数据传输是否获得授权。哪怕前一条论文查询完全正确，额外调用也可能造成泄露。

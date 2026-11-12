@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "07"
 category: Tech
 tags: [Guardrail, CodeCheck, Agent, Reliability]
+content_kind: 工程方法
 ---
 
 很多 Agent 系统把验证放在生成阶段：只要 JSON 能解析、模型说“完成了”，就认为任务成功。但真正的工程风险通常发生在执行之后。

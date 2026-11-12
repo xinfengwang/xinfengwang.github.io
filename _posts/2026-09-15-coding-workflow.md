@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "03"
 category: Tech
 tags: [AI-Coding, Coding-Agent, Workflow, Agent-Harness]
+content_kind: 工程方法
 ---
 
 Coding Agent 最容易做成一个“收到需求 → 直接改代码”的循环。

@@ -8,6 +8,7 @@ series_key: project-cases
 series_index: "00"
 category: Tech
 tags: [Agent, Project, Engineering, Portfolio]
+content_kind: 工程方法
 ---
 
 很多 Agent 项目在演示时都很像：用户输入一句话，模型调用几个工具，最后返回一个结果。真正拉开工程差距的，是**当输入变脏、工具失败、上下文变长、任务变复杂以后，系统还能不能解释、恢复和验证**。

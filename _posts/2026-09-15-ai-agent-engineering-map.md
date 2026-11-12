@@ -8,6 +8,7 @@ pinned: true
 series: "AI Agent Engineering"
 series_index: "总览"
 tags: [Agent, Roadmap, Workflow, RAG, Evaluation, AI-Coding]
+content_kind: 工程方法
 ---
 
 做 Agent 很容易陷入一个误区：今天学 Function Calling，明天看 MCP，后天又去追一个新的 Multi-Agent 框架。名词越来越多，但遇到真实系统问题时仍然不知道应该在哪一层排查。

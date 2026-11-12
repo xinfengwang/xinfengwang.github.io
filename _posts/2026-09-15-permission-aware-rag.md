@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "07"
 category: Tech
 tags: [RAG, Security, Access-Control, Agent]
+content_kind: 工程方法
 ---
 
 企业 RAG 最危险的一类问题，不是“没搜到”，而是**搜到了不该让当前用户看到的内容**。

@@ -8,6 +8,9 @@ series_key: project-cases
 series_index: "07"
 category: Tech
 tags: [GUI-Agent, Badcase, Evaluation, Retrieval]
+content_kind: 工程方法
+project_id: gui-knowledge
+scope_note: "公开仓库提供知识构建设计与展示页面。本文涉及规划、自动执行或回归评测的部分属于工程设计讨论，不表示仓库已公开完整实现或评测结果。"
 ---
 
 GUI Agent 失败时，最没价值的结论是“模型不稳定”。因为一个点击任务从自然语言到真实执行，中间至少经过知识覆盖、检索、规划和工具执行四层，任何一层都可能导致失败。

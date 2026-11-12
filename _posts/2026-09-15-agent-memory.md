@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "05"
 category: Tech
 tags: [Agent, Memory, Context-Engineering, RAG]
+content_kind: 工程方法
 ---
 
 Agent 的 Memory 经常被简单理解成“保存聊天记录”。但工程上真正困难的问题不是怎么存，而是：**存什么、存多久、什么时候召回、召回多少、哪些信息不能被带入新的任务。**

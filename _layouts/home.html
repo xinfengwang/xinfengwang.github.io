@@ -2,46 +2,49 @@
 layout: default
 ---
 <section class="hero">
-  <p class="eyebrow">AI AGENT ENGINEERING · LEARNING IN PUBLIC</p>
-  <h1>{{ site.profile.name }}</h1>
-  <p class="hero-role">{{ site.profile.role }}</p>
-  <p class="hero-copy">我做过科研工作台和智能家居 Agent，也记录研发 Agent 的工程实践。这里可以看项目代码和案例复盘，也可以按路线学习如何设计、验证和恢复 Agent 工作流。</p>
+  <p class="eyebrow">王新峰的技术博客 / AI AGENT ENGINEERING</p>
+  <h1>把 Agent 做成<br>可追踪、可验证的系统。</h1>
+  <p class="hero-role">{{ site.profile.name }} · {{ site.profile.role }}</p>
+  <p class="hero-copy">我关注 AI Agent 如何获取上下文、组织任务、调用工具，以及在失败后继续执行。这里记录科研工作台、智能家居与 GUI 知识构建的项目实践，也分享学习笔记和三维交互作品。</p>
   <div class="hero-actions">
-    <a class="button primary" href="{{ '/projects/' | relative_url }}">看项目与源码</a>
-    <a class="button" href="{{ '/learning-map/#reading-paths' | relative_url }}">选一条学习路线</a>
+    <a class="button primary" href="{{ '/projects/' | relative_url }}">先看我做过的项目 →</a>
+    <a class="button" href="{{ '/learning-map/' | relative_url }}">按路线阅读文章</a>
+    <a class="text-link" href="{{ '/about/' | relative_url }}">了解我的背景 ↗</a>
+  </div>
+</section>
+
+<section class="home-projects" aria-labelledby="selected-projects">
+  <div class="section-heading"><span id="selected-projects">代表项目 · 从问题到实现</span><span class="rule"></span><a href="{{ '/projects/' | relative_url }}">全部项目 →</a></div>
+  <div class="home-project-grid">
+    {% for project in site.data.projects %}{% if project.featured %}
+    <article class="home-project-card">
+      <a class="home-project-image" href="{{ '/projects/#' | append: project.id | relative_url }}"><img src="{{ project.image }}" alt="{{ project.name }}界面预览" loading="lazy" width="960" height="540"></a>
+      <div class="home-project-content">
+        <p class="project-kicker">{{ project.group }} · {{ project.status }}</p>
+        <h2><a href="{{ '/projects/#' | append: project.id | relative_url }}">{{ project.name }}</a></h2>
+        <p>{{ project.summary }}</p>
+        <div class="project-card-links"><a href="{{ project.article | relative_url }}">阅读项目拆解 →</a><a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">查看仓库 ↗</a></div>
+      </div>
+    </article>
+    {% endif %}{% endfor %}
   </div>
 </section>
 
 <section class="home-start-here" aria-labelledby="start-here">
-  <div class="section-heading"><span id="start-here">第一次来，可以从这里读</span><span class="rule"></span></div>
+  <div class="section-heading"><span id="start-here">带着问题阅读</span><span class="rule"></span></div>
   <div class="start-here-grid">
-    <a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}"><span>01</span><strong>看一个项目是怎么做的</strong><small>ReproLab 如何把数据、运行结果和科研结论连起来</small></a>
-    <a href="{{ '/2026/09/15/agent-foundations-overview/' | relative_url }}"><span>02</span><strong>从头理解 Agent</strong><small>先弄清模型、工具、状态各自负责什么</small></a>
-    <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}"><span>03</span><strong>带着具体问题读</strong><small>知识库有答案，为什么 Agent 找不到？</small></a>
+    <a href="{{ '/series/agent-foundations/' | relative_url }}"><span>01 / 基础</span><strong>Agent 怎样调用工具？</strong><small>理解模型、工具、状态与权限各自负责什么。</small></a>
+    <a href="{{ '/series/rag-context/' | relative_url }}"><span>02 / 上下文</span><strong>资料有答案，为什么没找到？</strong><small>从检索、排序到上下文组装，逐层排查。</small></a>
+    <a href="{{ '/series/evaluation-reliability/' | relative_url }}"><span>03 / 可靠性</span><strong>失败后，怎样定位和验证？</strong><small>把执行记录、回归任务和结果校验连起来。</small></a>
   </div>
 </section>
 
 <div class="content-grid">
   <section class="post-column">
-    <div class="section-heading"><span>工程实践与学习心得</span><span class="rule"></span></div>
-    {% assign featured_urls = '/2026/11/01/reliable-development-agent-harness/|/2026/09/09/smart-home-agent-loop/|/2026/11/05/agent-replay-reading-notes/' | split: '|' %}
-    {% for url in featured_urls %}
-      {% assign post = site.posts | where: 'url', url | first %}
-      {% if post %}{% include post-card.html post=post %}{% endif %}
-    {% endfor %}
-    <section class="home-recent" aria-labelledby="recent-notes">
-      <h2 id="recent-notes">近期笔记</h2>
-      <ul>
-        <li><a href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">雨夜便利店 SoraMart：从三维场景到可玩的交互原型</a></li>
-        <li><a href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">长 Prompt 进来时，vLLM 怎么分配 GPU 资源？</a></li>
-        <li><a href="{{ '/2026/11/05/mcp-tool-trust-boundary/' | relative_url }}">MCP 接入后，谁决定数据能不能发出去？</a></li>
-        <li><a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">Agent 恢复后，怎么避免重复执行？</a></li>
-      </ul>
-    </section>
-    <div class="home-more-links">
-      <a class="button" href="{{ '/archive/' | relative_url }}">查看文章归档 →</a>
-      <a class="text-link" href="{{ '/tech/' | relative_url }}">按系列浏览 →</a>
-    </div>
+    <div class="section-heading"><span>最近更新</span><span class="rule"></span></div>
+    <p class="section-intro">项目拆解、工程方法和学习笔记分别标注，按兴趣选择阅读。</p>
+    {% for post in site.posts limit: 5 %}{% include post-card.html post=post %}{% endfor %}
+    <div class="home-more-links"><a class="button" href="{{ '/archive/' | relative_url }}">全部文章 →</a><a class="text-link" href="{{ '/tech/' | relative_url }}">按主题浏览 →</a></div>
   </section>
   {% include sidebar.html %}
 </div>

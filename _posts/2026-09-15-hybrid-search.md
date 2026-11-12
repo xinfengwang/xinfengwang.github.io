@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "02"
 category: Tech
 tags: [RAG, Hybrid-Search, BM25, Vector-Search, RRF]
+content_kind: 工程方法
 ---
 
 只用向量检索，很多时候“看起来很智能”，但遇到订单号、函数名、错误码、产品型号这类精确实体时容易失误。只用关键词检索，又很难处理同义表达和自然语言改写。

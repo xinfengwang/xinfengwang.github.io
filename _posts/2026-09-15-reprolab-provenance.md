@@ -8,6 +8,8 @@ series_key: project-cases
 series_index: "03"
 category: Tech
 tags: [ReproLab, Provenance, Research-Agent, Reproducibility]
+content_kind: 项目拆解
+project_id: reprolab
 ---
 
 科研 Agent 和普通聊天机器人最大的区别之一，是“答案看起来合理”远远不够。一个数字如果进入论文、报告或决策，就必须回答：它来自哪份数据、经过哪段代码、在哪个环境里计算、能不能重新得到。

@@ -1,5 +1,5 @@
 title: "Wang Xinfeng's Blog"
-description: "AI Agent Engineering · RAG · Multi-Agent · AI Coding"
+description: "王新峰的技术博客：围绕 AI Agent 的检索、工作流与可靠性，分享科研工作台、智能家居和 GUI 知识构建项目，以及三维交互作品。"
 url: "https://telawang91-dotcom.github.io"
 baseurl: ""
 lang: zh-CN
@@ -17,19 +17,15 @@ profile:
   tagline: "Build agents that can be traced, verified, and improved."
 
 nav:
-  - title: Blog
+  - title: 首页
     url: /
-  - title: Tech
-    url: /tech/
-  - title: Learning Map
-    url: /learning-map/
-  - title: Projects
+  - title: 项目
     url: /projects/
-  - title: Experience
-    url: /experience/
-  - title: Archive
+  - title: 学习路线
+    url: /learning-map/
+  - title: 文章
     url: /archive/
-  - title: About
+  - title: 关于我
     url: /about/
 
 exclude:

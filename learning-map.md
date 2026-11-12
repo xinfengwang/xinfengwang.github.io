@@ -44,7 +44,7 @@ permalink: /learning-map/
         <ol>
           <li><a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">记录状态与恢复路径</a></li>
           <li><a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">用 Trace 和评测定位问题</a></li>
-          <li><a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">对照真实案例检查设计</a></li>
+          <li><a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">对照项目原型检查设计</a></li>
         </ol>
       </article>
       <article>
@@ -97,6 +97,12 @@ permalink: /learning-map/
       </article>
     {% endfor %}
   </section>
+
+  <aside class="roadmap-note" aria-label="创意编程延伸阅读">
+    <strong>独立方向 · 三维交互与创意编程</strong>
+    <p>SoraMart 是浏览器交互作品，可作为场景设计与产品体验案例单独阅读。</p>
+    <a class="text-link" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">阅读雨夜便利店项目拆解 →</a>
+  </aside>
 
   <aside class="roadmap-note" aria-label="模型推理服务延伸阅读">
     <strong>延伸阅读 · 模型推理服务</strong>

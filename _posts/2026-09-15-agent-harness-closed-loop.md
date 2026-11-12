@@ -9,6 +9,7 @@ series_key: project-cases
 series_index: "09"
 category: Tech
 tags: [Agent-Harness, Workflow, Context-Engineering, Evaluation]
+content_kind: 工程方法
 ---
 
 当 Agent 开始处理长任务以后，只做“模型 + Tool”很快会遇到三个问题：任务状态散在对话里、上下文越来越乱、失败以后很难判断该重试还是重新规划。

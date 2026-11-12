@@ -9,6 +9,7 @@ series_index: "00"
 category: Tech
 homepage: false
 tags: [Workflow, Multi-Agent, LangGraph, Runtime]
+content_kind: 工程方法
 ---
 
 Agent Demo 很容易做成“模型决定下一步，然后继续调用模型”。真正困难的是任务变长以后：状态放哪、失败怎么办、谁能调用什么、什么时候必须停、怎么恢复。

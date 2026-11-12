@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "03"
 category: Tech
 tags: [Agent, Evaluation, LLM-as-Judge, Reliability]
+content_kind: 工程方法
 ---
 
 LLM-as-Judge 的优点很明显：不需要给每个任务都写复杂规则，就能评价回答是否相关、解释是否完整、表达是否清晰。

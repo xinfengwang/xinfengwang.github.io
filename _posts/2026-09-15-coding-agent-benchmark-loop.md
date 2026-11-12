@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "07"
 category: Tech
 tags: [AI-Coding, Benchmark, Evaluation, Harness]
+content_kind: 工程方法
 ---
 
 Coding Agent 很容易进入一种低效迭代：发现一个问题，改 Prompt，再挑几个例子人工测试。如果没有稳定 Benchmark，很难知道改动到底是整体提升，还是只修好当前案例。

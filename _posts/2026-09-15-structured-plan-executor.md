@@ -8,6 +8,7 @@ series_key: project-cases
 series_index: "08"
 category: Tech
 tags: [Agent, Planning, Executor, Evaluation]
+content_kind: 工程方法
 ---
 
 很多 Agent 的计划只是几句自然语言：先做 A，再做 B，最后做 C。对人来说足够，但对执行系统和评测系统来说，这种计划太模糊。

@@ -9,6 +9,7 @@ series_key: workflow-multi-agent
 series_index: "01"
 category: Tech
 tags: [Agent, Workflow, LangGraph, Multi-Agent, Evaluation]
+content_kind: 工程方法
 ---
 
 Demo 阶段最自然的做法，是把当前对话、工具列表和目标一起交给 LLM，让它自己决定下一步。但当 Agent 需要处理十几步任务、外部工具、失败重试和人工审批时，这种做法会迅速暴露问题。

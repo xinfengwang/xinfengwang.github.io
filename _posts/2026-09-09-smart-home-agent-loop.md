@@ -8,6 +8,9 @@ series_key: project-cases
 series_index: "01"
 category: Tech
 tags: [Multi-Agent, LangGraph, Smart-Home, Project]
+content_kind: 项目拆解
+project_id: smart-home
+scope_note: "本文结合智能家居原型讨论工作流设计。仓库提供仿真与 Home Assistant 接口，真实 LLM 集成测试仍列为待办；设备联调需自行配置。"
 ---
 
 智能家居很适合展示 Multi-Agent 的工程价值，因为它不是生成一段文字，而是最终要影响真实环境。系统既要理解传感器数据，又要预测趋势、生成策略、做安全校验，最后才能执行设备控制。
@@ -47,7 +50,7 @@ Agent 应该消费“环境状态”，而不是消费所有原始采样点。
 
 关键不是模型多高级，而是预测结果必须有置信度和可降级策略。
 
-## 决策：LLM 负责语义权衡
+## 决策：先区分策略计算与模型建议
 
 Decision Agent 综合：
 
@@ -60,7 +63,7 @@ Current State
 + Safety Policy
 ```
 
-它更擅长处理多目标权衡，比如舒适、节能、安全之间的冲突。
+原型可先通过舒适度模型和规则生成候选策略。接入 LLM 后，可以进一步探索舒适、节能与安全之间的语义权衡；这部分需要单独联调和验证，不能从多 Agent 的角色划分直接推断效果。
 
 但它输出的仍然只是“建议动作”，不能直接控制设备。
 

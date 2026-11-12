@@ -9,6 +9,7 @@ series_key: ai-coding-harness
 series_index: "02"
 category: Tech
 tags: [AI-Coding, Workspace, Context-Engineering, Multi-Agent]
+content_kind: 工程方法
 ---
 
 在 Coding Agent 里，Codebase Context 解决“仓库里有什么”，Workspace Context 解决“当前任务已经做到哪一步”。这两个上下文生命周期完全不同。

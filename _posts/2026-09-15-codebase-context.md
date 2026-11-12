@@ -9,6 +9,7 @@ series_key: ai-coding-harness
 series_index: "01"
 category: Tech
 tags: [AI-Coding, Coding-Agent, Context-Engineering, Codebase]
+content_kind: 工程方法
 ---
 
 Coding Agent 面对一个真实仓库时，不可能把几十万行代码全部放进 Prompt。

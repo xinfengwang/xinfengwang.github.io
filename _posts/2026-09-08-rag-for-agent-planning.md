@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "04"
 category: Tech
 tags: [RAG, Agent, Planning, Retrieval]
+content_kind: 工程方法
 ---
 
 普通问答 RAG 的目标通常是找到支持答案的知识片段；Agent Planning 的 RAG 更像是在检索**可复用的任务经验**：相似任务、可行路径、工具组合、前置条件和失败模式。

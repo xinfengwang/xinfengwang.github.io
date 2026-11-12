@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "05"
 category: Tech
 tags: [AI-Coding, Agent-Harness, Evaluation, Benchmark]
+content_kind: 工程方法
 ---
 
 真实 Agent Harness 往往允许交互：Agent 可以向用户追问、根据中间反馈调整计划，甚至等待人工确认。

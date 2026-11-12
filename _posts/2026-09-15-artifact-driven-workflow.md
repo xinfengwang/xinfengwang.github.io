@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "04"
 category: Tech
 tags: [Workflow, Artifact, Multi-Agent, State-Machine]
+content_kind: 工程方法
 ---
 
 很多 Agent Workflow 一开始都会把“任务进度”放在对话历史里：模型根据之前说过什么，判断下一步该做什么。这种方式在 Demo 里够用，但任务一长，就会出现状态漂移。

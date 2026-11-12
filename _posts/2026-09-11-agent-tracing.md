@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "01"
 category: Tech
 tags: [Agent, Evaluation, Tracing, Reliability]
+content_kind: 工程方法
 ---
 
 传统接口失败时，日志通常能告诉你哪个请求返回了 500。Agent 系统更麻烦：即使最终结果错了，中间每一步都可能“看起来合理”。

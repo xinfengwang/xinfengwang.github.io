@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "04"
 category: Tech
 tags: [Agent, Tool-Use, Function-Calling, MCP, Routing]
+content_kind: 工程方法
 ---
 
 当 Agent 只有 3 个工具时，最简单的方法是把所有 Tool Schema 都交给模型。但工具增长到几十甚至上百个后，这种做法会迅速遇到问题：上下文变长、工具含义互相干扰、模型选错工具、权限边界难以控制。

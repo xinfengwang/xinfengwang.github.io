@@ -1,14 +1,15 @@
 ---
 layout: post
-title: "读阿甘的 Agent Harness 系列：失败能不能重放？"
+title: "Agent Harness 学习心得：失败重放能验证什么？"
 subtitle: "把模型决策和工程执行分开看，才能决定一次改动应该怎么验。"
 date: 2026-11-05 12:00:00 +0800
 continue_reading: "/2026/09/15/agent-benchmark/"
 category: Tech
 tags: [Harness, Evaluation, Tracing]
+content_kind: 学习笔记
 ---
 
-读阿甘关于 Agent 可靠性的文章时，我记下了一个区分：模型输出可以作为固定输入，用来验证其后的工具和规则。要知道模型在新环境里会怎么做，还得让它重新跑任务。这比给一次失败笼统地打上「Agent 不稳定」更容易定位下一步。 [阿甘的博客 · 可靠性、评测与运营 agent](https://arganzheng.life/agent-reliability-evaluation-and-operations.html)
+整理 Agent 可靠性问题时，我会先区分两种验证方式：模型输出可以作为固定输入，用来验证其后的工具和规则。要知道模型在新环境里会怎么做，还得让它重新跑任务。这比给一次失败笼统地打上「Agent 不稳定」更容易定位下一步。
 
 ## 一个具体例子
 

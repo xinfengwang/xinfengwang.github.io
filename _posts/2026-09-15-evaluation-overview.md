@@ -9,6 +9,7 @@ series_index: "00"
 category: Tech
 homepage: false
 tags: [Evaluation, Tracing, Benchmark, Reliability]
+content_kind: 工程方法
 ---
 
 聊天机器人评测通常关注回答是否相关、准确、流畅。Agent 更难，因为它不仅生成文本，还会规划、调用工具、修改状态，并对外部环境产生影响。

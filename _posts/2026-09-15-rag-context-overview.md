@@ -9,6 +9,7 @@ series_index: "00"
 category: Tech
 homepage: false
 tags: [RAG, Context-Engineering, Retrieval, Agent]
+content_kind: 工程方法
 ---
 
 很多 Agent 问题最后都会被归因成“Prompt 不够好”。但当系统进入长任务、多工具、多知识源场景以后，更常见的问题其实是：**模型拿到的上下文不对。**

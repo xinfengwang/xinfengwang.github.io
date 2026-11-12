@@ -1,6 +1,6 @@
 - id: agent-foundations
   title: "AI Agent 基础：从 LLM 到 Tool-Using Agent"
-  short_title: "Agent Foundations"
+  short_title: "Agent 基础"
   category: "Agent Fundamentals"
   description: "从 Agent 的基本组成开始，系统理解 Tool Use、Function Calling、MCP、Memory 与 Planning。"
   accent: "01"
@@ -17,7 +17,7 @@
       url: "/2026/09/15/from-llm-to-agent/"
     - no: "02"
       featured: true
-      title: "Function Calling：模型如何学会调用工具"
+      title: "Function Calling：模型如何提出工具调用"
       status: published
       url: "/2026/09/15/function-calling/"
     - no: "03"
@@ -50,7 +50,7 @@
 
 - id: rag-context
   title: "RAG 与 Context Engineering：让 Agent 拿到正确上下文"
-  short_title: "RAG & Context"
+  short_title: "检索与上下文"
   category: "Retrieval & Context"
   description: "从检索到上下文组装，重点讨论 Agent 场景中的知识、示例、代码库与工作区上下文。"
   accent: "02"
@@ -95,7 +95,7 @@
 
 - id: workflow-multi-agent
   title: "Workflow 与 Multi-Agent：从自由流转到可控编排"
-  short_title: "Workflow & Multi-Agent"
+  short_title: "工作流与多 Agent"
   category: "Agent Runtime"
   description: "围绕状态机、LangGraph、Supervisor、Manager Agent 与多 Agent 异常处理，构建可控执行闭环。"
   accent: "03"
@@ -145,7 +145,7 @@
 
 - id: evaluation-reliability
   title: "Agent Evaluation 与 Reliability：把智能系统做成工程系统"
-  short_title: "Evaluation & Reliability"
+  short_title: "评测与可靠性"
   category: "Reliability"
   description: "建立 Trace、Benchmark、确定性验证、LLM-as-Judge 与 Badcase 驱动迭代的完整可靠性体系。"
   accent: "04"
@@ -191,7 +191,7 @@
 
 - id: ai-coding-harness
   title: "AI Coding 与 Agent Harness：从代码上下文到交付闭环"
-  short_title: "AI Coding & Harness"
+  short_title: "代码 Agent 与执行框架"
   category: "Coding Agent"
   description: "围绕 Codebase Context、Workspace、Coding Agent Workflow、工具执行、验证与 Benchmark 展开。"
   accent: "05"
@@ -244,14 +244,10 @@
       status: published
       url: "/2026/11/01/agent-spec-change-lifecycle/"
 
-    - no: "10"
-      title: "雨夜便利店 SoraMart：从三维场景到可玩的交互原型"
-      status: published
-      url: "/2026/11/12/soramart-creative-coding/"
 
 - id: project-cases
   title: "Agent Project Case Studies：从原型到可运行系统"
-  short_title: "Project Case Studies"
+  short_title: "项目案例"
   category: "Case Studies"
   description: "用公开项目与脱敏工程实践复盘 Agent 系统的完整设计，包括 Smart Home、ReproLab、GUI Agent、结构化 Planning 与 Harness。"
   accent: "06"
@@ -282,7 +278,7 @@
       url: "/2026/09/15/reprolab-agent-boundaries/"
     - no: "05"
       featured: true
-      title: "GUI Agent：功能树、路径检索与 Tool Execution"
+      title: "GUI 知识构建：从界面操作到可检索指令"
       status: published
       url: "/2026/09/15/gui-agent-function-tree/"
     - no: "06"

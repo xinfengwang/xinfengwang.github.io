@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "04"
 category: Tech
 tags: [AI-Coding, Validation, JSON, Bash]
+content_kind: 工程方法
 ---
 
 Coding Agent 往往会生成 JSON、Workflow 配置和 Bash 脚本。如果这些产物直接执行，模型的一次格式错误就可能变成真实环境里的执行错误。

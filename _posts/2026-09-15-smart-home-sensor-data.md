@@ -8,6 +8,9 @@ series_key: project-cases
 series_index: "02"
 category: Tech
 tags: [Smart-Home, Sensor, Multi-Agent, Data]
+content_kind: 项目拆解
+project_id: smart-home
+scope_note: "本文结合智能家居原型讨论工作流设计。仓库提供仿真与 Home Assistant 接口，真实 LLM 集成测试仍列为待办；设备联调需自行配置。"
 ---
 
 智能家居里的一个常见误区，是把所有传感器原始值直接丢给模型。这样做看起来简单，但真实环境中的温湿度、人体存在、门窗、空气质量等数据会出现抖动、延迟、缺失和冲突，模型很容易被瞬时噪声带偏。

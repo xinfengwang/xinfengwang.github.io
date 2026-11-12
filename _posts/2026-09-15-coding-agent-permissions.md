@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "06"
 category: Tech
 tags: [AI-Coding, Security, Permissions, Tool-Use]
+content_kind: 工程方法
 ---
 
 Coding Agent 的工具通常比普通 Agent 更危险：它可能读写文件、执行命令、安装依赖、调用测试环境，甚至修改仓库状态。因此权限设计必须进入 Runtime，而不是只靠 Prompt 告诉模型“不要做危险操作”。

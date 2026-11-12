@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "07"
 category: Tech
 tags: [Multi-Agent, Workflow, Badcase, LangGraph]
+content_kind: 工程方法
 ---
 
 Multi-Agent 系统最容易被低估的问题，不是“某个 Agent 输出不好”，而是**流转出了问题**。如果路由、状态和失败策略没有设计好，多个 Agent 只会把一次错误放大成一串错误。

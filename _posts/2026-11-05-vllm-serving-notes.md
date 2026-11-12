@@ -6,9 +6,10 @@ date: 2026-11-05 15:00:00 +0800
 continue_reading: "/2026/09/11/agent-tracing/"
 category: Tech
 tags: [vLLM, AI-Infra, LLM-Serving, KV-Cache, Agent]
+content_kind: 学习笔记
 ---
 
-一个 Coding Agent 正在流式生成补丁。这时，另一条请求带着几千个 token 的仓库上下文到达。服务既要让正在生成的请求继续输出，也要尽快给新请求首个 token。读阿甘的 vLLM 系列时，我觉得最值得记下的是把这场竞争拆成两个问题：**这一轮还有多少 token 的调度预算？推进这些请求需要的 KV Cache 块能不能分出来？** [阿甘的博客 · Scheduler：GPU 这一轮到底给谁用？](https://arganzheng.life/scheduler-batch-and-fairness.html)
+一个 Coding Agent 正在流式生成补丁。这时，另一条请求带着几千个 token 的仓库上下文到达。服务既要让正在生成的请求继续输出，也要尽快给新请求首个 token。我理解这类请求竞争时，会先拆成两个问题：**这一轮还有多少 token 的调度预算？推进这些请求需要的 KV Cache 块能不能分出来？**
 
 ## 一条请求的两个阶段
 
@@ -27,7 +28,7 @@ KV Cache 保存的是历史 token 对应的注意力键和值。它让解码时�
 
 **PagedAttention** 把一条序列的 KV Cache 映射到若干物理块。这些块在显存里可以不连续，序列变长时再按需分配。原始论文用这种设计减少了为未知输出长度预留连续空间造成的浪费，使更多请求有机会同时进入批次。[PagedAttention 原始论文](https://arxiv.org/abs/2309.06180)
 
-**Continuous Batching（连续批处理）** 让批次成员随迭代变化。短请求完成后，引擎可以继续调度其他请求，具体还要看 token 预算和 KV 块是否够用。**Chunked Prefill（分块预填充）** 则把长输入分成多轮处理，让它有机会与正在生成的请求共享同一轮计算。长输入分多少轮、每轮给多少预算，会影响首 token 延迟和输出间隔，适合用自己的长短请求分布验证。[vLLM 优化与调参文档](https://docs.vllm.ai/en/latest/configuration/optimization/) · [阿甘的博客 · vLLM 系列总结](https://arganzheng.life/deep-dive-into-vllm-series-recap-and-self-test.html)
+**Continuous Batching（连续批处理）** 让批次成员随迭代变化。短请求完成后，引擎可以继续调度其他请求，具体还要看 token 预算和 KV 块是否够用。**Chunked Prefill（分块预填充）** 则把长输入分成多轮处理，让它有机会与正在生成的请求共享同一轮计算。长输入分多少轮、每轮给多少预算，会影响首 token 延迟和输出间隔，适合用自己的长短请求分布验证。[vLLM 优化与调参文档](https://docs.vllm.ai/en/latest/configuration/optimization/)
 
 这里还有一个容易混淆的机制。**Prefix Caching（前缀缓存）** 复用多个请求共享的输入前缀所对应的 KV，节省这段输入的 Prefill。比如多轮 Coding Agent 请求都带着同一段系统说明，命中时可以跳过该段的重复计算。后续新生成的 token 仍要解码。[vLLM 自动前缀缓存文档](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/)
 

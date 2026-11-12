@@ -9,6 +9,7 @@ series_key: ai-coding-harness
 series_index: "08"
 category: Tech
 tags: [AI-Coding, Agent-Harness, Context-Engineering, Workflow, Validation]
+content_kind: 工程方法
 ---
 
 在参与 AI 辅助研发相关实践时，我逐渐意识到：模型生成了代码，只能说明一次生成结束；研发任务是否完成，还取决于需求、设计、实现和验证能否对应起来。

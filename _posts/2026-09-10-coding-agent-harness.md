@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "00"
 category: Tech
 tags: [AI-Coding, Agent, Harness, Context-Engineering]
+content_kind: 工程方法
 ---
 
 如果把 Coding Agent 简化成“LLM + 写文件工具”，Demo 很快就能跑起来。但真正面对一个真实仓库时，问题会立刻变多：该读哪些文件、改动影响谁、测试怎么跑、失败后从哪里恢复、多个 Agent 如何交接产物。

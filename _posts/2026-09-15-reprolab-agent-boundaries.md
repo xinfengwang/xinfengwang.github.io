@@ -8,6 +8,8 @@ series_key: project-cases
 series_index: "04"
 category: Tech
 tags: [ReproLab, Planner, Executor, Critic, Agent]
+content_kind: 项目拆解
+project_id: reprolab
 ---
 
 把一个复杂 Agent 写成“一个大 Prompt + 一堆工具”很快，但很难维护。ReproLab 更关注三个职责的分离：Planner 负责想清楚要做什么，Executor 负责把计划变成真实执行，Critic 负责检查结果是否可信。

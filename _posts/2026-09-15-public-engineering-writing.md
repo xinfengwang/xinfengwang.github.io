@@ -8,6 +8,7 @@ series_key: project-cases
 series_index: "06"
 category: Tech
 tags: [Engineering, Writing, Portfolio, Open-Source]
+content_kind: 工程方法
 ---
 
 技术博客最容易出现两个极端：一种只写“我用了 LangGraph、RAG、Docker”，看不到真正做了什么；另一种把内部接口、数据、流程细节全搬出来，反而越过了公开边界。

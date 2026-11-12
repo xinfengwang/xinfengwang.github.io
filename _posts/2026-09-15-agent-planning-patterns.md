@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "06"
 category: Tech
 tags: [Agent, Planning, ReAct, Planner-Executor]
+content_kind: 工程方法
 ---
 
 Agent 和普通聊天模型最大的差别之一，是它不只要回答问题，还要决定**下一步做什么**。当任务包含多个工具、多步依赖和失败恢复时，Planning 就从“提示词技巧”变成了运行时设计问题。

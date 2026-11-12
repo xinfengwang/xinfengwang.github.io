@@ -3,11 +3,11 @@ layout: post
 title: "雨夜便利店 SoraMart：从三维场景到可玩的交互原型"
 subtitle: "一个 Vibe Coding / 创意编程方向的体验案例：让观察、行走、选购与模拟结账形成完整闭环。"
 date: 2026-11-12 15:00:00 +0800
-series: "AI Coding 与 Agent Harness"
-series_key: ai-coding-harness
-series_index: "10"
+series: "三维交互与创意编程"
 category: Projects
 tags: [Vibe-Coding, Creative-Coding, Three.js, WebGL, Game-Prototype]
+content_kind: 项目拆解
+project_id: soramart
 ---
 
 雨夜街角、亮着暖灯的便利店、路过的撑伞行人，是 SoraMart 的第一层体验。进店之后，角色可以沿通道行走，在货架前查看商品，把便当放进购物篮，再去收银台完成模拟结账。

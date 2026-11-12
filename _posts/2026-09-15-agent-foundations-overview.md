@@ -9,6 +9,7 @@ series_index: "00"
 category: Tech
 homepage: false
 tags: [Agent, Tool-Use, Planning, Memory]
+content_kind: 工程方法
 ---
 
 如果只把 Agent 理解成“LLM + Function Calling”，很多工程问题会显得零散：为什么需要 Memory？为什么还要 Planning？MCP 和 Function Calling 为什么不是二选一？为什么高风险 Tool 需要人工确认？

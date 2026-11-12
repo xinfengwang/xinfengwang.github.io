@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "05"
 category: Tech
 tags: [Agent, Workflow, Retry, Replan, Reliability]
+content_kind: 工程方法
 ---
 
 真实 Agent 系统一定会失败。工具超时、参数错误、外部服务不可用、计划前提错误、执行结果不符合预期，这些都非常常见。

@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "05"
 category: Tech
 tags: [Context-Engineering, RAG, Agent, AI-Coding]
+content_kind: 工程方法
 ---
 
 在复杂 Agent 任务里，“上下文”不是一段越来越长的聊天记录。更实用的做法，是把上下文拆成不同生命周期的数据空间。

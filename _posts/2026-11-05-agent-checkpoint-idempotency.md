@@ -8,6 +8,7 @@ series_key: workflow-multi-agent
 series_index: "08"
 category: Tech
 tags: [Agent, Workflow, Checkpoint, Idempotency, Reliability]
+content_kind: 工程方法
 ---
 
 设想 Coding Agent 已通过审批，向测试服务发布一版配置。服务端写入成功，但客户端在收到回执之前断线。工作流恢复时，最后一个检查点仍显示「准备发布」。如果按它直接重跑，可能重复写入。这里需要同时回答两个问题：流程停在哪一步，以及外部服务实际做了什么。

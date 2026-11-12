@@ -8,6 +8,7 @@ series_key: agent-foundations
 series_index: "03"
 category: Tech
 tags: [Agent, MCP, Function-Calling, Tool-Use]
+content_kind: 工程方法
 ---
 
 刚开始做 Agent 时，很容易把 MCP 和 Function Calling 看成两种竞争方案。实际上它们解决的是**不同层级的问题**。

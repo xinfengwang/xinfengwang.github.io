@@ -8,6 +8,7 @@ series_key: ai-coding-harness
 series_index: "09"
 category: Tech
 tags: [Agent-Harness, SDD, Context-Engineering, Workflow, Specification]
+content_kind: 工程方法
 ---
 
 一个研发任务可以顺利完成，但给下一次任务留下错误上下文：代码已经支持新行为，规格仍然描述旧行为，新的决定只存在于历史对话里。

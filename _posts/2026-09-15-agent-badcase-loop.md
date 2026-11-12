@@ -8,6 +8,7 @@ series_key: evaluation-reliability
 series_index: "06"
 category: Tech
 tags: [Agent, Badcase, Evaluation, Tracing]
+content_kind: 工程方法
 ---
 
 Agent 系统一定会失败，真正拉开工程差距的不是“有没有 Badcase”，而是**Badcase 能不能被稳定地定位、修复和回归**。

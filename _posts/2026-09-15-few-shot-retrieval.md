@@ -8,6 +8,7 @@ series_key: rag-context
 series_index: "06"
 category: Tech
 tags: [RAG, Few-shot, Planning, Retrieval]
+content_kind: 工程方法
 ---
 
 在 Agent Planning 里，历史成功轨迹非常有价值，因为它们不仅包含知识，还包含“这个任务在什么条件下，用了哪些工具，按什么顺序完成”。
