@@ -25,6 +25,8 @@ nav:
     url: /learning-map/
   - title: 文章
     url: /archive/
+  - title: 个人经历
+    url: /experience/
   - title: 关于我
     url: /about/
 
