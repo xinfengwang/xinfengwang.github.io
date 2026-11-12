@@ -244,6 +244,11 @@
       status: published
       url: "/2026/11/01/agent-spec-change-lifecycle/"
 
+    - no: "10"
+      title: "雨夜便利店 SoraMart：从三维场景到可玩的交互原型"
+      status: published
+      url: "/2026/11/12/soramart-creative-coding/"
+
 - id: project-cases
   title: "Agent Project Case Studies：从原型到可运行系统"
   short_title: "Project Case Studies"

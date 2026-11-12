@@ -2,13 +2,13 @@
 layout: default
 title: Projects
 permalink: /projects/
-description: "Wang Xinfeng 的公开 AI Agent 工程项目与实践笔记：ReproLab、Smart Home Multi-Agent、GUI Agent 与研发 Agent Harness。"
+description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台，以及 SoraMart 三维交互与创意编程实验。"
 ---
 <div class="wide-page projects-page">
   <div class="projects-intro">
     <p class="eyebrow">BUILDING</p>
     <h1>Projects</h1>
-    <p class="lead">这里不按“做过什么”罗列，而按“解决了什么工程问题”组织。每个项目都尽量保留可运行代码、架构说明与真实界面。</p>
+    <p class="lead">从 AI Agent 工程到三维交互与创意编程，记录系统如何运行，也展示体验如何发生。每个项目都尽量保留可运行代码、设计说明与真实界面。</p>
   </div>
 
   <article class="project-showcase">
@@ -102,6 +102,38 @@ description: "Wang Xinfeng 的公开 AI Agent 工程项目与实践笔记：Repr
       <div class="repo-actions"><a class="button primary" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent" target="_blank" rel="noreferrer">GitHub Repository ↗</a><a class="button" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/tree/main/docs" target="_blank" rel="noreferrer">System Design ↗</a></div>
     </div>
     <div class="project-note"><span>PROJECT DOCUMENTATION</span><p>仓库提供项目介绍与系统设计文档，说明采集、构建、检索与任务恢复机制；当前不包含完整源码与原始采集数据。</p></div>
+  </article>
+
+  <article class="project-showcase reverse" id="soramart">
+    <div class="project-copy">
+      <div class="project-kicker">CREATIVE CODING · 3D GAME PROTOTYPE</div>
+      <h2>雨夜便利店 · SoraMart</h2>
+      <p class="project-slogan">雨落街角，便利店还亮着灯。走进去，挑一份今晚的便当。</p>
+      <p>一个浏览器里的微缩三维交互作品：在店外旋转观察雨夜街角，进店后点击行走、查看商品包装、加入购物篮，再到收银台模拟结账。用一段完整的购物体验，把场景氛围与小游戏交互连起来。</p>
+      <div class="project-metrics"><span>Three.js</span><span>WebGL</span><span>点击行走</span><span>商品预览</span><span>创意编程</span></div>
+      <div class="mini-arch"><span>街角观察</span><b>→</b><span>进店行走</span><b>→</b><span>挑选商品</span><b>→</b><span>模拟结账</span><b>→</b><span>离店</span></div>
+      <div class="project-facts">
+        <div><strong>Experience</strong><span>雨夜街景、暖光橱窗、撑伞行人与店内视角切换</span></div>
+        <div><strong>Interaction</strong><span>绕开货架行走、旋转商品、调整数量与生成购物小票</span></div>
+        <div><strong>Delivery</strong><span>静态网页与本地素材，可通过本地 HTTP 服务运行</span></div>
+      </div>
+      <div class="repo-actions">
+        <a class="button primary" href="https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/" target="_blank" rel="noreferrer">体验在线场景 ↗</a>
+        <a class="button" href="https://github.com/telawang91-dotcom/soramart-rainy-night" target="_blank" rel="noreferrer">GitHub Repository ↗</a>
+        <a class="button" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">项目拆解 →</a>
+      </div>
+      <p>作为 Vibe Coding / 创意编程方向的体验案例，展示三维场景与交互闭环；当前定位为小游戏原型。在线访问范围由托管端控制，也可从仓库下载运行。</p>
+    </div>
+    <div class="project-visual">
+      <a href="https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4" target="_blank" rel="noreferrer">
+        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg" alt="SoraMart 雨夜便利店微缩街角，暖光橱窗与撑伞行人" loading="lazy" width="960" height="540">
+      </a>
+      <p class="project-caption">SoraMart · 点击全景图观看 72 秒展示视频</p>
+      <div class="project-gallery two-up">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/choose-products.jpg" alt="SoraMart 角色在货架前查看便当包装与价格" loading="lazy" width="960" height="540">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/checkout.jpg" alt="SoraMart 收银台模拟结账与购物小票" loading="lazy" width="960" height="540">
+      </div>
+    </div>
   </article>
 
   <section class="project-footer-note">

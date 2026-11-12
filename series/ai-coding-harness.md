@@ -13,3 +13,5 @@ series_key: ai-coding-harness
 
 - [研发 Agent Harness]({{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }})：讨论规则与技能分离、上下文分层、人工方案选择、证据校验与失败恢复。
 - [增量规格与全量知识]({{ '/2026/11/01/agent-spec-change-lifecycle/' | relative_url }})：用导出任务的虚构例子，说明规格如何随代码演进，以及归档时怎样维护当前事实。
+
+第 10 章补充一个创意编程方向的体验案例：[雨夜便利店 SoraMart]({{ '/2026/11/12/soramart-creative-coding/' | relative_url }})。从三维场景、点击行走和模拟购物切入，讨论小游戏原型的交互闭环，以及后续 Vibe Coding 迭代可以怎样设置验收条件。
