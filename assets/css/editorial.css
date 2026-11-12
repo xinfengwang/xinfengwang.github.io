@@ -24,3 +24,4 @@ html[data-theme="dark"] .main-nav a{color:var(--muted)}html[data-theme="dark"] .
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 .start-here-grid>a{grid-template-columns:1fr}.start-here-grid span{grid-row:auto;color:var(--accent);font-family:inherit;margin-bottom:8px}.start-here-grid small{color:var(--muted)}
+.project-showcase>*{min-width:0;max-width:100%}.project-facts span{overflow-wrap:anywhere}.project-visual img{max-width:100%}.mini-arch{max-width:100%}.mini-arch>*{flex-shrink:0}
