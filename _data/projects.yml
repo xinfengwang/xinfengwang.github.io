@@ -8,7 +8,7 @@
   summary: 面向科研分析，将资料检索、代码执行、成果管理和报告校验串成工作台；通过数据血缘追溯数字与图表的来源。
   note: 本地优先的研究原型；公开多用户部署仍需补充认证与执行隔离。
   article: /2026/09/15/reprolab-provenance/
-  image: https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/workbench-home.png
+  image: https://raw.githubusercontent.com/xinfengwang/reprolab/main/docs/images/workbench-home.png
 - id: smart-home
   name: Smart Home · 智能家居多 Agent
   group: Agent 工程
@@ -19,7 +19,7 @@
   summary: 面向老年照护，用 LangGraph 组织环境感知、短时预测、控制决策与方案校验，连接监控界面、仿真场景和设备接口。
   note: 设备接入需要自行配置；真实 LLM 集成测试仍列在仓库待办中。
   article: /2026/09/09/smart-home-agent-loop/
-  image: https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-hero.png
+  image: https://raw.githubusercontent.com/xinfengwang/smart-home-multi-agent/main/docs/showcase/showcase-hero.png
 - id: gui-knowledge
   name: GUI 操作知识库与指令泛化
   group: 知识构建
@@ -30,7 +30,7 @@
   summary: 将手机界面中的操作入口与路径整理为结构化知识，经节点去重、意图归类和指令增强，支持自然语言检索与分层浏览。
   note: 公开设计文档与处理后数据快照；完整采集源码、原始数据和执行评测未包含在仓库中。
   article: /2026/09/15/gui-agent-function-tree/
-  image: https://raw.githubusercontent.com/telawang91-dotcom/vivo-gui-instruction-agent/main/docs/assets/knowledge-base-overview.png
+  image: https://raw.githubusercontent.com/xinfengwang/vivo-gui-instruction-agent/main/docs/assets/knowledge-base-overview.png
 - id: soramart
   name: SoraMart · 雨夜便利店
   group: 创意编程
@@ -41,7 +41,7 @@
   summary: 用 Three.js 搭建可进入的微缩便利店，串起点击行走、查看商品、购物篮和模拟结账。
   note: 浏览器三维交互原型；在线场景的访问范围由托管端控制。
   article: /2026/11/12/soramart-creative-coding/
-  image: https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg
+  image: https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/street-corner.jpg
 - id: comfort-system
   name: SmartHome Comfort · 舒适度控制
   group: 早期探索

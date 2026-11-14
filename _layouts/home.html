@@ -33,7 +33,7 @@ layout: default
         <h2><a href="{{ '/projects/#' | append: project.id | relative_url }}">{{ project.name }}</a></h2>
         <p>{{ project.summary }}</p>
         {% if project.focus %}<p class="project-focus"><strong>工程重点：</strong>{{ project.focus }}</p>{% endif %}
-        <div class="project-card-links"><a href="{{ project.article | relative_url }}">阅读项目拆解 →</a><a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">查看仓库 ↗</a></div>
+        <div class="project-card-links"><a href="{{ project.article | relative_url }}">阅读项目拆解 →</a><a href="https://github.com/xinfengwang/{{ project.repo }}" target="_blank" rel="noreferrer">查看仓库 ↗</a></div>
       </div>
     </article>
     {% endif %}{% endfor %}

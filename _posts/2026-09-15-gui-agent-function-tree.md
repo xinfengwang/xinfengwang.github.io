@@ -77,9 +77,9 @@ exercise: "用一个 App 功能检查节点、完整路径与用户意图是否�
 
 ## 如何查看公开资料
 
-- [项目 README](https://github.com/telawang91-dotcom/vivo-gui-instruction-agent)：查看范围、流程和演示。
-- [GUI 采集设计](https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/blob/main/docs/gui-collection.md)：了解截图解析、探索与状态保存。
-- [知识构建流水线](https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/blob/main/docs/knowledge-pipeline.md)：了解节点解析、语义增强与检索。
-- [交互展示 HTML](https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/blob/main/docs/knowledge-base-demo.html)：下载后在浏览器中打开，无需启动服务。
+- [项目 README](https://github.com/xinfengwang/vivo-gui-instruction-agent)：查看范围、流程和演示。
+- [GUI 采集设计](https://github.com/xinfengwang/vivo-gui-instruction-agent/blob/main/docs/gui-collection.md)：了解截图解析、探索与状态保存。
+- [知识构建流水线](https://github.com/xinfengwang/vivo-gui-instruction-agent/blob/main/docs/knowledge-pipeline.md)：了解节点解析、语义增强与检索。
+- [交互展示 HTML](https://github.com/xinfengwang/vivo-gui-instruction-agent/blob/main/docs/knowledge-base-demo.html)：下载后在浏览器中打开，无需启动服务。
 
 这个项目提供的是 GUI 操作知识的组织方式与处理结果展示。将这些知识接入规划器、工具执行和状态校验，是后续系统设计需要单独实现与验证的部分。

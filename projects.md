@@ -16,8 +16,8 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
   <section class="project-directory" aria-label="公开项目总览">
     {% for project in site.data.projects %}
     <article class="project-directory-row">
-      <div><span class="project-kicker">{{ project.group }} · {{ project.status }}</span><h2>{% if project.featured %}<a href="#{{ project.id }}">{{ project.name }} ↓</a>{% else %}<a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">{{ project.name }} ↗</a>{% endif %}</h2><p>{{ project.summary }}</p><small>{{ project.note }}</small></div>
-      <div class="project-directory-links"><a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">仓库 ↗</a>{% if project.article %}<a href="{{ project.article | relative_url }}">项目拆解 →</a>{% endif %}</div>
+      <div><span class="project-kicker">{{ project.group }} · {{ project.status }}</span><h2>{% if project.featured %}<a href="#{{ project.id }}">{{ project.name }} ↓</a>{% else %}<a href="https://github.com/xinfengwang/{{ project.repo }}" target="_blank" rel="noreferrer">{{ project.name }} ↗</a>{% endif %}</h2><p>{{ project.summary }}</p><small>{{ project.note }}</small></div>
+      <div class="project-directory-links"><a href="https://github.com/xinfengwang/{{ project.repo }}" target="_blank" rel="noreferrer">仓库 ↗</a>{% if project.article %}<a href="{{ project.article | relative_url }}">项目拆解 →</a>{% endif %}</div>
     </article>
     {% endfor %}
   </section>
@@ -40,22 +40,22 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
         <div><strong>结果检查</strong><span>Re-run · drift detection · validation</span></div>
       </div>
 
-      <div class="project-design-note"><h3>为什么同时记录代码、输入和环境？</h3><p>同一段代码在数据或依赖变化后可能得到不同结果。仓库中的哈希实现把三者共同纳入执行身份；复现模块先核对环境，再重新执行，并按产物类型、标题与容差匹配结果，减少因捕获顺序不同而误报漂移。</p><p><a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a> · <a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现实现 ↗</a></p></div>
+      <div class="project-design-note"><h3>为什么同时记录代码、输入和环境？</h3><p>同一段代码在数据或依赖变化后可能得到不同结果。仓库中的哈希实现把三者共同纳入执行身份；复现模块先核对环境，再重新执行，并按产物类型、标题与容差匹配结果，减少因捕获顺序不同而误报漂移。</p><p><a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a> · <a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现实现 ↗</a></p></div>
 
       <div class="repo-actions">
-        <a class="button primary" href="https://github.com/telawang91-dotcom/reprolab" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/reprolab/blob/main/README.md" target="_blank" rel="noreferrer">架构与运行文档 ↗</a>
+        <a class="button primary" href="https://github.com/xinfengwang/reprolab" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="https://github.com/xinfengwang/reprolab/blob/main/README.md" target="_blank" rel="noreferrer">架构与运行文档 ↗</a>
       </div>
     </div>
 
     <div class="project-visual">
-      <a href="https://github.com/telawang91-dotcom/reprolab" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/workbench-home.png" alt="ReproLab 科研工作台界面" loading="lazy">
+      <a href="https://github.com/xinfengwang/reprolab" target="_blank" rel="noreferrer">
+        <img class="project-screen" src="https://raw.githubusercontent.com/xinfengwang/reprolab/main/docs/images/workbench-home.png" alt="ReproLab 科研工作台界面" loading="lazy">
       </a>
       <p class="project-caption">ReproLab · research workbench</p>
       <div class="project-gallery two-up">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/knowledge-space.png" alt="ReproLab 知识空间" loading="lazy">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/getting-started.png" alt="ReproLab 首次使用引导" loading="lazy">
+        <img src="https://raw.githubusercontent.com/xinfengwang/reprolab/main/docs/images/knowledge-space.png" alt="ReproLab 知识空间" loading="lazy">
+        <img src="https://raw.githubusercontent.com/xinfengwang/reprolab/main/docs/images/getting-started.png" alt="ReproLab 首次使用引导" loading="lazy">
       </div>
     </div>
   </article>
@@ -76,20 +76,20 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
         <div><strong>执行前检查</strong><span>Multi-sensor fusion + validation before action</span></div>
       </div>
 
-      <div class="project-design-note"><h3>为什么把流程状态显式保存？</h3><p>感知、预测、决策和校验分别写回结构化状态，Supervisor 根据校验结果和重试次数决定是否重规划。读代码时要区分流程已经结束与方案已经通过；达到重试上限也可能结束流程，设备执行仍需检查方案是否被批准。</p><p><a href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/agent_engine/agents/supervisor.py" target="_blank" rel="noreferrer">状态与路由实现 ↗</a></p></div>
+      <div class="project-design-note"><h3>为什么把流程状态显式保存？</h3><p>感知、预测、决策和校验分别写回结构化状态，Supervisor 根据校验结果和重试次数决定是否重规划。读代码时要区分流程已经结束与方案已经通过；达到重试上限也可能结束流程，设备执行仍需检查方案是否被批准。</p><p><a href="https://github.com/xinfengwang/smart-home-multi-agent/blob/main/agent_engine/agents/supervisor.py" target="_blank" rel="noreferrer">状态与路由实现 ↗</a></p></div>
 
       <div class="repo-actions">
-        <a class="button primary" href="https://github.com/telawang91-dotcom/smart-home-multi-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/docs/architecture.svg" target="_blank" rel="noreferrer">系统架构 ↗</a>
+        <a class="button primary" href="https://github.com/xinfengwang/smart-home-multi-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="https://github.com/xinfengwang/smart-home-multi-agent/blob/main/docs/architecture.svg" target="_blank" rel="noreferrer">系统架构 ↗</a>
       </div>
     </div>
 
     <div class="project-visual">
-      <a href="https://github.com/telawang91-dotcom/smart-home-multi-agent" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-hero.png" alt="Smart Home Multi-Agent 前端展示" loading="lazy">
+      <a href="https://github.com/xinfengwang/smart-home-multi-agent" target="_blank" rel="noreferrer">
+        <img class="project-screen" src="https://raw.githubusercontent.com/xinfengwang/smart-home-multi-agent/main/docs/showcase/showcase-hero.png" alt="Smart Home Multi-Agent 前端展示" loading="lazy">
       </a>
       <p class="project-caption">Smart Home Multi-Agent · desktop dashboard</p>
-      <img class="project-demo" src="https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-demo.gif" alt="Smart Home Multi-Agent Demo" loading="lazy">
+      <img class="project-demo" src="https://raw.githubusercontent.com/xinfengwang/smart-home-multi-agent/main/docs/showcase/showcase-demo.gif" alt="Smart Home Multi-Agent Demo" loading="lazy">
     </div>
   </article>
 
@@ -100,7 +100,7 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
       <p class="project-slogan">将健康记录、提醒与本地模型问答放在同一个界面。</p>
       <p>基于 Flask、Ollama、本地模型与可视化组件构建的智慧养老健康管理原型，强调本地优先、老年友好交互和健康数据闭环。</p>
       <div class="project-metrics"><span>Flask</span><span>Ollama</span><span>Local LLM</span><span>Health Visualization</span></div>
-      <div class="repo-actions"><a class="button" href="https://github.com/telawang91-dotcom/elderly-health-management" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a></div>
+      <div class="repo-actions"><a class="button" href="https://github.com/xinfengwang/elderly-health-management" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a></div>
     </div>
     <div class="project-note">
       <span>PROJECT NOTE</span>
@@ -115,7 +115,7 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
       <p class="project-slogan">将界面操作路径转化为可检索的语义知识与多样化指令。</p>
       <p>通过手机截图、多模态解析与深度优先探索整理 GUI 交互树，再将节点、动作和完整路径转为检索记录。语义增强、意图归类与六类指令泛化用于连接用户表达与应用功能；页面导航和特殊交互包含人工处理。</p>
       <div class="project-metrics"><span>ADB</span><span>Multimodal LLM</span><span>GUI Tree</span><span>BM25</span><span>Instruction Augmentation</span></div>
-      <div class="repo-actions"><a class="button primary" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a><a class="button" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/tree/main/docs" target="_blank" rel="noreferrer">设计文档 ↗</a></div>
+      <div class="repo-actions"><a class="button primary" href="https://github.com/xinfengwang/vivo-gui-instruction-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a><a class="button" href="https://github.com/xinfengwang/vivo-gui-instruction-agent/tree/main/docs" target="_blank" rel="noreferrer">设计文档 ↗</a></div>
     </div>
     <div class="project-note"><span>设计文档与交互展示</span><p>展示快照记录 47 个应用、5,285 个操作节点、321 个意图分类和 37,166 条基础指令，表示知识收集与处理规模。仓库提供设计文档和可交互快照，未包含完整采集源码与原始数据；指令生成规模与自动执行成功率分别衡量。</p></div>
   </article>
@@ -135,25 +135,25 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
       </div>
       <div class="repo-actions">
         <a class="button primary" href="https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/" target="_blank" rel="noreferrer">体验在线场景 ↗</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/soramart-rainy-night" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="https://github.com/xinfengwang/soramart-rainy-night" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
         <a class="button" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">项目拆解 →</a>
       </div>
       <p>作为 Vibe Coding / 创意编程方向的体验案例，展示三维场景与交互闭环；当前定位为小游戏原型。在线访问范围由托管端控制，也可从仓库下载运行。</p>
     </div>
     <div class="project-visual">
-      <a href="https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg" alt="SoraMart 雨夜便利店微缩街角，暖光橱窗与撑伞行人" loading="lazy" width="960" height="540">
+      <a href="https://github.com/xinfengwang/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4" target="_blank" rel="noreferrer">
+        <img class="project-screen" src="https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/street-corner.jpg" alt="SoraMart 雨夜便利店微缩街角，暖光橱窗与撑伞行人" loading="lazy" width="960" height="540">
       </a>
       <p class="project-caption">SoraMart · 点击全景图观看 72 秒展示视频</p>
       <div class="project-gallery two-up">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/choose-products.jpg" alt="SoraMart 角色在货架前查看便当包装与价格" loading="lazy" width="960" height="540">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/checkout.jpg" alt="SoraMart 收银台模拟结账与购物小票" loading="lazy" width="960" height="540">
+        <img src="https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/choose-products.jpg" alt="SoraMart 角色在货架前查看便当包装与价格" loading="lazy" width="960" height="540">
+        <img src="https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/checkout.jpg" alt="SoraMart 收银台模拟结账与购物小票" loading="lazy" width="960" height="540">
       </div>
     </div>
   </article>
 
   <section class="project-footer-note">
     <p>研发 Agent Harness 的工程经验整理在 <a class="text-link" href="{{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }}">规范、上下文与验证闭环</a>，内容为通用技术复盘，不包含企业项目源码。</p>
-    <p>更多代码与实验项目见 <a class="text-link" href="https://github.com/telawang91-dotcom" target="_blank" rel="noreferrer">github.com/telawang91-dotcom ↗</a></p>
+    <p>更多代码与实验项目见 <a class="text-link" href="https://github.com/xinfengwang" target="_blank" rel="noreferrer">github.com/xinfengwang ↗</a></p>
   </section>
 </div>

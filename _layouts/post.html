@@ -31,7 +31,7 @@ layout: default
       <strong>{{ page.content_kind | default: '工程方法' }}</strong>
       {% if page.project_id %}{% assign related_project = site.data.projects | where: 'id', page.project_id | first %}
         <p>对应项目：<a href="{{ '/projects/#' | append: related_project.id | relative_url }}">{{ related_project.name }}</a> · {{ related_project.status }}</p>
-        <a class="text-link" href="https://github.com/telawang91-dotcom/{{ related_project.repo }}" target="_blank" rel="noreferrer">查看仓库与资料 ↗</a>
+        <a class="text-link" href="https://github.com/xinfengwang/{{ related_project.repo }}" target="_blank" rel="noreferrer">查看仓库与资料 ↗</a>
       {% elsif page.content_kind == '学习笔记' %}<p>记录我对技术原理与工程问题的理解；示例和验证思路不代表已经完成的实测结果。</p>
       {% else %}<p>围绕通用工程问题的设计讨论；示例用于解释方法，实际实现与效果需结合具体项目验证。</p>{% endif %}
       {% if page.scope_note %}<p class="scope-note">{{ page.scope_note }}</p>{% endif %}

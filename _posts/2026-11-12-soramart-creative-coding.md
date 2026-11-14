@@ -14,9 +14,9 @@ project_id: soramart
 
 这个作品补充了我在三维场景、视觉氛围和交互设计上的探索。适合把它作为 **Vibe Coding / 创意编程方向的小游戏原型**来阅读：重点是一个想法怎样落成可体验的作品。本篇根据公开版本拆解功能与代码结构；仓库未提供完整的人机协作记录，因此不对开发轮次、耗时或 AI 代码占比作推断。
 
-[在线场景](https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/) · [公开仓库](https://github.com/telawang91-dotcom/soramart-rainy-night) · [72 秒展示视频](https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4)
+[在线场景](https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/) · [公开仓库](https://github.com/xinfengwang/soramart-rainy-night) · [72 秒展示视频](https://github.com/xinfengwang/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4)
 
-![雨夜便利店的街角全景](https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg)
+![雨夜便利店的街角全景](https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/street-corner.jpg)
 
 ## 让场景里发生一件完整的事
 
@@ -52,7 +52,7 @@ project_id: soramart
 
 购物脚本把“查看商品”放进到达回调：点击商品后，先选择货架附近的站立位置，角色抵达并面向商品，才打开详情。这样的时序让角色行动与界面反馈对应起来。
 
-![在货架前查看商品包装与人民币价格](https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/choose-products.jpg)
+![在货架前查看商品包装与人民币价格](https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/choose-products.jpg)
 
 ## 购物篮需要明确的状态与结算规则
 
@@ -65,7 +65,7 @@ project_id: soramart
 
 角色到达、购物状态与付款按钮的条件共同组成交互约束。这里的付款是前端模拟，商品与小票用于场景体验。
 
-![收银台结账与购物小票](https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/checkout.jpg)
+![收银台结账与购物小票](https://raw.githubusercontent.com/xinfengwang/soramart-rainy-night/main/media/checkout.jpg)
 
 ## 把它用于 Vibe Coding 实践时，可以怎样验收
 
@@ -90,8 +90,8 @@ project_id: soramart
 python -m http.server 8000 --directory dist
 ```
 
-浏览器打开 `http://localhost:8000/`。在线场景的访问范围由托管端控制，本地运行方式见 [README](https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/README.md)。
+浏览器打开 `http://localhost:8000/`。在线场景的访问范围由托管端控制，本地运行方式见 [README](https://github.com/xinfengwang/soramart-rainy-night/blob/main/README.md)。
 
 README 说明食品包装展示贴图由 AI 生成，部分鲜食参考价来自公开商品页；展示图片截自实际场景录制，视频使用自动操作录制。Three.js 第三方许可随仓库提供。
 
-本文的代码依据为公开的 [行走模块](https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/dist/walk.js)、[购物模块](https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/dist/shop.js) 与 [网页入口](https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/dist/index.html)。更多项目见 [Projects]({{ '/projects/#soramart' | relative_url }})。
+本文的代码依据为公开的 [行走模块](https://github.com/xinfengwang/soramart-rainy-night/blob/main/dist/walk.js)、[购物模块](https://github.com/xinfengwang/soramart-rainy-night/blob/main/dist/shop.js) 与 [网页入口](https://github.com/xinfengwang/soramart-rainy-night/blob/main/dist/index.html)。更多项目见 [Projects]({{ '/projects/#soramart' | relative_url }})。

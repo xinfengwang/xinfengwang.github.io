@@ -55,7 +55,7 @@ permalink: /about/
   </div>
 
   <h2>公开项目与写作</h2>
-  <p>公开项目集中在 <a href="https://github.com/telawang91-dotcom" target="_blank" rel="noreferrer">GitHub ↗</a>。实习相关内容只讨论公开、通用的工程方法，不包含内部代码、数据或敏感实现。</p>
+  <p>公开项目集中在 <a href="https://github.com/xinfengwang" target="_blank" rel="noreferrer">GitHub ↗</a>。实习相关内容只讨论公开、通用的工程方法，不包含内部代码、数据或敏感实现。</p>
   <section class="contact-panel" id="contact">
     <h2>岗位交流与技术讨论</h2>
     <p>欢迎交流 AI Agent / 大模型应用研发岗位，以及检索增强、工作流编排、工具执行与评测相关的工程问题。岗位沟通可以附上职责范围与技术方向，技术讨论可以附上场景和具体问题。</p>

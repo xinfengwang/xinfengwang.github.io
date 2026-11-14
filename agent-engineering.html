@@ -46,7 +46,7 @@ permalink: /agent-engineering/
   <section id="verification">
     <h2>5. 用什么证据判断结果已经完成？</h2>
     <p>验收条件应尽量落到可观察的结果：文件是否生成、数据是否更新、代码是否通过测试、设备是否达到预期状态。能够确定判断的条件可以用程序断言；开放性的表达质量可以辅助使用模型评审，并保留不确定性和人工复核入口。</p>
-    <p><strong>案例：</strong>ReproLab 用 Dataset → Run → Artifact → Claim 记录输入、执行、成果与结论。仓库中的<a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a>把代码、输入和环境共同纳入执行身份；<a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现模块 ↗</a>核对环境、重跑代码并比较产物，帮助定位结果变化。</p>
+    <p><strong>案例：</strong>ReproLab 用 Dataset → Run → Artifact → Claim 记录输入、执行、成果与结论。仓库中的<a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a>把代码、输入和环境共同纳入执行身份；<a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现模块 ↗</a>核对环境、重跑代码并比较产物，帮助定位结果变化。</p>
     <p><strong>项目里怎么检查：</strong>为每条关键结论找出对应输入、执行记录与验收结果；改动代码或数据后，确认旧验证是否仍然适用。</p>
     <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}">ReproLab 数据血缘</a> · <a href="{{ '/2026/09/15/deterministic-agent-evaluation/' | relative_url }}">确定性结果比对</a></p>
   </section>

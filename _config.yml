@@ -1,6 +1,6 @@
 title: "Wang Xinfeng's Blog"
 description: "王新峰的技术博客与项目展示：AI Agent / 大模型应用研发，记录 GUI 知识构建、混合检索、工作流编排、执行验证和研发 Harness 实践。"
-url: "https://telawang91-dotcom.github.io"
+url: "https://xinfengwang.github.io"
 baseurl: ""
 lang: zh-CN
 timezone: Asia/Shanghai
@@ -13,7 +13,7 @@ profile:
   name: "王新峰 · Wang Xinfeng"
   role: "AI Agent Engineer"
   school: "深圳大学 · 电子信息工程硕士"
-  github: "https://github.com/telawang91-dotcom"
+  github: "https://github.com/xinfengwang"
   tagline: "Build agents that can be traced, verified, and improved."
 
 nav:
