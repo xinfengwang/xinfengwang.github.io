@@ -1,68 +1,68 @@
 - id: reprolab
-  name: ReproLab �� ���� AI ����̨
-  group: Agent ����
-  status: Դ���������ĵ�
+  name: ReproLab · 科研 AI 工作台
+  group: Agent 工程
+  status: 源码与运行文档
   featured: true
   repo: reprolab
-  focus: �����롢�����뻷����ͬ�����ϣ�������������ͱȽ����ܽ����
-  summary: ������з����������ϼ���������ִ�С��ɹ������ͱ���У�鴮�ɹ���̨��ͨ������ѪԵ׷��������ͼ������Դ��
-  note: �������ȵ��о�ԭ�ͣ��������û��������貹����֤��ִ�и��롣
+  focus: 将代码、输入与环境共同纳入哈希，并按产物类型比较重跑结果。
+  summary: 面向科研分析，将资料检索、代码执行、成果管理和报告校验串成工作台；通过数据血缘追溯数字与图表的来源。
+  note: 本地优先的研究原型；公开多用户部署仍需补充认证与执行隔离。
   article: /2026/09/15/reprolab-provenance/
   image: https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/workbench-home.png
 - id: smart-home
-  name: Smart Home �� ���ܼҾӶ� Agent
-  group: Agent ����
-  status: Դ������泡��
+  name: Smart Home · 智能家居多 Agent
+  group: Agent 工程
+  status: 源码与仿真场景
   featured: true
   repo: smart-home-multi-agent
-  focus: ͨ����ʽ״̬������·���νӷ�����У�������޴��ع滮��
-  summary: ���������ջ����� LangGraph ��֯������֪����ʱԤ�⡢���ƾ����뷽��У�飬���Ӽ�ؽ��桢���泡�����豸�ӿڡ�
-  note: �豸������Ҫ�������ã���ʵ LLM ���ɲ��������ڲֿ�����С�
+  focus: 通过显式状态和条件路由衔接分析、校验与有限次重规划。
+  summary: 面向老年照护，用 LangGraph 组织环境感知、短时预测、控制决策与方案校验，连接监控界面、仿真场景和设备接口。
+  note: 设备接入需要自行配置；真实 LLM 集成测试仍列在仓库待办中。
   article: /2026/09/09/smart-home-agent-loop/
   image: https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-hero.png
 - id: gui-knowledge
-  name: GUI ����֪ʶ����ָ���
-  group: ֪ʶ����
-  status: ����ĵ��뽻��չʾ
+  name: GUI 操作知识库与指令泛化
+  group: 知识构建
+  status: 设计文档与交互展示
   featured: true
   repo: vivo-gui-instruction-agent
-  focus: ������������·���������湦�����û���ͼ������ָ�����������
-  summary: ���ֻ������еĲ��������·������Ϊ�ṹ��֪ʶ�����ڵ�ȥ�ء���ͼ�����ָ����ǿ��֧����Ȼ���Լ�����ֲ������
-  note: ��������ĵ��봦�������ݿ��գ������ɼ�Դ�롢ԭʼ���ݺ�ִ������δ�����ڲֿ��С�
+  focus: 保留完整操作路径，将界面功能与用户意图、多样指令表述关联。
+  summary: 将手机界面中的操作入口与路径整理为结构化知识，经节点去重、意图归类和指令增强，支持自然语言检索与分层浏览。
+  note: 公开设计文档与处理后数据快照；完整采集源码、原始数据和执行评测未包含在仓库中。
   article: /2026/09/15/gui-agent-function-tree/
   image: https://raw.githubusercontent.com/telawang91-dotcom/vivo-gui-instruction-agent/main/docs/assets/knowledge-base-overview.png
 - id: soramart
-  name: SoraMart �� ��ҹ������
-  group: ������
-  status: ��̬Դ������ʾ��Ƶ
+  name: SoraMart · 雨夜便利店
+  group: 创意编程
+  status: 静态源码与演示视频
   featured: true
   repo: soramart-rainy-night
-  focus: �ӳ��������ģ����˵������������̡�
-  summary: �� Three.js ��ɽ����΢�������꣬���������ߡ��鿴��Ʒ����������ģ����ˡ�
-  note: �������ά����ԭ�ͣ����߳����ķ��ʷ�Χ���йܶ˿��ơ�
+  focus: 从场景浏览到模拟结账的完整交互过程。
+  summary: 用 Three.js 搭建可进入的微缩便利店，串起点击行走、查看商品、购物篮和模拟结账。
+  note: 浏览器三维交互原型；在线场景的访问范围由托管端控制。
   article: /2026/11/12/soramart-creative-coding/
   image: https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg
 - id: comfort-system
-  name: SmartHome Comfort �� ���ʶȿ���
-  group: ����̽��
-  status: Դ�������˵��
+  name: SmartHome Comfort · 舒适度控制
+  group: 早期探索
+  status: 源码与操作说明
   featured: false
   repo: SmartHome-Comfort-System
-  summary: Χ������¶ȡ��û�ƫ�úͷ���״̬��ƿ��ƽ��棬�ṩ����չʾ���ֻ����ƺ���Ϣͬ����
-  note: ��� Agent �ֿ�ֱ�չʾ������������ʶȼ�������潻����
+  summary: 围绕体感温度、用户偏好和房间状态设计控制界面，提供桌面展示、手机控制和消息同步。
+  note: 与多 Agent 仓库分别展示：这里侧重舒适度计算与界面交互。
 - id: elderly-health
-  name: �ǻ����Ͻ�������
-  group: ����̽��
-  status: Դ����ʹ��˵��
+  name: 智慧养老健康管理
+  group: 早期探索
+  status: 源码与使用说明
   featured: false
   repo: elderly-health-management
-  summary: ���� Flask �� Ollama �Ľ�������ԭ�ͣ�����������¼�����ѡ����ݿ��ӻ���ģ���ʴ�
-  note: ���򽡿���Ϣ�����ͽ���̽��������ģ�ͻش���Ϊҽ����ϡ�
+  summary: 基于 Flask 与 Ollama 的健康管理原型，包含健康记录、提醒、数据可视化与模型问答。
+  note: 面向健康信息管理和交互探索，不将模型回答视为医疗诊断。
 - id: coding-notes
-  name: �㷨�����ټ�
-  group: ѧϰ����
-  status: ������������ͼ
+  name: 算法面试速记
+  group: 学习资料
+  status: 分类索引与题图
   featured: false
   repo: huawei-coding-interview
-  summary: ����ϣ��˫ָ�롢���������붯̬�滮������������ϰ�����ͽ����ټǡ�
-  note: �ʺϲ����븴ϰ���� Agent ������Ŀ�ֿ��Ķ���
+  summary: 按哈希、双指针、链表、树与动态规划等题型整理复习索引和解题速记。
+  note: 适合查题与复习；与 Agent 工程项目分开阅读。

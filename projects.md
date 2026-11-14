@@ -1,159 +1,159 @@
 ---
 layout: default
-title: ��Ŀ
+title: 项目
 permalink: /projects/
-description: "Wang Xinfeng �Ĺ�����Ŀ��AI Agent ���̡����й���̨���Լ� SoraMart ��ά�����봴����ʵ�顣"
+description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台，以及 SoraMart 三维交互与创意编程实验。"
 ---
 <div class="wide-page projects-page">
   <div class="projects-intro">
-    <p class="eyebrow">PROJECTS / ��Ŀ����</p>
-    <h1>��Ŀ����Ʒ</h1>
-    <p class="lead">��Щ��ĿΧ����������չ����Agent ��λ�ÿ���֪ʶ����ΰѼƻ������Լ����ִ�У��Լ������֤�������Ŀҳ�����⡢����ʵ�ֺ͹���������֯��Ҳ������ά���������ڲ�Ʒ̽����</p>
+    <p class="eyebrow">PROJECTS / 项目索引</p>
+    <h1>项目与作品</h1>
+    <p class="lead">这些项目围绕三个问题展开：Agent 如何获得可用知识，如何把计划变成受约束的执行，以及如何验证结果。项目页按问题、技术实现和公开资料组织，也保留三维交互与早期产品探索。</p>
   </div>
 
-  <p class="project-reading-note">�Ķ����飺���˽�����Դ���� ReproLab�����˽�� Agent ���ţ������ܼҾӣ����˽����֪ʶ��ָ������� GUI ֪ʶ�⡣�������������<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">Agent ���̸��� ��</a></p>
+  <p class="project-reading-note">阅读建议：想了解结果溯源，看 ReproLab；想了解多 Agent 编排，看智能家居；想了解操作知识与指令构建，看 GUI 知识库。完整技术脉络见<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">Agent 工程概览 →</a></p>
 
-  <section class="project-directory" aria-label="������Ŀ����">
+  <section class="project-directory" aria-label="公开项目总览">
     {% for project in site.data.projects %}
     <article class="project-directory-row">
-      <div><span class="project-kicker">{{ project.group }} �� {{ project.status }}</span><h2>{% if project.featured %}<a href="#{{ project.id }}">{{ project.name }} ��</a>{% else %}<a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">{{ project.name }} �J</a>{% endif %}</h2><p>{{ project.summary }}</p><small>{{ project.note }}</small></div>
-      <div class="project-directory-links"><a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">�ֿ� �J</a>{% if project.article %}<a href="{{ project.article | relative_url }}">��Ŀ��� ��</a>{% endif %}</div>
+      <div><span class="project-kicker">{{ project.group }} · {{ project.status }}</span><h2>{% if project.featured %}<a href="#{{ project.id }}">{{ project.name }} ↓</a>{% else %}<a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">{{ project.name }} ↗</a>{% endif %}</h2><p>{{ project.summary }}</p><small>{{ project.note }}</small></div>
+      <div class="project-directory-links"><a href="https://github.com/telawang91-dotcom/{{ project.repo }}" target="_blank" rel="noreferrer">仓库 ↗</a>{% if project.article %}<a href="{{ project.article | relative_url }}">项目拆解 →</a>{% endif %}</div>
     </article>
     {% endfor %}
   </section>
-  <div class="section-heading"><span>��Ŀ���</span><span class="rule"></span></div>
+  <div class="section-heading"><span>项目详解</span><span class="rule"></span></div>
 
   <article class="project-showcase" id="reprolab">
     <div class="project-copy">
-      <div class="project-kicker">���� Agent �� ������ִ������Դ</div>
+      <div class="project-kicker">科研 Agent · 检索、执行与溯源</div>
       <h2>ReproLab</h2>
-      <p class="project-slogan">�ӱ����еĽ�����һ����ݡ����������м�¼��</p>
-      <p>�������ȵĿ��� AI ����̨���������ϼ���������ִ�С������ɹ��ͱ���У�顣�ɹ���¼�����������ݡ����������л��������ṩ���ܺͲ����顣��ǰ�ʺϱ����о�����ʾ���ڲ����á�</p>
+      <p class="project-slogan">从报告中的结果，找回数据、代码与运行记录。</p>
+      <p>本地优先的科研 AI 工作台，连接资料检索、代码执行、分析成果和报告校验。成果记录关联输入数据、代码与运行环境，并提供重跑和差异检查。当前适合本地研究、演示与内部试用。</p>
 
       <div class="project-metrics"><span>Planner / Executor / Critic</span><span>Hybrid RAG</span><span>Provenance</span><span>Reproduction</span><span>Next.js + FastAPI</span></div>
 
-      <div class="mini-arch"><span>Document / Dataset</span><b>��</b><span>Hybrid RAG</span><b>��</b><span>Agent</span><b>��</b><span>Run</span><b>��</b><span>Artifact</span><b>��</b><span>Claim</span></div>
+      <div class="mini-arch"><span>Document / Dataset</span><b>→</b><span>Hybrid RAG</span><b>→</b><span>Agent</span><b>→</b><span>Run</span><b>→</b><span>Artifact</span><b>→</b><span>Claim</span></div>
 
       <div class="project-facts">
-        <div><strong>��Դ��·</strong><span>Dataset �� Run �� Artifact �� Claim</span></div>
-        <div><strong>���ϼ���</strong><span>BM25 + pgvector + RRF + reranker</span></div>
-        <div><strong>������</strong><span>Re-run �� drift detection �� validation</span></div>
+        <div><strong>溯源链路</strong><span>Dataset → Run → Artifact → Claim</span></div>
+        <div><strong>资料检索</strong><span>BM25 + pgvector + RRF + reranker</span></div>
+        <div><strong>结果检查</strong><span>Re-run · drift detection · validation</span></div>
       </div>
 
-      <div class="project-design-note"><h3>Ϊʲôͬʱ��¼���롢����ͻ�����</h3><p>ͬһ�δ��������ݻ������仯����ܵõ���ͬ������ֿ��еĹ�ϣʵ�ְ����߹�ͬ����ִ�����ݣ�����ģ���Ⱥ˶Ի�����������ִ�У������������͡��������ݲ�ƥ�����������򲶻�˳��ͬ����Ư�ơ�</p><p><a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">��ϣʵ�� �J</a> �� <a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">����ʵ�� �J</a></p></div>
+      <div class="project-design-note"><h3>为什么同时记录代码、输入和环境？</h3><p>同一段代码在数据或依赖变化后可能得到不同结果。仓库中的哈希实现把三者共同纳入执行身份；复现模块先核对环境，再重新执行，并按产物类型、标题与容差匹配结果，减少因捕获顺序不同而误报漂移。</p><p><a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a> · <a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现实现 ↗</a></p></div>
 
       <div class="repo-actions">
-        <a class="button primary" href="https://github.com/telawang91-dotcom/reprolab" target="_blank" rel="noreferrer">�鿴 GitHub �ֿ� �J</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/reprolab/blob/main/README.md" target="_blank" rel="noreferrer">�ܹ��������ĵ� �J</a>
+        <a class="button primary" href="https://github.com/telawang91-dotcom/reprolab" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="https://github.com/telawang91-dotcom/reprolab/blob/main/README.md" target="_blank" rel="noreferrer">架构与运行文档 ↗</a>
       </div>
     </div>
 
     <div class="project-visual">
       <a href="https://github.com/telawang91-dotcom/reprolab" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/workbench-home.png" alt="ReproLab ���й���̨����" loading="lazy">
+        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/workbench-home.png" alt="ReproLab 科研工作台界面" loading="lazy">
       </a>
-      <p class="project-caption">ReproLab �� research workbench</p>
+      <p class="project-caption">ReproLab · research workbench</p>
       <div class="project-gallery two-up">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/knowledge-space.png" alt="ReproLab ֪ʶ�ռ�" loading="lazy">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/getting-started.png" alt="ReproLab �״�ʹ������" loading="lazy">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/knowledge-space.png" alt="ReproLab 知识空间" loading="lazy">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/reprolab/main/docs/images/getting-started.png" alt="ReproLab 首次使用引导" loading="lazy">
       </div>
     </div>
   </article>
 
   <article class="project-showcase reverse" id="smart-home">
     <div class="project-copy">
-      <div class="project-kicker">�� Agent �� ״̬�������豸����</div>
+      <div class="project-kicker">多 Agent · 状态编排与设备工具</div>
       <h2>Smart Home Multi-Agent</h2>
-      <p class="project-slogan">�û������ݾ���Ԥ�⡢������У�飬�ٽ����豸���ơ�</p>
-      <p>����Ӽ��ջ��Ķ� Agent ԭ�ͣ��� LangGraph ��֯��֪��Ԥ�⡢��������֤���ṩ���泡�������ƽ���� Home Assistant �ӿڡ���ʵ�豸����������ʵ����ƾ�ݣ���ʵ LLM ���ɲ��������ڲֿ�����С�</p>
+      <p class="project-slogan">让环境数据经过预测、决策与校验，再进入设备控制。</p>
+      <p>面向居家照护的多 Agent 原型，用 LangGraph 组织感知、预测、决策与验证，提供仿真场景、控制界面和 Home Assistant 接口。真实设备接入需配置实体与凭据；真实 LLM 集成测试仍列在仓库待办中。</p>
 
-      <div class="mini-arch"><span>Perception</span><b>��</b><span>Prediction</span><b>��</b><span>Decision</span><b>��</b><span>Validation</span><b>��</b><span>Execution</span></div>
-      <div class="project-metrics"><span>LangGraph</span><span>FastAPI</span><span>WebSocket</span><span>Home Assistant</span><span>�������豸�ӿ�</span></div>
+      <div class="mini-arch"><span>Perception</span><b>→</b><span>Prediction</span><b>→</b><span>Decision</span><b>→</b><span>Validation</span><b>→</b><span>Execution</span></div>
+      <div class="project-metrics"><span>LangGraph</span><span>FastAPI</span><span>WebSocket</span><span>Home Assistant</span><span>仿真与设备接口</span></div>
 
       <div class="project-facts">
-        <div><strong>�������</strong><span>Supervisor + Worker Agents</span></div>
-        <div><strong>����Ԥ��</strong><span>Holt-Winters / Holt / Newton Cooling</span></div>
-        <div><strong>ִ��ǰ���</strong><span>Multi-sensor fusion + validation before action</span></div>
+        <div><strong>任务编排</strong><span>Supervisor + Worker Agents</span></div>
+        <div><strong>趋势预测</strong><span>Holt-Winters / Holt / Newton Cooling</span></div>
+        <div><strong>执行前检查</strong><span>Multi-sensor fusion + validation before action</span></div>
       </div>
 
-      <div class="project-design-note"><h3>Ϊʲô������״̬��ʽ���棿</h3><p>��֪��Ԥ�⡢���ߺ�У��ֱ�д�ؽṹ��״̬��Supervisor ����У���������Դ��������Ƿ��ع滮��������ʱҪ���������Ѿ������뷽���Ѿ�ͨ�����ﵽ��������Ҳ���ܽ������̣��豸ִ�������鷽���Ƿ���׼��</p><p><a href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/agent_engine/agents/supervisor.py" target="_blank" rel="noreferrer">״̬��·��ʵ�� �J</a></p></div>
+      <div class="project-design-note"><h3>为什么把流程状态显式保存？</h3><p>感知、预测、决策和校验分别写回结构化状态，Supervisor 根据校验结果和重试次数决定是否重规划。读代码时要区分流程已经结束与方案已经通过；达到重试上限也可能结束流程，设备执行仍需检查方案是否被批准。</p><p><a href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/agent_engine/agents/supervisor.py" target="_blank" rel="noreferrer">状态与路由实现 ↗</a></p></div>
 
       <div class="repo-actions">
-        <a class="button primary" href="https://github.com/telawang91-dotcom/smart-home-multi-agent" target="_blank" rel="noreferrer">�鿴 GitHub �ֿ� �J</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/docs/architecture.svg" target="_blank" rel="noreferrer">ϵͳ�ܹ� �J</a>
+        <a class="button primary" href="https://github.com/telawang91-dotcom/smart-home-multi-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="https://github.com/telawang91-dotcom/smart-home-multi-agent/blob/main/docs/architecture.svg" target="_blank" rel="noreferrer">系统架构 ↗</a>
       </div>
     </div>
 
     <div class="project-visual">
       <a href="https://github.com/telawang91-dotcom/smart-home-multi-agent" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-hero.png" alt="Smart Home Multi-Agent ǰ��չʾ" loading="lazy">
+        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-hero.png" alt="Smart Home Multi-Agent 前端展示" loading="lazy">
       </a>
-      <p class="project-caption">Smart Home Multi-Agent �� desktop dashboard</p>
+      <p class="project-caption">Smart Home Multi-Agent · desktop dashboard</p>
       <img class="project-demo" src="https://raw.githubusercontent.com/telawang91-dotcom/smart-home-multi-agent/main/docs/showcase/showcase-demo.gif" alt="Smart Home Multi-Agent Demo" loading="lazy">
     </div>
   </article>
 
   <article class="project-showcase compact-project" id="elderly-health">
     <div class="project-copy">
-      <div class="project-kicker">LOCAL LLM �� PRODUCT PROTOTYPE</div>
+      <div class="project-kicker">LOCAL LLM · PRODUCT PROTOTYPE</div>
       <h2>Elderly Health Management</h2>
-      <p class="project-slogan">��������¼�������뱾��ģ���ʴ����ͬһ�����档</p>
-      <p>���� Flask��Ollama������ģ������ӻ�����������ǻ����Ͻ�������ԭ�ͣ�ǿ���������ȡ������Ѻý����ͽ������ݱջ���</p>
+      <p class="project-slogan">将健康记录、提醒与本地模型问答放在同一个界面。</p>
+      <p>基于 Flask、Ollama、本地模型与可视化组件构建的智慧养老健康管理原型，强调本地优先、老年友好交互和健康数据闭环。</p>
       <div class="project-metrics"><span>Flask</span><span>Ollama</span><span>Local LLM</span><span>Health Visualization</span></div>
-      <div class="repo-actions"><a class="button" href="https://github.com/telawang91-dotcom/elderly-health-management" target="_blank" rel="noreferrer">�鿴 GitHub �ֿ� �J</a></div>
+      <div class="repo-actions"><a class="button" href="https://github.com/telawang91-dotcom/elderly-health-management" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a></div>
     </div>
     <div class="project-note">
       <span>PROJECT NOTE</span>
-      <p>�����Ŀ�������Ҵӡ�AI ���ܡ�����Agent ���̡������ڲ�Ʒ˼·��ģ���������뱻�Ž�������ҵ��״̬�����ݺͽ����ջ��С�</p>
+      <p>这个项目保留了我从“AI 功能”走向“Agent 工程”的早期产品思路：模型能力必须被放进完整的业务状态、数据和交互闭环中。</p>
     </div>
   </article>
 
   <article class="project-showcase compact-project" id="gui-knowledge">
     <div class="project-copy">
-      <div class="project-kicker">GUI Agent �� ����֪ʶ��ָ����ǿ</div>
-      <h2>GUI ����֪ʶ����ָ��� Agent</h2>
-      <p class="project-slogan">���������·��ת��Ϊ�ɼ���������֪ʶ�������ָ�</p>
-      <p>ͨ���ֻ���ͼ����ģ̬�������������̽������ GUI ���������ٽ��ڵ㡢����������·��תΪ������¼��������ǿ����ͼ����������ָ������������û�������Ӧ�ù��ܣ�ҳ�浼�������⽻�������˹�������</p>
+      <div class="project-kicker">GUI Agent · 操作知识与指令增强</div>
+      <h2>GUI 操作知识库与指令泛化 Agent</h2>
+      <p class="project-slogan">将界面操作路径转化为可检索的语义知识与多样化指令。</p>
+      <p>通过手机截图、多模态解析与深度优先探索整理 GUI 交互树，再将节点、动作和完整路径转为检索记录。语义增强、意图归类与六类指令泛化用于连接用户表达与应用功能；页面导航和特殊交互包含人工处理。</p>
       <div class="project-metrics"><span>ADB</span><span>Multimodal LLM</span><span>GUI Tree</span><span>BM25</span><span>Instruction Augmentation</span></div>
-      <div class="repo-actions"><a class="button primary" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent" target="_blank" rel="noreferrer">�鿴 GitHub �ֿ� �J</a><a class="button" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/tree/main/docs" target="_blank" rel="noreferrer">����ĵ� �J</a></div>
+      <div class="repo-actions"><a class="button primary" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a><a class="button" href="https://github.com/telawang91-dotcom/vivo-gui-instruction-agent/tree/main/docs" target="_blank" rel="noreferrer">设计文档 ↗</a></div>
     </div>
-    <div class="project-note"><span>����ĵ��뽻��չʾ</span><p>չʾ���ռ�¼ 47 ��Ӧ�á�5,285 �������ڵ㡢321 ����ͼ����� 37,166 ������ָ���ʾ֪ʶ�ռ��봦����ģ���ֿ��ṩ����ĵ��Ϳɽ������գ�δ���������ɼ�Դ����ԭʼ���ݣ�ָ�����ɹ�ģ���Զ�ִ�гɹ��ʷֱ������</p></div>
+    <div class="project-note"><span>设计文档与交互展示</span><p>展示快照记录 47 个应用、5,285 个操作节点、321 个意图分类和 37,166 条基础指令，表示知识收集与处理规模。仓库提供设计文档和可交互快照，未包含完整采集源码与原始数据；指令生成规模与自动执行成功率分别衡量。</p></div>
   </article>
 
   <article class="project-showcase reverse" id="soramart">
     <div class="project-copy">
-      <div class="project-kicker">������ �� ��ά����ԭ��</div>
-      <h2>��ҹ������ �� SoraMart</h2>
-      <p class="project-slogan">����ֽǣ������껹���ŵơ��߽�ȥ����һ�ݽ����ı㵱��</p>
-      <p>һ����������΢����ά������Ʒ���ڵ�����ת�۲���ҹ�ֽǣ�����������ߡ��鿴��Ʒ��װ�����빺�������ٵ�����̨ģ����ˡ���һ�������Ĺ������飬�ѳ�����Χ��С��Ϸ������������</p>
-      <div class="project-metrics"><span>Three.js</span><span>WebGL</span><span>�������</span><span>��ƷԤ��</span><span>������</span></div>
-      <div class="mini-arch"><span>�ֽǹ۲�</span><b>��</b><span>��������</span><b>��</b><span>��ѡ��Ʒ</span><b>��</b><span>ģ�����</span><b>��</b><span>���</span></div>
+      <div class="project-kicker">创意编程 · 三维交互原型</div>
+      <h2>雨夜便利店 · SoraMart</h2>
+      <p class="project-slogan">雨落街角，便利店还亮着灯。走进去，挑一份今晚的便当。</p>
+      <p>一个浏览器里的微缩三维交互作品：在店外旋转观察雨夜街角，进店后点击行走、查看商品包装、加入购物篮，再到收银台模拟结账。用一段完整的购物体验，把场景氛围与小游戏交互连起来。</p>
+      <div class="project-metrics"><span>Three.js</span><span>WebGL</span><span>点击行走</span><span>商品预览</span><span>创意编程</span></div>
+      <div class="mini-arch"><span>街角观察</span><b>→</b><span>进店行走</span><b>→</b><span>挑选商品</span><b>→</b><span>模拟结账</span><b>→</b><span>离店</span></div>
       <div class="project-facts">
-        <div><strong>��������</strong><span>��ҹ�־���ů���������ɡ����������ӽ��л�</span></div>
-        <div><strong>��������</strong><span>�ƿ��������ߡ���ת��Ʒ���������������ɹ���СƱ</span></div>
-        <div><strong>���з�ʽ</strong><span>��̬��ҳ�뱾���زģ���ͨ������ HTTP ��������</span></div>
+        <div><strong>场景体验</strong><span>雨夜街景、暖光橱窗、撑伞行人与店内视角切换</span></div>
+        <div><strong>交互过程</strong><span>绕开货架行走、旋转商品、调整数量与生成购物小票</span></div>
+        <div><strong>运行方式</strong><span>静态网页与本地素材，可通过本地 HTTP 服务运行</span></div>
       </div>
       <div class="repo-actions">
-        <a class="button primary" href="https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/" target="_blank" rel="noreferrer">�������߳��� �J</a>
-        <a class="button" href="https://github.com/telawang91-dotcom/soramart-rainy-night" target="_blank" rel="noreferrer">�鿴 GitHub �ֿ� �J</a>
-        <a class="button" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">��Ŀ��� ��</a>
+        <a class="button primary" href="https://ame-mart-rain-corner.sunnybrioche.chatgpt.site/" target="_blank" rel="noreferrer">体验在线场景 ↗</a>
+        <a class="button" href="https://github.com/telawang91-dotcom/soramart-rainy-night" target="_blank" rel="noreferrer">查看 GitHub 仓库 ↗</a>
+        <a class="button" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">项目拆解 →</a>
       </div>
-      <p>��Ϊ Vibe Coding / �����̷�������鰸����չʾ��ά�����뽻���ջ�����ǰ��λΪС��Ϸԭ�͡����߷��ʷ�Χ���йܶ˿��ƣ�Ҳ�ɴӲֿ��������С�</p>
+      <p>作为 Vibe Coding / 创意编程方向的体验案例，展示三维场景与交互闭环；当前定位为小游戏原型。在线访问范围由托管端控制，也可从仓库下载运行。</p>
     </div>
     <div class="project-visual">
       <a href="https://github.com/telawang91-dotcom/soramart-rainy-night/blob/main/media/SoraMart-showcase.mp4" target="_blank" rel="noreferrer">
-        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg" alt="SoraMart ��ҹ������΢���ֽǣ�ů��������ɡ����" loading="lazy" width="960" height="540">
+        <img class="project-screen" src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/street-corner.jpg" alt="SoraMart 雨夜便利店微缩街角，暖光橱窗与撑伞行人" loading="lazy" width="960" height="540">
       </a>
-      <p class="project-caption">SoraMart �� ���ȫ��ͼ�ۿ� 72 ��չʾ��Ƶ</p>
+      <p class="project-caption">SoraMart · 点击全景图观看 72 秒展示视频</p>
       <div class="project-gallery two-up">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/choose-products.jpg" alt="SoraMart ��ɫ�ڻ���ǰ�鿴�㵱��װ��۸�" loading="lazy" width="960" height="540">
-        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/checkout.jpg" alt="SoraMart ����̨ģ������빺��СƱ" loading="lazy" width="960" height="540">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/choose-products.jpg" alt="SoraMart 角色在货架前查看便当包装与价格" loading="lazy" width="960" height="540">
+        <img src="https://raw.githubusercontent.com/telawang91-dotcom/soramart-rainy-night/main/media/checkout.jpg" alt="SoraMart 收银台模拟结账与购物小票" loading="lazy" width="960" height="540">
       </div>
     </div>
   </article>
 
   <section class="project-footer-note">
-    <p>�з� Agent Harness �Ĺ��̾��������� <a class="text-link" href="{{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }}">�淶������������֤�ջ�</a>������Ϊͨ�ü������̣���������ҵ��ĿԴ�롣</p>
-    <p>���������ʵ����Ŀ�� <a class="text-link" href="https://github.com/telawang91-dotcom" target="_blank" rel="noreferrer">github.com/telawang91-dotcom �J</a></p>
+    <p>研发 Agent Harness 的工程经验整理在 <a class="text-link" href="{{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }}">规范、上下文与验证闭环</a>，内容为通用技术复盘，不包含企业项目源码。</p>
+    <p>更多代码与实验项目见 <a class="text-link" href="https://github.com/telawang91-dotcom" target="_blank" rel="noreferrer">github.com/telawang91-dotcom ↗</a></p>
   </section>
 </div>
