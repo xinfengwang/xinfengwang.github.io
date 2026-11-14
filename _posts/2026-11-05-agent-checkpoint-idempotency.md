@@ -9,6 +9,10 @@ series_index: "08"
 category: Tech
 tags: [Agent, Workflow, Checkpoint, Idempotency, Reliability]
 content_kind: 工程方法
+audience: "需要设计工作流恢复或处理外部写入的读者。"
+description: "区分流程检查点、持久化操作编号与外部服务回执，避免把恢复直接当成重放。"
+prerequisite: "了解检查点与外部接口调用。"
+exercise: "在测试服务写入后模拟回执丢失，检查恢复两次是否只产生一次预期变化。"
 ---
 
 设想 Coding Agent 已通过审批，向测试服务发布一版配置。服务端写入成功，但客户端在收到回执之前断线。工作流恢复时，最后一个检查点仍显示「准备发布」。如果按它直接重跑，可能重复写入。这里需要同时回答两个问题：流程停在哪一步，以及外部服务实际做了什么。

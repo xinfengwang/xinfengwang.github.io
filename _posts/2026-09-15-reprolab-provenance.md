@@ -10,6 +10,10 @@ category: Tech
 tags: [ReproLab, Provenance, Research-Agent, Reproducibility]
 content_kind: 项目拆解
 project_id: reprolab
+audience: "想了解科研 Agent 如何保留结果依据的读者。"
+description: "以 Dataset → Run → Artifact → Claim 串起数据、代码、环境与结论，解释重跑和漂移比较为什么要靠近语义层。"
+prerequisite: "数据分析基本流程；不要求熟悉 ReproLab。"
+exercise: "列出一份分析报告中的数字，并检查能否找到它的输入、执行代码与环境。"
 ---
 
 科研 Agent 和普通聊天机器人最大的区别之一，是“答案看起来合理”远远不够。一个数字如果进入论文、报告或决策，就必须回答：它来自哪份数据、经过哪段代码、在哪个环境里计算、能不能重新得到。

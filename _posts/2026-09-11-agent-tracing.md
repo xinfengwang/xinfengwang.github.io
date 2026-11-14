@@ -9,6 +9,10 @@ series_index: "01"
 category: Tech
 tags: [Agent, Evaluation, Tracing, Reliability]
 content_kind: 工程方法
+audience: "需要定位 Agent 失败或搭建评测记录的读者。"
+description: "按上下文、规划、工具执行与结果验证分层记录 Trace，并关联模型、工具和代码版本。"
+prerequisite: "了解一次 Agent 工具调用的基本过程。"
+exercise: "检查现有日志能否区分计划正确但参数映射错误，与执行正确但终态校验遗漏。"
 ---
 
 传统接口失败时，日志通常能告诉你哪个请求返回了 500。Agent 系统更麻烦：即使最终结果错了，中间每一步都可能“看起来合理”。

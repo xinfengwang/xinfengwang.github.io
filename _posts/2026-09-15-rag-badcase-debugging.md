@@ -10,6 +10,10 @@ category: Tech
 tags: [RAG, Badcase, Retrieval, Evaluation]
 updated: 2026-11-05
 content_kind: 工程方法
+audience: "已有 RAG 原型、正在排查检索失败的读者。"
+description: "固定一条失败样本，沿入库、召回、排序、上下文和生成追踪证据首次丢失的位置。"
+prerequisite: "了解 RAG 的基本检索流程。"
+exercise: "选一条失败问题，保存每层候选证据，并补上条件变化与权限变化的回归用例。"
 ---
 
 遇到「知识库里有答案，Agent 却说不知道」，我会先固定一条失败样本。记录原始问题、用户权限、文档版本和预期证据，然后沿链路追同一份证据。每次先找它第一次消失的位置，再决定改哪里。

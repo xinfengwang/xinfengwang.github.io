@@ -11,6 +11,10 @@ tags: [Multi-Agent, LangGraph, Smart-Home, Project]
 content_kind: 项目拆解
 project_id: smart-home
 scope_note: "本文结合智能家居原型讨论工作流设计。仓库提供仿真与 Home Assistant 接口，真实 LLM 集成测试仍列为待办；设备联调需自行配置。"
+audience: "正在设计多 Agent 工作流或设备工具接口的读者。"
+description: "把感知、预测、决策、验证和执行拆开，说明环境状态如何变成受约束的候选动作。"
+prerequisite: "了解 Agent 的状态与工具调用。"
+exercise: "画出一个设备动作的状态流转，补上验证失败与执行失败各自的返回路径。"
 ---
 
 智能家居很适合展示 Multi-Agent 的工程价值，因为它不是生成一段文字，而是最终要影响真实环境。系统既要理解传感器数据，又要预测趋势、生成策略、做安全校验，最后才能执行设备控制。

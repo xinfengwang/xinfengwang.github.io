@@ -19,6 +19,14 @@ layout: default
       <div class="article-meta">王新峰 · {{ page.date | date: "%Y-%m-%d" }}{% if page.updated %} · 更新于 {{ page.updated }}{% endif %} · <span id="reading-time">约 -- 分钟</span></div>
     </header>
 
+    {% if page.audience %}
+    <section class="reading-brief" aria-label="阅读指引">
+      <p><strong>适合谁读</strong>{{ page.audience }}</p>
+      <p><strong>这篇讲什么</strong>{{ page.description }}</p>
+      <p><strong>阅读基础</strong>{{ page.prerequisite }}</p>
+    </section>
+    {% endif %}
+
     <aside class="article-context" aria-label="文章类型与项目资料">
       <strong>{{ page.content_kind | default: '工程方法' }}</strong>
       {% if page.project_id %}{% assign related_project = site.data.projects | where: 'id', page.project_id | first %}
@@ -35,6 +43,9 @@ layout: default
     </details>
 
     <div class="article-body">{{ content }}</div>
+
+    {% if page.exercise %}<section class="reading-exercise"><h2>读完可以试一件事</h2><p>{{ page.exercise }}</p></section>{% endif %}
+    <aside class="author-next"><strong>关于作者 · 王新峰</strong><p>关注 AI Agent 的检索、编排与可靠性。想了解我的实践，可以继续看<a href="{{ '/projects/' | relative_url }}">公开项目</a>；了解岗位背景，可以看<a href="{{ '/about/#capabilities' | relative_url }}">能力与工程经历</a>。</p></aside>
 
     <div class="article-tools" aria-label="Article tools">
       <button class="article-tool" id="copy-link" type="button">复制文章链接</button>
@@ -65,7 +76,9 @@ layout: default
     {% endif %}
 
     {% assign next_read = nil %}
-    {% if structured_series %}
+    {% if page.continue_reading %}
+      {% assign next_read = site.posts | where: 'url', page.continue_reading | first %}
+    {% elsif structured_series %}
       {% assign found_current = false %}
       {% for chapter in structured_series.chapters %}
         {% if chapter.url == page.url %}

@@ -4,6 +4,7 @@
   status: 源码与运行文档
   featured: true
   repo: reprolab
+  focus: 数据、执行记录、产物与报告结论之间的追溯设计。
   summary: 把论文、数据分析和报告连接起来，让结果能追溯到输入数据、执行代码与运行记录。
   note: 本地优先的研究原型；公开多用户部署仍需补充认证与执行隔离。
   article: /2026/09/15/reprolab-provenance/
@@ -14,6 +15,7 @@
   status: 源码与仿真场景
   featured: true
   repo: smart-home-multi-agent
+  focus: 状态如何流转，候选决策如何经过校验再执行。
   summary: 将环境感知、趋势预测、控制决策和执行前校验拆成协作流程，提供仿真演示与 Home Assistant 接口。
   note: 设备接入需要自行配置；真实 LLM 集成测试仍列在仓库待办中。
   article: /2026/09/09/smart-home-agent-loop/
@@ -24,6 +26,7 @@
   status: 设计文档与交互展示
   featured: true
   repo: vivo-gui-instruction-agent
+  focus: 操作树如何转为检索记录，以及知识构建与自动执行的边界。
   summary: 把手机界面的操作节点、路径和功能语义整理成知识库，支持按意图浏览和检索自然语言指令。
   note: 公开仓库不含完整采集源码与原始数据；指令泛化不等于自动执行已验证。
   article: /2026/09/15/gui-agent-function-tree/
@@ -34,6 +37,7 @@
   status: 静态源码与演示视频
   featured: true
   repo: soramart-rainy-night
+  focus: 从场景浏览到模拟结账的完整交互过程。
   summary: 用 Three.js 搭建可进入的微缩便利店，串起点击行走、查看商品、购物篮和模拟结账。
   note: 浏览器三维交互原型；在线场景的访问范围由托管端控制。
   article: /2026/11/12/soramart-creative-coding/

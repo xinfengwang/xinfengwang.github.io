@@ -10,6 +10,10 @@ series_index: "08"
 category: Tech
 tags: [AI-Coding, Agent-Harness, Context-Engineering, Workflow, Validation]
 content_kind: 工程方法
+audience: "关注 Coding Agent 工程与长任务交付的读者。"
+description: "通过阶段产物、分层上下文和绑定当前改动的校验记录，讨论任务交接、恢复与长期知识维护。"
+prerequisite: "了解研发流程与 Agent 工具执行。"
+exercise: "为一个研发任务写清每个阶段的输入、产物、检查和失败返回位置。"
 ---
 
 在参与 AI 辅助研发相关实践时，我逐渐意识到：模型生成了代码，只能说明一次生成结束；研发任务是否完成，还取决于需求、设计、实现和验证能否对应起来。
