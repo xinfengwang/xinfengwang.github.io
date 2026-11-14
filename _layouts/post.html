@@ -27,9 +27,11 @@ layout: default
       </div></details>
       <button type="button" id="reader-focus" aria-pressed="false">专注阅读</button>
       <button type="button" id="reader-save" aria-pressed="false">收藏文章</button>
+      <button type="button" id="reader-offline">离线保存</button>
       <a href="{{ '/library/' | relative_url }}">我的书架 →</a>
     </div>
     <p id="reader-status" class="reader-status" role="status" aria-live="polite"></p>
+    <p id="offline-save-status" class="reader-status" role="status"></p>
     <div id="reader-resume" class="reading-return" hidden></div>
     {% if page.audience %}
     <section class="reading-brief" aria-label="阅读指引">
@@ -56,6 +58,7 @@ layout: default
 
     <div class="article-body">{{ content }}</div>
     {% include passage-tools.html %}
+    {% include project-evidence.html %}
 
     {% if page.exercise %}<section class="reading-exercise"><h2>读完可以试一件事</h2><p>{{ page.exercise }}</p></section>{% endif %}
     <aside class="author-next"><strong>关于作者 · 王新峰</strong><p>关注 AI Agent 的检索、编排与可靠性。想了解我的实践，可以继续看<a href="{{ '/projects/' | relative_url }}">公开项目</a>；了解岗位背景，可以看<a href="{{ '/about/#capabilities' | relative_url }}">能力与工程经历</a>。</p></aside>
@@ -109,6 +112,8 @@ layout: default
       {% assign next_read = site.posts | where: 'url', page.continue_reading | first %}
     {% endif %}
 
+    {% include article-connections.html %}
+    {% include feedback-records.html %}
     <nav class="post-nav" aria-label="继续阅读">
       <a href="{{ '/learning-map/' | relative_url }}{% if structured_series %}#{{ structured_series.id }}{% endif %}"><small>← 浏览学习路线</small><strong>返回学习地图</strong></a>
       {% if next_read %}<a class="next" href="{{ next_read.url | relative_url }}"><small>继续阅读 →</small><strong>{{ next_read.title | escape }}</strong></a>{% endif %}

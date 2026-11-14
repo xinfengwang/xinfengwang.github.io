@@ -1,0 +1,90 @@
+{
+  "reprolab": {
+    "repo": "reprolab",
+    "commit": "32784ecd4bfcb06fb7beecb2bd9229727348ff67",
+    "checked": "2026-11-14",
+    "environment": "README 提供 Docker 启动流程；开发路径使用 Python 3.11、Node.js、PostgreSQL / pgvector。模型分析需要自行配置模型。",
+    "io": "输入论文与数据，输出执行记录、分析产物与结论；来源关系见可信机制文档。",
+    "limits": "本地优先原型。公开多用户使用仍需要认证、执行隔离与并发验证；本轮未运行测试。",
+    "links": [
+      {
+        "title": "启动与故障恢复说明",
+        "path": "docs/12-RUNBOOK.md"
+      },
+      {
+        "title": "数据血缘与可信机制",
+        "path": "docs/05-PROVENANCE.md"
+      },
+      {
+        "title": "复现比较测试文件",
+        "path": "backend/tests/test_m5_reproduce_matching.py"
+      }
+    ]
+  },
+  "smart-home": {
+    "repo": "smart-home-multi-agent",
+    "commit": "691fb13432a20136fc7512f3f3ddbcf78768d4a6",
+    "checked": "2026-11-14",
+    "environment": "README 要求 Python 3.10+、Node.js 18+；提供环境配置模板，实际设备接入需配置 Home Assistant。",
+    "io": "输入传感器与房间状态，产生分析、决策和执行前校验结果；仓库提供仿真入口。",
+    "limits": "仓库有 Mock LLM；真实模型与设备联调需要另行配置和验证，不将仿真演示当作真实设备实测。",
+    "links": [
+      {
+        "title": "安装、仿真与待办说明",
+        "path": "README.md"
+      },
+      {
+        "title": "仿真模型实现",
+        "path": "agent_engine/agents/mock_llm.py"
+      },
+      {
+        "title": "设备桥接入口",
+        "path": "agent_engine/tools/ha_bridge.py"
+      }
+    ]
+  },
+  "gui-knowledge": {
+    "repo": "vivo-gui-instruction-agent",
+    "commit": "d464f4e22b1a48247c252f30e4405d6fbc9ec09c",
+    "checked": "2026-11-14",
+    "environment": "展示页内置处理后数据，可下载 HTML 后在浏览器查看；完整采集系统未公开。",
+    "io": "展示应用、功能模块、操作节点与自然语言指令的结构关系；统计量表示展示快照规模。",
+    "limits": "不包含完整 Python 源码、原始截图和交互树数据，不提供完整系统重跑命令，也不把快照规模作为评测结果。",
+    "links": [
+      {
+        "title": "公开范围与规模口径",
+        "path": "README.md"
+      },
+      {
+        "title": "知识构建流程设计",
+        "path": "docs/knowledge-pipeline.md"
+      },
+      {
+        "title": "处理后数据展示页源码",
+        "path": "docs/knowledge-base-demo.html"
+      }
+    ]
+  },
+  "soramart": {
+    "repo": "soramart-rainy-night",
+    "commit": "cda8016c90883b5471a0ef50179423cf4fff0d0e",
+    "checked": "2026-11-14",
+    "environment": "支持 WebGL 的现代浏览器；README 提供对 dist 目录启动静态服务的方式。",
+    "io": "输入浏览、行走、商品选择和结账操作，输出场景变化、购物篮与模拟小票。",
+    "limits": "付款为场景交互，不发生真实交易；展示视频由自动操作录制，在线访问范围由托管端控制。",
+    "links": [
+      {
+        "title": "运行方式与素材说明",
+        "path": "README.md"
+      },
+      {
+        "title": "场景与交互入口",
+        "path": "dist/index.html"
+      },
+      {
+        "title": "购物与结账交互源码",
+        "path": "dist/shop.js"
+      }
+    ]
+  }
+}

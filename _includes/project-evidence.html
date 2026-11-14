@@ -1,0 +1,9 @@
+{% assign evidence = site.data.project_evidence[page.project_id] %}
+{% if evidence %}
+<details class="project-evidence">
+  <summary>项目资料与验证边界 · {{ evidence.checked }}</summary>
+  <p>资料固定到 <a href="https://github.com/xinfengwang/{{ evidence.repo }}/tree/{{ evidence.commit }}" target="_blank" rel="noreferrer">版本 {{ evidence.commit | slice: 0, 7 }} ↗</a>。本轮查阅了公开文件，未运行该项目；以下入口不代表测试已通过。</p>
+  <dl><dt>运行条件 / 使用方式</dt><dd>{{ evidence.environment | escape }}</dd><dt>输入与输出</dt><dd>{{ evidence.io | escape }}</dd><dt>已知限制</dt><dd>{{ evidence.limits | escape }}</dd></dl>
+  <ul>{% for item in evidence.links %}<li><a href="https://github.com/xinfengwang/{{ evidence.repo }}/blob/{{ evidence.commit }}/{{ item.path }}" target="_blank" rel="noreferrer">{{ item.title | escape }} ↗</a></li>{% endfor %}</ul>
+</details>
+{% endif %}

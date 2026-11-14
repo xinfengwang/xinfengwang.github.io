@@ -1,0 +1,1302 @@
+{
+  "/2026/09/03/langgraph-for-multi-agent/": {
+    "source_sha256": "bc17cfabb2120adf61d1b7cde8aa2242a678f7c481fc8f2107737ff70eaa205e",
+    "related": [
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/agent-runtime-overview/",
+        "title": "总纲：为什么 Agent 需要 Runtime",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/multi-agent-badcases/",
+        "title": "多 Agent 系统最常见的五类流转 Badcase",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/08/rag-for-agent-planning/": {
+    "source_sha256": "2b74c69722918f1b68a4b7ad5613d53c985c3910a294c828e16a87d51de9be21",
+    "related": [
+      {
+        "url": "/2026/09/15/few-shot-retrieval/",
+        "title": "Few-shot Retrieval：怎么让历史轨迹真正帮助 Agent Planning？",
+        "reason": "共同主题：Planning、RAG"
+      },
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "共同主题：RAG、Retrieval"
+      },
+      {
+        "url": "/2026/09/15/rag-context-overview/",
+        "title": "总纲：Agent 的上下文为什么比 Prompt 更重要",
+        "reason": "共同主题：RAG、Retrieval"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/09/smart-home-agent-loop/": {
+    "source_sha256": "b69704aa232cd3f3edd60525d128f2de410b0c2f2541d43290e03d2d8c41233a",
+    "related": [
+      {
+        "url": "/2026/09/15/supervisor-manager-agent/",
+        "title": "Supervisor 与 Manager Agent：任务到底应该怎么分发？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/15/smart-home-sensor-data/",
+        "title": "Smart Home：传感器抖动、异常值与数据筛选怎么处理？",
+        "reason": "共同主题：Multi-Agent、Smart-Home"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/supervisor-manager-agent/",
+        "title": "Supervisor 与 Manager Agent：任务到底应该怎么分发？"
+      }
+    ]
+  },
+  "/2026/09/10/coding-agent-harness/": {
+    "source_sha256": "369452b80d2900f639215924ae6e86057ac5122ebd40fb29a46e6d006f592673",
+    "related": [
+      {
+        "url": "/2026/09/15/codebase-context/",
+        "title": "Codebase Context：大仓库到底应该怎么被 Coding Agent 理解？",
+        "reason": "共同主题：AI-Coding、Context-Engineering"
+      },
+      {
+        "url": "/2026/09/15/coding-agent-benchmark-loop/",
+        "title": "Benchmark 驱动 Coding Agent：怎么让系统持续迭代而不是靠感觉调 Prompt？",
+        "reason": "共同主题：AI-Coding、Harness"
+      },
+      {
+        "url": "/2026/09/15/workspace-context/",
+        "title": "Workspace Context：任务产物如何跨 Agent 传递？",
+        "reason": "共同主题：AI-Coding、Context-Engineering"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/11/agent-tracing/": {
+    "source_sha256": "0889b6e801d1d5c490007f22cf8574ad94d2fe1bf45c56edf969fa29713efb1f",
+    "related": [
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Evaluation、Reliability"
+      },
+      {
+        "url": "/2026/09/15/agent-badcase-loop/",
+        "title": "Badcase 闭环：怎么把一次 Agent 失败变成下一版系统的能力？",
+        "reason": "共同主题：Evaluation、Tracing"
+      },
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Evaluation、Reliability"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/05/vllm-serving-notes/",
+        "title": "vLLM 学习笔记：长 Prompt 进来时，GPU 怎么分时间和显存？"
+      }
+    ]
+  },
+  "/2026/09/12/why-agent-workflow-needs-state-machine/": {
+    "source_sha256": "16727d8cce821464e747e2d3f15ff00a6e368c25b095a543004433a055a39aab",
+    "related": [
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/agent-runtime-overview/",
+        "title": "总纲：为什么 Agent 需要 Runtime",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/multi-agent-badcases/",
+        "title": "多 Agent 系统最常见的五类流转 Badcase",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/13/context-engineering-workspace-codebase/": {
+    "source_sha256": "681e626a4b55ffa58a67620b509bcc20705c0e84920db8da4e82bb65222fb0c3",
+    "related": [
+      {
+        "url": "/2026/09/15/rag-context-overview/",
+        "title": "总纲：Agent 的上下文为什么比 Prompt 更重要",
+        "reason": "共同主题：Context-Engineering、RAG"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding、Context-Engineering"
+      },
+      {
+        "url": "/2026/09/15/agent-memory/",
+        "title": "Agent Memory：短期记忆、长期记忆与可控召回",
+        "reason": "共同主题：Context-Engineering、RAG"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/14/mcp-and-function-calling/": {
+    "source_sha256": "91bd42afc27578ea39c858fb256e7da2c79954da2861ebd217fbf3847b3264a3",
+    "related": [
+      {
+        "url": "/2026/09/15/tool-schema-router/",
+        "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
+        "reason": "共同主题：Function-Calling、MCP"
+      },
+      {
+        "url": "/2026/09/15/function-calling/",
+        "title": "Function Calling：模型到底是怎么学会调用工具的？",
+        "reason": "共同主题：Function-Calling、Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Tool-Use"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-badcase-loop/": {
+    "source_sha256": "bc06afd2a8b0ed3900a6ee52e101e54e139f3867f5c664f5f296aca1a3866229",
+    "related": [
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Tracing"
+      },
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Evaluation、Tracing"
+      },
+      {
+        "url": "/2026/09/15/gui-agent-badcase-loop/",
+        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
+        "reason": "共同主题：Badcase、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-benchmark/": {
+    "source_sha256": "7b12e4e5fa4b535cb9380eb888243e06f02e1f2416307ac0e8cdddf993183d9a",
+    "related": [
+      {
+        "url": "/2026/09/15/deterministic-agent-evaluation/",
+        "title": "AST / Assertion：Agent 执行结果怎么做确定性比对？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Benchmark、Evaluation"
+      },
+      {
+        "url": "/2026/09/15/seven-dimension-agent-evaluation/",
+        "title": "七维评测：为什么 Agent 不能只看任务完成率？",
+        "reason": "共同主题：Benchmark、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-demo-to-system/": {
+    "source_sha256": "2b495c41212bb6cbd2beb6da50deee5163e502b742a993f42f1226ca9444542c",
+    "related": [
+      {
+        "url": "/2026/09/15/public-engineering-writing/",
+        "title": "从项目 README 到技术博客：如何公开表达工程深度？",
+        "reason": "共同主题：Portfolio"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "同一系列，继续补齐相关概念"
+      },
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
+        "reason": "同一系列，继续补齐相关概念"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-foundations-overview/": {
+    "source_sha256": "4c9fd032ee2f20b611f1e58ed893a49e569677d978cf1916fee614e04a88af6a",
+    "related": [
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-memory/",
+        "title": "Agent Memory：短期记忆、长期记忆与可控召回",
+        "reason": "共同主题：Memory"
+      },
+      {
+        "url": "/2026/09/15/agent-planning-patterns/",
+        "title": "Planning：ReAct、Plan-and-Execute 与结构化计划怎么选？",
+        "reason": "共同主题：Planning"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-harness-closed-loop/": {
+    "source_sha256": "f43918e977feb6344be1095a48af6d95a7db974062e446ed7b244de2d7eb5a5a",
+    "related": [
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始",
+        "reason": "共同主题：Agent-Harness、Context-Engineering"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：Evaluation、Workflow"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环"
+      }
+    ]
+  },
+  "/2026/09/15/agent-memory/": {
+    "source_sha256": "18d08144caf347330408fcd362094cdd79548b0d74c9f9cf1b3aa7071ceb2ed2",
+    "related": [
+      {
+        "url": "/2026/09/13/context-engineering-workspace-codebase/",
+        "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
+        "reason": "共同主题：Context-Engineering、RAG"
+      },
+      {
+        "url": "/2026/09/15/rag-context-overview/",
+        "title": "总纲：Agent 的上下文为什么比 Prompt 更重要",
+        "reason": "共同主题：Context-Engineering、RAG"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Memory"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-planning-patterns/": {
+    "source_sha256": "9fe08dca2f977ea9b893f13a5a6b2342a0a12b2cdcb3751aed49362c592a3df2",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Planning"
+      },
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：Planning"
+      },
+      {
+        "url": "/2026/09/15/few-shot-retrieval/",
+        "title": "Few-shot Retrieval：怎么让历史轨迹真正帮助 Agent Planning？",
+        "reason": "共同主题：Planning"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-runtime-overview/": {
+    "source_sha256": "637d03a81bf442c0e0aff1ef250616558bbcf0d4f1fbc86c543ea4c234811d2a",
+    "related": [
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/multi-agent-badcases/",
+        "title": "多 Agent 系统最常见的五类流转 Badcase",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/agent-safety-hitl/": {
+    "source_sha256": "d455fcba6554acd128fb794aecb634b67a050a26407f14c3d654f0854e832bb3",
+    "related": [
+      {
+        "url": "/2026/11/05/mcp-tool-trust-boundary/",
+        "title": "MCP 工具接进来之后，谁决定数据能不能发出去？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/15/coding-agent-permissions/",
+        "title": "Coding Agent 的工具权限：为什么最小权限比强 Prompt 更重要？",
+        "reason": "共同主题：Permissions、Security"
+      },
+      {
+        "url": "/2026/09/15/permission-aware-rag/",
+        "title": "权限 RAG：最小权限、元数据过滤与越权防护怎么做？",
+        "reason": "共同主题：Security"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/05/mcp-tool-trust-boundary/",
+        "title": "MCP 工具接进来之后，谁决定数据能不能发出去？"
+      }
+    ]
+  },
+  "/2026/09/15/ai-agent-engineering-map/": {
+    "source_sha256": "7fbb0a7df5a5b51a9b63b5e1b190b36401b675f9c705483d60e71d3b1a23e52d",
+    "related": [
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：Evaluation、Workflow"
+      },
+      {
+        "url": "/2026/09/13/context-engineering-workspace-codebase/",
+        "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
+        "reason": "共同主题：AI-Coding、RAG"
+      },
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
+        "reason": "共同主题：Evaluation、Workflow"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/artifact-driven-workflow/": {
+    "source_sha256": "b21ad1895db403a75126b2f81ba8172ccfc97c5af20f7a8508b2872cb124014a",
+    "related": [
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Multi-Agent、Workflow"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：Multi-Agent、Workflow"
+      },
+      {
+        "url": "/2026/09/15/agent-runtime-overview/",
+        "title": "总纲：为什么 Agent 需要 Runtime",
+        "reason": "共同主题：Multi-Agent、Workflow"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/codebase-context/": {
+    "source_sha256": "c711c6c4bbb48860d7146244b5f03c93cd69ec1309b538b002b11f7abe3edb85",
+    "related": [
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding、Context-Engineering"
+      },
+      {
+        "url": "/2026/09/15/coding-workflow/",
+        "title": "Coding Workflow：Spec → Design → Tasks → Code 为什么比直接写代码稳？",
+        "reason": "共同主题：AI-Coding、Coding-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/coding-agent-benchmark-loop/": {
+    "source_sha256": "cfc0032776b343ecaaef3a75c9857fe0e0c433358508a404f4b6fda7de45b7b3",
+    "related": [
+      {
+        "url": "/2026/09/15/offline-eval-vs-interactive-harness/",
+        "title": "无交互评测与真实交互 Harness，有什么本质差异？",
+        "reason": "共同主题：AI-Coding、Benchmark"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding、Harness"
+      },
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Benchmark、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/coding-agent-permissions/": {
+    "source_sha256": "b66f741890e8efa121ac8d393b98954b12d45258b6d43c3287177260b8b8f0c5",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-safety-hitl/",
+        "title": "Agent 的权限、安全与 Human-in-the-loop 应该怎么设计？",
+        "reason": "共同主题：Permissions、Security"
+      },
+      {
+        "url": "/2026/11/05/mcp-tool-trust-boundary/",
+        "title": "MCP 工具接进来之后，谁决定数据能不能发出去？",
+        "reason": "共同主题：Permissions、Security"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/coding-workflow/": {
+    "source_sha256": "d78956efe5847cc0df4cff5eb3e13e119dc437cb1ae19a14951a4499edaf3f07",
+    "related": [
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "共同主题：AI-Coding、Agent-Harness"
+      },
+      {
+        "url": "/2026/09/15/codebase-context/",
+        "title": "Codebase Context：大仓库到底应该怎么被 Coding Agent 理解？",
+        "reason": "共同主题：AI-Coding、Coding-Agent"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始"
+      },
+      {
+        "url": "/2026/11/12/soramart-creative-coding/",
+        "title": "雨夜便利店 SoraMart：从三维场景到可玩的交互原型"
+      }
+    ]
+  },
+  "/2026/09/15/deterministic-agent-evaluation/": {
+    "source_sha256": "f6c4b7f2b4b8b5d73fe49c157858aeb44ae9a95d69d600621061453f53abdd73",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Reliability"
+      },
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Evaluation、Reliability"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？"
+      }
+    ]
+  },
+  "/2026/09/15/evaluation-overview/": {
+    "source_sha256": "7e8e769ce938687291630253610db6306a89cfc900893f4fbe095a7f15674737",
+    "related": [
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Reliability"
+      },
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Benchmark、Evaluation"
+      },
+      {
+        "url": "/2026/09/15/seven-dimension-agent-evaluation/",
+        "title": "七维评测：为什么 Agent 不能只看任务完成率？",
+        "reason": "共同主题：Benchmark、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/few-shot-retrieval/": {
+    "source_sha256": "fe07cf82791411730c084971f05d4048eabb666ff6dcb763470eda322d8fbab1",
+    "related": [
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：Planning、RAG"
+      },
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "共同主题：RAG、Retrieval"
+      },
+      {
+        "url": "/2026/09/15/rag-context-overview/",
+        "title": "总纲：Agent 的上下文为什么比 Prompt 更重要",
+        "reason": "共同主题：RAG、Retrieval"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/from-llm-to-agent/": {
+    "source_sha256": "f7487e357435bfffcceffe9e5685ab4547c2d676be1e4b2210b1682248b664aa",
+    "related": [
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/function-calling/",
+        "title": "Function Calling：模型到底是怎么学会调用工具的？",
+        "reason": "共同主题：Tool-Use"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/function-calling/": {
+    "source_sha256": "8aa11bf690d3dd34154b6cb1370c11084f39d45707478ba30a6213a50cf4e3ce",
+    "related": [
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：Function-Calling、Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/tool-schema-router/",
+        "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
+        "reason": "共同主题：Function-Calling、Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Tool-Use"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/guardrail-codecheck/": {
+    "source_sha256": "b0a1d1599e60d58124e0451b8f4b9b9bcb6b3edd6112868a5c58ea4e5b30dda6",
+    "related": [
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Reliability"
+      },
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Reliability"
+      },
+      {
+        "url": "/2026/09/15/deterministic-agent-evaluation/",
+        "title": "AST / Assertion：Agent 执行结果怎么做确定性比对？",
+        "reason": "共同主题：Reliability"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/gui-agent-badcase-loop/": {
+    "source_sha256": "3f2e335876c51b3641b9789f1fe9281abcf8c3f4c61627e2d9574da76419df8b",
+    "related": [
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "共同主题：Badcase、Evaluation"
+      },
+      {
+        "url": "/2026/09/15/gui-agent-function-tree/",
+        "title": "GUI 知识构建：从界面操作到可检索指令",
+        "reason": "共同主题：GUI-Agent、Retrieval"
+      },
+      {
+        "url": "/2026/09/15/agent-badcase-loop/",
+        "title": "Badcase 闭环：怎么把一次 Agent 失败变成下一版系统的能力？",
+        "reason": "共同主题：Badcase、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/gui-agent-function-tree/": {
+    "source_sha256": "18da2f5aa08d4d097f68642f924c88dd85bebdca188c1e1ba4f9d467d2b703fa",
+    "related": [
+      {
+        "url": "/2026/09/15/gui-agent-badcase-loop/",
+        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
+        "reason": "共同主题：GUI-Agent、Retrieval"
+      },
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：Retrieval"
+      },
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：Function-Calling"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/hybrid-search/": {
+    "source_sha256": "cfe664f01b1b40d658f78d4f7699432a53f22fa95b07aaf2097e262cd9fbc940",
+    "related": [
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/15/rag-basics/",
+        "title": "RAG 基础：Chunk、Embedding、Vector Search 到底怎么串起来？",
+        "reason": "共同主题：RAG、Vector-Search"
+      },
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：RAG"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？"
+      }
+    ]
+  },
+  "/2026/09/15/llm-as-judge/": {
+    "source_sha256": "769dcaa43d425206124894b6a91434a5b144b011b7c32913d9dfbc208b4abdb3",
+    "related": [
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Reliability"
+      },
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Evaluation、Reliability"
+      },
+      {
+        "url": "/2026/09/15/deterministic-agent-evaluation/",
+        "title": "AST / Assertion：Agent 执行结果怎么做确定性比对？",
+        "reason": "共同主题：Evaluation、Reliability"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/multi-agent-badcases/": {
+    "source_sha256": "521e45c1402bef59fbe2e7a6bf1ec8442b3f0e3392246bf1ff27a8433d73fcc9",
+    "related": [
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/agent-runtime-overview/",
+        "title": "总纲：为什么 Agent 需要 Runtime",
+        "reason": "共同主题：LangGraph、Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/multi-agent-shared-context/": {
+    "source_sha256": "7f6cc342260958a2a4d0b57e9f25ae348c50c8261f6cc5290af83e4a021b3761",
+    "related": [
+      {
+        "url": "/2026/09/15/workspace-context/",
+        "title": "Workspace Context：任务产物如何跨 Agent 传递？",
+        "reason": "共同主题：Context-Engineering、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Multi-Agent"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/offline-eval-vs-interactive-harness/": {
+    "source_sha256": "d97e416dd7fc4224b915edaa74c627729f5282d54cb09ea855e605313028fcd6",
+    "related": [
+      {
+        "url": "/2026/09/15/coding-agent-benchmark-loop/",
+        "title": "Benchmark 驱动 Coding Agent：怎么让系统持续迭代而不是靠感觉调 Prompt？",
+        "reason": "共同主题：AI-Coding、Benchmark"
+      },
+      {
+        "url": "/2026/09/15/coding-workflow/",
+        "title": "Coding Workflow：Spec → Design → Tasks → Code 为什么比直接写代码稳？",
+        "reason": "共同主题：AI-Coding、Agent-Harness"
+      },
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "共同主题：AI-Coding、Agent-Harness"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/permission-aware-rag/": {
+    "source_sha256": "9f4872c3ea8f9b7cffa989c326d3df3e448066e655c0f9421311bb3f988cf8ab",
+    "related": [
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/11/05/mcp-tool-trust-boundary/",
+        "title": "MCP 工具接进来之后，谁决定数据能不能发出去？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：RAG"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？"
+      },
+      {
+        "url": "/2026/11/05/mcp-tool-trust-boundary/",
+        "title": "MCP 工具接进来之后，谁决定数据能不能发出去？"
+      }
+    ]
+  },
+  "/2026/09/15/public-engineering-writing/": {
+    "source_sha256": "5189af99a1e18a490823b32e8eccab65eecfc954bbb6ce0a1298904d6ed13892",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-demo-to-system/",
+        "title": "总纲：怎么把一个 Agent Demo 做成可展示、可运行的系统？",
+        "reason": "共同主题：Portfolio"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "同一系列，继续补齐相关概念"
+      },
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
+        "reason": "同一系列，继续补齐相关概念"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/rag-badcase-debugging/": {
+    "source_sha256": "5d5049a9f9dd40fd2dbedbcf82b1e8d7dd29fc1a914e8cd4a46898e95ee925e1",
+    "related": [
+      {
+        "url": "/2026/09/15/hybrid-search/",
+        "title": "Hybrid Search：关键词、向量与 RRF 为什么要一起用？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/permission-aware-rag/",
+        "title": "权限 RAG：最小权限、元数据过滤与越权防护怎么做？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/gui-agent-badcase-loop/",
+        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
+        "reason": "共同主题：Badcase、Evaluation"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/rag-basics/": {
+    "source_sha256": "d4bc3ffa0917e0af00276cb373fe9990e5b47f8ac86afae13cedb9f467e50ade",
+    "related": [
+      {
+        "url": "/2026/09/15/hybrid-search/",
+        "title": "Hybrid Search：关键词、向量与 RRF 为什么要一起用？",
+        "reason": "共同主题：RAG、Vector-Search"
+      },
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：RAG"
+      },
+      {
+        "url": "/2026/09/13/context-engineering-workspace-codebase/",
+        "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
+        "reason": "共同主题：RAG"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/rag-context-overview/": {
+    "source_sha256": "ff7169c741b1bea929afe157a18a8ae153ba7562ad3c98ebaf0cc67494190255",
+    "related": [
+      {
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
+        "reason": "共同主题：RAG、Retrieval"
+      },
+      {
+        "url": "/2026/09/13/context-engineering-workspace-codebase/",
+        "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
+        "reason": "共同主题：Context-Engineering、RAG"
+      },
+      {
+        "url": "/2026/09/15/few-shot-retrieval/",
+        "title": "Few-shot Retrieval：怎么让历史轨迹真正帮助 Agent Planning？",
+        "reason": "共同主题：RAG、Retrieval"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/reprolab-agent-boundaries/": {
+    "source_sha256": "3476bc54ac5f8874e03bcb189f2e8f1deca98401502037eb338f9035317d2daa",
+    "related": [
+      {
+        "url": "/2026/09/15/reprolab-provenance/",
+        "title": "ReproLab：可信科研 Agent 的数据血缘为什么是核心？",
+        "reason": "共同主题：ReproLab"
+      },
+      {
+        "url": "/2026/09/15/structured-plan-executor/",
+        "title": "工程实践：为什么结构化 Plan + Executor 更适合可评测 Agent？",
+        "reason": "共同主题：Executor"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "同一系列，继续补齐相关概念"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/reprolab-provenance/": {
+    "source_sha256": "81e5c88e2f7d4e7711411431a10164343ef94d8c23356fdf095dba595ebf3c36",
+    "related": [
+      {
+        "url": "/2026/09/15/reprolab-agent-boundaries/",
+        "title": "ReproLab：Planner / Executor / Critic 的工程边界怎么划？",
+        "reason": "共同主题：ReproLab"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "同一系列，继续补齐相关概念"
+      },
+      {
+        "url": "/2026/09/15/agent-demo-to-system/",
+        "title": "总纲：怎么把一个 Agent Demo 做成可展示、可运行的系统？",
+        "reason": "同一系列，继续补齐相关概念"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/retry-rollback-replan/": {
+    "source_sha256": "b6baf68d0464b069618e1c0d055121ed49a847088839e7dfcf8cf3d6bd57ce51",
+    "related": [
+      {
+        "url": "/2026/11/05/agent-checkpoint-idempotency/",
+        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/supervisor-manager-agent/",
+        "title": "Supervisor 与 Manager Agent：任务到底应该怎么分发？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Workflow"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/supervisor-manager-agent/",
+        "title": "Supervisor 与 Manager Agent：任务到底应该怎么分发？"
+      },
+      {
+        "url": "/2026/11/05/agent-checkpoint-idempotency/",
+        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？"
+      }
+    ]
+  },
+  "/2026/09/15/script-validation/": {
+    "source_sha256": "e059ffa4e1d167fb95d001a67d213eb9795c8c6bce40ab305bb09564f22b394a",
+    "related": [
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "共同主题：AI-Coding、Validation"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding"
+      },
+      {
+        "url": "/2026/09/15/codebase-context/",
+        "title": "Codebase Context：大仓库到底应该怎么被 Coding Agent 理解？",
+        "reason": "共同主题：AI-Coding"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/seven-dimension-agent-evaluation/": {
+    "source_sha256": "b6d5939c8678675fbccc99285a4c65066c3dc7ea45d6955a5d76db4886c2636d",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "共同主题：Benchmark、Evaluation"
+      },
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Benchmark、Evaluation"
+      },
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Reliability"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/smart-home-sensor-data/": {
+    "source_sha256": "12f71bf5b5e9964dfb371305a4a32ccb5a5ce3047b1689b3b63b5c401ab49825",
+    "related": [
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "共同主题：Multi-Agent、Smart-Home"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Multi-Agent"
+      },
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "共同主题：Multi-Agent"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/structured-plan-executor/": {
+    "source_sha256": "92e2181e7bf93b60b85bee94a91e84e7519a1ce23961a403a657db22e83cdecf",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
+        "reason": "共同主题：Evaluation"
+      },
+      {
+        "url": "/2026/09/15/gui-agent-badcase-loop/",
+        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
+        "reason": "共同主题：Evaluation"
+      },
+      {
+        "url": "/2026/09/15/reprolab-agent-boundaries/",
+        "title": "ReproLab：Planner / Executor / Critic 的工程边界怎么划？",
+        "reason": "共同主题：Executor"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/supervisor-manager-agent/": {
+    "source_sha256": "16b6747c6f27a2aed1d5bb55a29f6f2b689c49f8a70106d26888b3e8d88969ff",
+    "related": [
+      {
+        "url": "/2026/09/15/retry-rollback-replan/",
+        "title": "Retry、Rollback 与 Replan：Agent 失败以后怎么继续？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Multi-Agent、Workflow"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/tool-schema-router/": {
+    "source_sha256": "18c5db37727c2a4d1240ea952f11cd69af0d32aea6e42c3b5ba38536174ca797",
+    "related": [
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：Function-Calling、MCP"
+      },
+      {
+        "url": "/2026/09/15/function-calling/",
+        "title": "Function Calling：模型到底是怎么学会调用工具的？",
+        "reason": "共同主题：Function-Calling、Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Tool-Use"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/09/15/workspace-context/": {
+    "source_sha256": "ac8a95bc0fba89ca1e0cea03bcfb04822aec2ca7c1623b5d6126e5e075cccb9b",
+    "related": [
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/multi-agent-shared-context/",
+        "title": "多 Agent 共享上下文：到底应该共享什么，不共享什么？",
+        "reason": "共同主题：Context-Engineering、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/10/coding-agent-harness/",
+        "title": "Coding Agent 到底比普通 Agent 多了什么？",
+        "reason": "共同主题：AI-Coding、Context-Engineering"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始"
+      }
+    ]
+  },
+  "/2026/11/01/agent-spec-change-lifecycle/": {
+    "source_sha256": "d103f612f16ee587fb701eac55d15ca8d542804957aaf06ddab2c6aba0fdb107",
+    "related": [
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/workspace-context/",
+        "title": "Workspace Context：任务产物如何跨 Agent 传递？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/coding-workflow/",
+        "title": "Coding Workflow：Spec → Design → Tasks → Code 为什么比直接写代码稳？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/workspace-context/",
+        "title": "Workspace Context：任务产物如何跨 Agent 传递？"
+      },
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环"
+      }
+    ]
+  },
+  "/2026/11/01/reliable-development-agent-harness/": {
+    "source_sha256": "6fea785cb5425a077eed5228ce6c371d8c9c21b4725a9f331a22d45ab4d2d8cf",
+    "related": [
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/codebase-context/",
+        "title": "Codebase Context：大仓库到底应该怎么被 Coding Agent 理解？",
+        "reason": "这篇文章引用了本文"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/agent-harness-closed-loop/",
+        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？"
+      },
+      {
+        "url": "/2026/09/15/codebase-context/",
+        "title": "Codebase Context：大仓库到底应该怎么被 Coding Agent 理解？"
+      },
+      {
+        "url": "/2026/11/01/agent-spec-change-lifecycle/",
+        "title": "增量规格与全量知识：让 Agent 的下一次任务从正确事实开始"
+      },
+      {
+        "url": "/2026/11/05/agent-checkpoint-idempotency/",
+        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？"
+      },
+      {
+        "url": "/2026/11/05/agent-replay-reading-notes/",
+        "title": "Agent Harness 学习心得：失败重放能验证什么？"
+      }
+    ]
+  },
+  "/2026/11/05/agent-checkpoint-idempotency/": {
+    "source_sha256": "eef8832441531d788c1b36d5a9a35fb8f67ee2275ee2aa231c33c469f9fb1248",
+    "related": [
+      {
+        "url": "/2026/09/15/retry-rollback-replan/",
+        "title": "Retry、Rollback 与 Replan：Agent 失败以后怎么继续？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Workflow"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/retry-rollback-replan/",
+        "title": "Retry、Rollback 与 Replan：Agent 失败以后怎么继续？"
+      }
+    ]
+  },
+  "/2026/11/05/agent-replay-reading-notes/": {
+    "source_sha256": "b0c0c7483880e4f1e91806ec72a23fe6e3a18eeef7105e66609fa7c035d527f1",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/11/01/reliable-development-agent-harness/",
+        "title": "研发 Agent Harness：规范、上下文与验证闭环",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Tracing"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/agent-benchmark/",
+        "title": "Agent Benchmark：怎么设计真正能回归的任务集？"
+      }
+    ]
+  },
+  "/2026/11/05/mcp-tool-trust-boundary/": {
+    "source_sha256": "089bdf3f695657e5c9130d7824f79bc4e63abdf24d0a6b91dd758e3a342279b5",
+    "related": [
+      {
+        "url": "/2026/09/15/agent-safety-hitl/",
+        "title": "Agent 的权限、安全与 Human-in-the-loop 应该怎么设计？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/permission-aware-rag/",
+        "title": "权限 RAG：最小权限、元数据过滤与越权防护怎么做？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/coding-agent-permissions/",
+        "title": "Coding Agent 的工具权限：为什么最小权限比强 Prompt 更重要？",
+        "reason": "共同主题：Permissions、Security"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/11/05/vllm-serving-notes/": {
+    "source_sha256": "7d91726edb4922b36e0ddd101c3bbac61e6ef1e605f8632f3e50fba6977236df",
+    "related": [
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/11/12/soramart-creative-coding/": {
+    "source_sha256": "aa8608477058fae98dd78d2685f43a489518860ea36fd3d4e4303f03c1609088",
+    "related": [
+      {
+        "url": "/2026/09/15/coding-workflow/",
+        "title": "Coding Workflow：Spec → Design → Tasks → Code 为什么比直接写代码稳？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": []
+  }
+}

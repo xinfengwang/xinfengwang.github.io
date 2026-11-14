@@ -24,6 +24,7 @@ layout: default
 
   <p class="reader-series-progress" data-series-progress="{{ s.id }}"></p>
   <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
+  <p class="series-review-link"><a href="{{ '/series/' | append: s.id | append: '/recap/' | relative_url }}">系列复盘与自测：用一个场景检验理解 →</a></p>
   <section class="series-overview-copy">
     {{ content }}
   </section>

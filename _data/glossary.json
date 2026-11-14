@@ -1,0 +1,14 @@
+[
+  {"id":"idempotency","aliases":["幂等性","幂等"],"definition":"同一个逻辑动作重复执行，仍产生一次预期效果。写操作需要由服务端去重、幂等键或状态核对来落实，单靠重试次数不能保证。","url":"/2026/11/05/agent-checkpoint-idempotency/"},
+  {"id":"checkpoint","aliases":["Checkpoint","检查点"],"definition":"保存可恢复的任务状态与进度。恢复检查点能接续流程，但不等于外部副作用会自动回滚或去重。","url":"/2026/11/05/agent-checkpoint-idempotency/"},
+  {"id":"rrf","aliases":["RRF"],"definition":"Reciprocal Rank Fusion，按候选在各检索列表中的排名融合结果，避免直接相加不同量纲的检索分数。","url":"/2026/09/15/hybrid-search/"},
+  {"id":"harness","aliases":["Agent Harness","Harness"],"definition":"围绕模型组织上下文、工具执行、状态、约束和验收的运行与交付框架，用程序维护任务边界和完成条件。","url":"/2026/11/01/reliable-development-agent-harness/"},
+  {"id":"trace","aliases":["Tracing","Trace"],"definition":"记录一次任务经过的模型、上下文、工具、状态和验证事件，帮助定位首个偏离预期的环节。","url":"/2026/09/11/agent-tracing/"},
+  {"id":"rag","aliases":["RAG"],"definition":"检索增强生成：先从外部资料检索相关证据，再把证据交给模型使用。检索到资料不等于生成结果一定正确。","url":"/2026/09/15/rag-basics/"},
+  {"id":"rerank","aliases":["Rerank","重排"],"definition":"在初步召回的候选中重新判断相关性并排序。它只能重排已有候选，无法补回召回阶段完全漏掉的资料。","url":"/2026/09/15/hybrid-search/"},
+  {"id":"mcp","aliases":["MCP"],"definition":"Model Context Protocol，用统一协议连接应用与工具、资源等能力。协议连接成功仍需要调用方检查权限和数据边界。","url":"/2026/09/14/mcp-and-function-calling/"},
+  {"id":"tool-call","aliases":["Function Calling","Tool Call"],"definition":"模型提出工具名称与结构化参数，由外部运行时校验并实际执行。模型提出调用不意味着调用已经成功。","url":"/2026/09/15/function-calling/"},
+  {"id":"guardrail","aliases":["Guardrail"],"definition":"在输入、工具调用或输出路径中执行的限制与检查，用于拦截不满足条件的行为或结果；需结合具体失效模式验证。","url":"/2026/09/15/guardrail-codecheck/"},
+  {"id":"benchmark","aliases":["Benchmark"],"definition":"按照固定任务、成功标准和运行条件比较系统表现的评测集合与流程。测试集、分母和版本需要保持可追溯。","url":"/2026/09/15/agent-benchmark/"},
+  {"id":"provenance","aliases":["Provenance","数据血缘"],"definition":"记录输入数据、执行代码、环境、产物与结论之间的来源关系，支持回溯与重跑；有来源记录仍不等于结论正确。","url":"/2026/09/15/reprolab-provenance/"}
+]

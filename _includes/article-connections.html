@@ -1,0 +1,12 @@
+{% assign connection = site.data.connections[page.url] %}
+{% if connection %}
+<section class="article-connections" aria-labelledby="related-heading">
+  {% if connection.backlinks.size > 0 %}
+  <h2>哪些文章引用了本文</h2><ul class="backlink-list">{% for item in connection.backlinks %}<li><a href="{{ item.url | relative_url }}">{{ item.title | escape }} ↗</a></li>{% endfor %}</ul>
+  {% endif %}
+  {% if connection.related.size > 0 %}
+  <h2 id="related-heading">沿着这个问题继续读</h2><div class="related-reading-grid">{% for item in connection.related %}<a href="{{ item.url | relative_url }}"><span>{{ item.reason | escape }}</span><strong>{{ item.title | escape }}</strong><small>继续阅读 →</small></a>{% endfor %}</div>
+  {% endif %}
+</section>
+{% endif %}
+{% if structured_series %}<aside class="series-review-link"><strong>读完这个系列，检验一下理解</strong><a href="{{ '/series/' | append: structured_series.id | append: '/recap/' | relative_url }}">{{ structured_series.short_title }} · 复盘与自测 →</a></aside>{% endif %}

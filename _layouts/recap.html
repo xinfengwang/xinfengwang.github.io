@@ -1,0 +1,15 @@
+---
+layout: default
+---
+{% assign review = site.data.series_reviews[page.series_key] %}
+<div class="narrow-page recap-page">
+  <p class="eyebrow">RECAP / CHECK YOUR UNDERSTANDING</p><h1>{{ page.title | escape }}</h1>
+  <p class="lead">用一个场景和一个动手任务，检验是否能把概念变成工程判断。</p>
+  <a class="text-link" href="{{ '/series/' | append: page.series_key | append: '/' | relative_url }}">← 返回系列目录</a>
+  <h2>先串起三件事</h2><ol>{% for item in review.takeaways %}<li>{{ item | escape }}</li>{% endfor %}</ol>
+  <h2>容易混淆的地方</h2><ul>{% for item in review.mistakes %}<li>{{ item | escape }}</li>{% endfor %}</ul>
+  <section class="review-scenario"><h2>场景自测</h2><p>{{ review.scenario | escape }}</p><p class="muted">先写出你的判断，再展开参考思路。</p><details><summary>查看参考思路</summary><ol>{% for item in review.answer %}<li>{{ item | escape }}</li>{% endfor %}</ol></details></section>
+  <h2>动手做一件事</h2><p>{{ review.exercise | escape }}</p><p><strong>验收标准：</strong>{{ review.acceptance | escape }}</p>
+  <h2>回到原文核对</h2><ul>{% for item in review.sources %}<li><a href="{{ item.url | relative_url }}">{{ item.title | escape }} →</a></li>{% endfor %}</ul>
+  <p class="muted">这是基于本系列设计的练习与参考思路，不是项目实测结果。开放题可有不同方案，关键是说明适用条件与验证依据。</p>
+</div>

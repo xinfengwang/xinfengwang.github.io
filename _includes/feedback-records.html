@@ -1,0 +1,7 @@
+<details class="feedback-records" data-feedback-path="{{ page.url | relative_url }}">
+  <summary>反馈与修订记录</summary>
+  <p>查看关联本文的 GitHub Issue。关闭表示讨论已关闭，只有明确标注修复的反馈才显示为“已修订”。</p>
+  <button type="button" class="button" id="feedback-refresh">加载最新反馈</button>
+  <a class="text-link" href="https://github.com/xinfengwang/xinfengwang.github.io/issues?q={{ page.url | prepend: 'is:issue ' | uri_escape }}" target="_blank" rel="noreferrer">到 GitHub 查看 ↗</a>
+  <p id="feedback-record-status" role="status">点击加载后查看公开反馈；未加载时不表示没有反馈。</p><ul id="feedback-record-list"></ul>
+</details>

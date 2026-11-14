@@ -160,7 +160,10 @@
     }
     document.querySelectorAll('[data-library-filter]').forEach(button => button.addEventListener('click',()=>{
       selected = button.dataset.libraryFilter;
-      document.querySelectorAll('[data-library-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button))); render();
+      list.hidden=selected==='excerpts';
+      document.getElementById('excerpt-items')?.toggleAttribute('hidden',selected!=='excerpts');
+      document.querySelectorAll('[data-library-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+      if(selected==='excerpts'){document.dispatchEvent(new CustomEvent('blog:library-excerpts'));}else render();
     }));
     document.getElementById('library-export').addEventListener('click',()=>{
       const lines = ['# 我的博客阅读清单','', '导出的清单用于留存链接，不会自动恢复浏览器阅读记录。',''];
@@ -168,6 +171,7 @@
         const title = byPath.get(path).title.replace(/[\[\]\\]/g,'\\$&');
         lines.push(`- [${r.read ? 'x' : ' '}] [${title}](${new URL(path,location.origin).href})${r.saved ? ' · 收藏' : ''} · 读至 ${Math.round(r.percent)}%`);
       }
+      document.dispatchEvent(new CustomEvent('blog:export-excerpts',{detail:{lines}}));
       const url = URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/markdown;charset=utf-8'}));
       const a = document.createElement('a'); a.href=url; a.download='wx-reading-list.md'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
     });

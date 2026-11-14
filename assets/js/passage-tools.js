@@ -106,7 +106,7 @@
     const range = selection.getRangeAt(0);
     if (!body.contains(range.startContainer) || !body.contains(range.endContainer)) { toolbar.hidden = true; return; }
     const start = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
-    if (start.closest('button,.passage-block-controls')) { toolbar.hidden=true; return; }
+    if (start.closest('button:not(.glossary-term),.passage-block-controls')) { toolbar.hidden=true; return; }
     const block = start.closest('p,li,pre,table,blockquote,h2,h3');
     const quote = selection.toString().trim();
     if (!block || quote.length < 2) { toolbar.hidden=true; return; }
@@ -116,6 +116,11 @@
   toolbar.addEventListener('pointerdown',event=>{ if(event.pointerType !== 'touch') event.preventDefault(); });
   toolbar.querySelectorAll('[data-passage-action]').forEach(button=>button.addEventListener('click',async()=>{
     if (!selectionContext) return;
+    if (button.dataset.passageAction === 'save') {
+      const detail={...selectionContext,url:canonical.href,title};
+      document.dispatchEvent(new CustomEvent('blog:save-excerpt',{detail}));
+      const old=button.textContent;button.textContent=detail.saved ? '已加入书架' : '无法保存';setTimeout(()=>button.textContent=old,1500);return;
+    }
     if (button.dataset.passageAction === 'copy') { await copy(selectionContext.copyText,button); return; }
     open(button.dataset.passageAction,selectionContext,button);
   }));

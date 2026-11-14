@@ -31,6 +31,7 @@ nav:
     url: /about/
 
 exclude:
+  - scripts
   - README.md
   - preview.html
   - xinfeng-blog.zip
