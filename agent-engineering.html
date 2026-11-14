@@ -1,0 +1,76 @@
+---
+layout: default
+title: һҳ���� AI Agent ����
+description: �ӹ��ߵ��á������������ġ��滮�͹���������״̬�ָ��������֤�ͻع����⣬����Ŀ�������� AI Agent ���̵Ĺؼ����⡣
+permalink: /agent-engineering/
+---
+<div class="narrow-page knowledge-page">
+  <p class="eyebrow">AGENT ENGINEERING / ֪ʶ����</p>
+  <h1>һҳ���� AI Agent ����</h1>
+  <p class="lead">�ӡ�ģ���������һ��������ϵͳ�����һ�����񡱣��м���Ҫ��Щ������������ҳ��������Ŀ��ʵϰ�����������⣬����һ���������ߡ�</p>
+  <div class="knowledge-overview"><p><strong>Ŀ�������� �� ��ȡ������ �� �滮�빤�ߵ��� �� ִ�в�����״̬ �� ��֤��� �� ��ʧ�������Ľ�</strong></p><p>����һ���Ķ���ܣ������ڿ��Է�������������ϵͳ���ܲ��ù̶���������Ҳ������ģ�Ͷ�̬������һ����</p></div>
+  <p>���������ţ����Դ�ͷ���������������Ŀ������ֱ�Ӽ�������������⡣��ܵļ�ֵ���ڰ�ÿ�������Ӧ��������������֤��ʽ��</p>
+
+  <section id="tools">
+    <h2>1. ģ��������ú�˭��������ִ�У�</h2>
+    <p><strong>Function Calling</strong> ��ģ�Ͱ�Լ���Ĺ�������������������������Ӧ�ó�����Ҫ�������󡢼�������Ȩ�ޡ�ִ�й��ߣ��ٰѽ�����ظ�ģ�͡���������Ӧ˵�����ó��������������ʧ��״̬�������ģ������Ȼ������ͼֱ�ӽ����ײ�ӿڡ�</p>
+    <p><strong>MCP</strong> �ṩӦ�����ⲿ���񽻻����ߡ���Դ��������Э��ӿڡ�����Э��֮��Ӧ���������������Щ�����������������ؽ�����Լ���ʱ����ִ�С�MCP �ļܹ���λ��<a href="https://modelcontextprotocol.io/docs/learn/architecture" target="_blank" rel="noreferrer">�ٷ��ܹ��ĵ� �J</a>��</p>
+    <p><strong>��Ŀ����ô��飺</strong>�����豸���ߡ�����Խ���ӿڳ�ʱ�����ò�Ӧ���ؿ��жϵ�״̬��ģ�����������ɡ�֮ǰ����Ӧ��ʵ��ִ�����ݡ�</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/09/15/function-calling/' | relative_url }}">Function Calling</a> �� <a href="{{ '/2026/09/14/mcp-and-function-calling/' | relative_url }}">MCP �빤�ߵ���</a></p>
+  </section>
+
+  <section id="context">
+    <h2>2. ��ǰ��һ����ģ����Ҫ֪��ʲô��</h2>
+    <p><strong>RAG</strong> ��Ҫ�����������ȡ�����֤�ݵ����⡣��������ܷ�֧�ֵ�ǰ���񣬻�ȡ�����ĵ��������з֡����ˡ������������������װ����ϼ������Խ�Ϲؼ���ƥ�����������ƶȣ�RRF �������ں϶�·��ѡ���Ƿ���Ч��Ҫ�ŵ��̶���ѯ���ϱȽϡ�</p>
+    <p>���ҵĹ��������У�<strong>�����Ĺ���</strong>����������Ŀ�ꡢ����˵������ǰ״̬�������Լ�����Ѳ�����֤�ݡ�ÿһ��Ӧ��ȡ����Դ������Ȩ������������ص���Ϣ�����ڼ��仹��Ҫ����ʱЧ�����÷�Χ�͸��·�ʽ��</p>
+    <p><strong>������</strong>GUI ֪ʶ��ѽڵ㡢����������·��һ�𱣴棬���ⲻͬҳ���ϵġ����ӡ�������ͬһ���ܡ�����ʧ��ʱ�������ء���� �� �ٻ� �� ���� �� ��װ �� ���ɡ�׷��Ԥ��֤���״ζ�ʧ��λ�á�</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/09/15/gui-agent-function-tree/' | relative_url }}">GUI ֪ʶ����</a> �� <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">RAG ʧ���Ų�</a> �� <a href="{{ '/series/rag-context/' | relative_url }}">������������ϵ��</a></p>
+  </section>
+
+  <section id="planning">
+    <h2>3. ��Щ�����ɳ���ȷ������Щ����ģ���жϣ�</h2>
+    <p>������ȷʱ�������ó���Ԥ���岽�����֧��·������������м���ʱ��������ģ�Ͷ�̬�滮��Anthropic ��<a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noreferrer">�������� �J</a>������·������ Workflow �� Agent�����������������ļ򵥷�����ʼ���ٸ�������������Ӹ��Ӷȡ�</p>
+    <p><strong>Planner + Executor</strong> ��������ƻ����͡�ִ�мƻ����ֿ����ṹ���ƻ��ʺϱ��ﶯ����������ǰ��������Ԥ�㣬ִ�������𰴽ӿ�Լ�����ȹ��ߡ�<strong>Multi-Agent</strong> ���һ������ְ��������ģ���Ҳ���ӽ��ӡ�ͨ�ź�״̬ͬ���ĳɱ���</p>
+    <p><strong>������</strong>���ܼҾӲֿ��� LangGraph ������׶ν����������ռ��״̬��У���������Դ���ѡ�����·�����ж�����Ƿ������Ҫ���ֹ��Ƿ������ʧ����η��أ��Լ��������ʱ����Щ�������ݡ�</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/09/15/structured-plan-executor/' | relative_url }}">�ṹ���ƻ���ִ����</a> �� <a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">���ܼҾӹ�����</a> �� <a href="{{ '/series/workflow-multi-agent/' | relative_url }}">��������� Agent ϵ��</a></p>
+  </section>
+
+  <section id="state">
+    <h2>4. �����жϺ�ϵͳ֪���Ѿ�����ʲô��</h2>
+    <p><strong>State</strong> ������ǰ�����Ŀ�ꡢ���衢���ʧ�ܺ�Ԥ�㡣<strong>Checkpoint</strong> ��������״̬�������ָ�ִ�С�LangGraph ��<a href="https://docs.langchain.com/oss/python/langgraph/persistence" target="_blank" rel="noreferrer">�־û��ĵ� �J</a>�������߳���״̬��������̳߳־����ݣ����Ǹ��Է���ͬ�ļ��䷶Χ��</p>
+    <p>�ָ�ִ�л���Ҫ�˶��ⲿ��������������Ѿ�д��ɹ���ֻ�ǻ�ִû���յ�����ʱֱ�����Կ����ظ���������������Ҫ���Ŀ����������������ȶ��Ĳ�����š������ִ��Ŀ��汾�����ֳɹ���ʧ�ܺͽ��δ֪��</p>
+    <p><strong>��Ŀ����ô��飺</strong>�ڲ��Է���д��ɹ���ģ���ִ��ʧ���ٻָ�ͬһ���񡣹۲��ⲿ״̬��������ִ�ͱ�����ɼ�¼�Ƿ�һ�£��޷�ȷ�Ͻ��ʱ��Ӧ����δ֪״̬�������˺˶ԡ�</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">�������ݵ�</a> �� <a href="{{ '/2026/09/15/retry-rollback-replan/' | relative_url }}">���ԡ��ع����ع滮</a></p>
+  </section>
+
+  <section id="verification">
+    <h2>5. ��ʲô֤���жϽ���Ѿ���ɣ�</h2>
+    <p>��������Ӧ�����䵽�ɹ۲�Ľ�����ļ��Ƿ����ɡ������Ƿ���¡������Ƿ�ͨ�����ԡ��豸�Ƿ�ﵽԤ��״̬���ܹ�ȷ���жϵ����������ó�����ԣ������Եı����������Ը���ʹ��ģ�����󣬲�������ȷ���Ժ��˹�������ڡ�</p>
+    <p><strong>������</strong>ReproLab �� Dataset �� Run �� Artifact �� Claim ��¼���롢ִ�С��ɹ�����ۡ��ֿ��е�<a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">��ϣʵ�� �J</a>�Ѵ��롢����ͻ�����ͬ����ִ�����ݣ�<a href="https://github.com/telawang91-dotcom/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">����ģ�� �J</a>�˶Ի��������ܴ��벢�Ƚϲ��������λ����仯��</p>
+    <p><strong>��Ŀ����ô��飺</strong>Ϊÿ���ؼ������ҳ���Ӧ���롢ִ�м�¼�����ս�����Ķ���������ݺ�ȷ�Ͼ���֤�Ƿ���Ȼ���á�</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}">ReproLab ����ѪԵ</a> �� <a href="{{ '/2026/09/15/deterministic-agent-evaluation/' | relative_url }}">ȷ���Խ���ȶ�</a></p>
+  </section>
+
+  <section id="evaluation">
+    <h2>6. һ��ʧ�ܣ����������һ�θĽ������ݣ�</h2>
+    <p><strong>Trace</strong> ����һ������������ġ��ƻ������߲�����ִ�н����״̬�仯����������֪ʶ���滮�����ߺ���֤���⡣<strong>Benchmark</strong> ���������������������̶����������ڱȽϰ汾��<strong>Badcase</strong> ������Ҫ���֡���λ������ع�ľ���ʧ��������</p>
+    <p>ָ����Ҫ��ȷͳ�ƶ���Top5 ·�������ʺ�����ѡ�����Ƿ����Ŀ��·�����˵�������ʺ������������Ƿ���������������֪ʶ�����Ӧ�á��ڵ��ָ�������������ǹ�ģ��Ӧ��ִ��Ч���ֱ���֡��ȽϷ���ʱ����Ӧͬʱ�۲�ɱ����ӳٺ��˹����롣</p>
+    <p><strong>��Ŀ����ô��飺</strong>�̶�һ�������������������¼ģ�͡���ʾ�ʡ����������汾��ÿ��ֻΧ�ƿɹ���ĸĶ��ȽϽ����������δ������ŵ������鷺����</p>
+    <p class="knowledge-links">�����Ķ���<a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">ʧ�ֲܷ��� Trace</a> �� <a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">��ƻع�����</a> �� <a href="{{ '/series/evaluation-reliability/' | relative_url }}">������ɿ���ϵ��</a></p>
+  </section>
+
+  <section id="glossary">
+    <h2>�Ѽ�����������Żع���λ��</h2>
+    <dl class="glossary">
+      <dt>Agent</dt><dd>Χ��Ŀ���ȡ������ѡ�������ƽ������ϵͳ��ģ�Ͳ�����ߣ�Ӧ�ø���״̬��ִ����Լ����</dd>
+      <dt>Harness / Runtime</dt><dd>���� Agent ִ�е���Χ���ơ���������ָ�����߽��롢�����ġ�����״̬��Ԥ�㡢�ָ�����֤����������ͬ��Ŀ�ķ�Χ���в��졣</dd>
+      <dt>Guardrail / Validator</dt><dd>�����롢��������ʵʩԼ���ͼ�顣���ʱҪ��ȷ����������λ�ã��Լ�ʧ�ܺ���˭������</dd>
+      <dt>Memory / Context</dt><dd>�����ṩ�ɿ粽��������������Ϣ���������ǵ�ǰģ�͵���ʵ�ʻ�õ���Ϣ���������Ϣ���辭��ѡ��Ȩ����ʱЧ���������ڱ�������</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>���Լ�����Ŀ��ʼ����</h2>
+    <p>ѡһ������д��Ŀ��������������������Ϣ���ƻ������ߺ�״̬�������ټ���һ��ʧ�ܡ����ÿһ���������������������˭ִ�С������˭ȷ�ϣ��Լ��жϺ�����������</p>
+    <p><a href="{{ '/projects/' | relative_url }}">�����ҵĹ�����Ŀ ��</a> �� <a href="{{ '/learning-map/' | relative_url }}">��ѧϰ·�߼��� ��</a> �� <a href="{{ '/about/#capabilities' | relative_url }}">�˽��ҵĹ���ʵ�� ��</a></p>
+  </section>
+</div>

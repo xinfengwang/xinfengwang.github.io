@@ -1,7 +1,7 @@
 ---
 layout: default
-title: AI Agent 工程学习地图
-description: 从工具调用、RAG 和 Agent 编排，到评测、Coding Agent 与项目复盘。按学习目标选择路线，直接阅读系列总纲与章节。
+title: AI Agent ����ѧϰ��ͼ
+description: �ӹ��ߵ��á�RAG �� Agent ���ţ������⡢Coding Agent ����Ŀ���̡���ѧϰĿ��ѡ��·�ߣ�ֱ���Ķ�ϵ���ܸ����½ڡ�
 permalink: /learning-map/
 ---
 {% assign series = site.data.series %}
@@ -15,45 +15,46 @@ permalink: /learning-map/
 <div class="wide-page roadmap">
   <header class="roadmap-hero">
     <p class="eyebrow">LEARNING MAP / AI AGENT ENGINEERING</p>
-    <h1>AI Agent 工程学习地图</h1>
-    <p class="roadmap-intro">从第一次工具调用，到能追踪、验证和恢复的 Agent 系统。初学可以从基础读起，手上有项目也可以按当前卡点直达对应章节。</p>
+    <h1>AI Agent ����ѧϰ��ͼ</h1>
+    <p class="roadmap-intro">�ӵ�һ�ι��ߵ��ã�����׷�١���֤�ͻָ��� Agent ϵͳ����ѧ���Դӻ���������������ĿҲ���԰���ǰ����ֱ���Ӧ�½ڡ�</p>
+    <p class="roadmap-hint">���ﻹû���������ȶ�<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">һҳ Agent ���̸���</a>���ٰ�·�����롣</p>
     <div class="roadmap-actions">
-      <a class="button primary" href="#reading-paths">选择学习路线 ↓</a>
-      <a class="button" href="#series-map">查看全部系列 ↓</a>
+      <a class="button primary" href="#reading-paths">ѡ��ѧϰ·�� ��</a>
+      <a class="button" href="#series-map">�鿴ȫ��ϵ�� ��</a>
     </div>
-    <p class="roadmap-stats">{{ series.size }} 个系列 <span aria-hidden="true">·</span> {{ total_featured }} 篇主线文章</p>
+    <p class="roadmap-stats">{{ series.size }} ��ϵ�� <span aria-hidden="true">��</span> {{ total_featured }} ƪ��������</p>
   </header>
 
   <section id="reading-paths" class="roadmap-section" aria-labelledby="paths-title">
     <p class="eyebrow">01 / START HERE</p>
-    <h2 id="paths-title">按目标选一条路线</h2>
-    <p class="roadmap-hint">每一步直达文章。第一次来，选一条符合当前目标的路线，从第一篇开始。</p>
+    <h2 id="paths-title">��Ŀ��ѡһ��·��</h2>
+    <p class="roadmap-hint">ÿһ��ֱ�����¡���һ������ѡһ�����ϵ�ǰĿ���·�ߣ��ӵ�һƪ��ʼ��</p>
     <div class="roadmap-paths">
       <article>
-        <h3>做出第一个 Agent</h3>
-        <p>适合会调用模型 API、想做出一个能查资料和调用工具的小项目的读者。</p>
+        <h3>������һ�� Agent</h3>
+        <p>�ʺϻ����ģ�� API��������һ���ܲ����Ϻ͵��ù��ߵ�С��Ŀ�Ķ��ߡ�</p>
         <ol>
-          <li><a href="{{ '/2026/09/15/agent-foundations-overview/' | relative_url }}">理解工具调用与权限</a></li>
-          <li><a href="{{ '/2026/09/15/rag-context-overview/' | relative_url }}">接入检索与上下文</a></li>
-          <li><a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">把步骤组织成工作流</a></li>
+          <li><a href="{{ '/2026/09/15/agent-foundations-overview/' | relative_url }}">���⹤�ߵ�����Ȩ��</a></li>
+          <li><a href="{{ '/2026/09/15/rag-context-overview/' | relative_url }}">���������������</a></li>
+          <li><a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">�Ѳ�����֯�ɹ�����</a></li>
         </ol>
       </article>
       <article>
-        <h3>让现有 Demo 更可靠</h3>
-        <p>适合已经跑通原型，正在处理失败恢复、错误定位和回归评测的读者。</p>
+        <h3>������ Demo ���ɿ�</h3>
+        <p>�ʺ��Ѿ���ͨԭ�ͣ����ڴ���ʧ�ָܻ�������λ�ͻع�����Ķ��ߡ�</p>
         <ol>
-          <li><a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">记录状态与恢复路径</a></li>
-          <li><a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">用 Trace 和评测定位问题</a></li>
-          <li><a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">对照项目原型检查设计</a></li>
+          <li><a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">��¼״̬��ָ�·��</a></li>
+          <li><a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">�� Trace �����ⶨλ����</a></li>
+          <li><a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">������Ŀԭ�ͼ�����</a></li>
         </ol>
       </article>
       <article>
-        <h3>构建 Coding Agent</h3>
-        <p>适合关注代码库上下文、工具权限和自动验证，想跑通一次代码交付的读者。</p>
+        <h3>���� Coding Agent</h3>
+        <p>�ʺϹ�ע����������ġ�����Ȩ�޺��Զ���֤������ͨһ�δ��뽻���Ķ��ߡ�</p>
         <ol>
-          <li><a href="{{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }}">串起规格、代码修改与验证</a></li>
-          <li><a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">建立可重复运行的评测</a></li>
-          <li><a href="{{ '/2026/09/15/reprolab-agent-boundaries/' | relative_url }}">看 ReproLab 如何划分规划、执行和验证</a></li>
+          <li><a href="{{ '/2026/11/01/reliable-development-agent-harness/' | relative_url }}">�����񡢴����޸�����֤</a></li>
+          <li><a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">�������ظ����е�����</a></li>
+          <li><a href="{{ '/2026/09/15/reprolab-agent-boundaries/' | relative_url }}">�� ReproLab ��λ��ֹ滮��ִ�к���֤</a></li>
         </ol>
       </article>
     </div>
@@ -61,9 +62,9 @@ permalink: /learning-map/
 
   <section id="series-map" class="roadmap-section" aria-labelledby="series-title">
     <p class="eyebrow">02 / SERIES INDEX</p>
-    <h2 id="series-title">从基础到项目实战</h2>
-    <p class="roadmap-hint">每个系列只推荐几篇主线文章。术语、实现细节和延伸阅读放在各自的系列页。</p>
-    <nav class="roadmap-jump" aria-label="系列导航">
+    <h2 id="series-title">�ӻ�������Ŀʵս</h2>
+    <p class="roadmap-hint">ÿ��ϵ��ֻ�Ƽ���ƪ�������¡����ʵ��ϸ�ں������Ķ����ڸ��Ե�ϵ��ҳ��</p>
+    <nav class="roadmap-jump" aria-label="ϵ�е���">
       {% for item in series %}
         <a href="#{{ item.id }}">{{ item.accent }} {{ item.short_title | escape }}</a>
       {% endfor %}
@@ -77,16 +78,16 @@ permalink: /learning-map/
       <article class="roadmap-series" id="{{ item.id }}">
         <span class="roadmap-number" aria-hidden="true">{{ item.accent }}</span>
         <div>
-          <p class="roadmap-meta">{{ item.category | escape }} <span aria-hidden="true">·</span> {{ featured.size }} 篇主线</p>
+          <p class="roadmap-meta">{{ item.category | escape }} <span aria-hidden="true">��</span> {{ featured.size }} ƪ����</p>
           <h3>{{ item.title | escape }}</h3>
           <p>{{ item.description | escape }}</p>
-          <p class="roadmap-check"><strong>读完试着回答</strong> {{ item.roadmap_check | escape }}</p>
+          <p class="roadmap-check"><strong>�������Żش�</strong> {{ item.roadmap_check | escape }}</p>
           <div class="roadmap-actions">
-            {% if overview %}<a class="text-link" href="{{ overview.url | relative_url }}">阅读总纲 →</a>{% endif %}
-            <a href="{{ series_url | relative_url }}">系列页与补充笔记 →</a>
+            {% if overview %}<a class="text-link" href="{{ overview.url | relative_url }}">�Ķ��ܸ� ��</a>{% endif %}
+            <a href="{{ series_url | relative_url }}">ϵ��ҳ�벹��ʼ� ��</a>
           </div>
           <details>
-            <summary>查看主线文章</summary>
+            <summary>�鿴��������</summary>
             <ul class="roadmap-chapters">
               {% for chapter in featured %}
                 <li><a href="{{ chapter.url | relative_url }}"><span aria-hidden="true">{{ chapter.no }}</span>{{ chapter.title | escape }}</a></li>
@@ -98,21 +99,21 @@ permalink: /learning-map/
     {% endfor %}
   </section>
 
-  <aside class="roadmap-note" aria-label="创意编程延伸阅读">
-    <strong>独立方向 · 三维交互与创意编程</strong>
-    <p>SoraMart 是浏览器交互作品，可作为场景设计与产品体验案例单独阅读。</p>
-    <a class="text-link" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">阅读雨夜便利店项目拆解 →</a>
+  <aside class="roadmap-note" aria-label="�����������Ķ�">
+    <strong>�������� �� ��ά�����봴����</strong>
+    <p>SoraMart �������������Ʒ������Ϊ����������Ʒ���鰸�������Ķ���</p>
+    <a class="text-link" href="{{ '/2026/11/12/soramart-creative-coding/' | relative_url }}">�Ķ���ҹ��������Ŀ��� ��</a>
   </aside>
 
-  <aside class="roadmap-note" aria-label="模型推理服务延伸阅读">
-    <strong>延伸阅读 · 模型推理服务</strong>
-    <p>如果 Agent 慢在模型调用，先从 KV Cache、请求调度和首 token 延迟入手。</p>
-    <a class="text-link" href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">vLLM 学习笔记 →</a>
+  <aside class="roadmap-note" aria-label="ģ���������������Ķ�">
+    <strong>�����Ķ� �� ģ����������</strong>
+    <p>��� Agent ����ģ�͵��ã��ȴ� KV Cache��������Ⱥ��� token �ӳ����֡�</p>
+    <a class="text-link" href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">vLLM ѧϰ�ʼ� ��</a>
   </aside>
 
-  <aside class="roadmap-note" aria-label="贯穿全图的工程原则">
-    <strong>贯穿全图的工程原则</strong>
-    <p>模型负责理解、生成和提出决策。工程系统负责记录状态、限制权限、执行操作、验证结果和处理失败。</p>
-    <a class="text-link" href="{{ '/search/' | relative_url }}">搜索文章 →</a>
+  <aside class="roadmap-note" aria-label="�ᴩȫͼ�Ĺ���ԭ��">
+    <strong>�ᴩȫͼ�Ĺ���ԭ��</strong>
+    <p>ģ�͸������⡢���ɺ�������ߡ�����ϵͳ�����¼״̬������Ȩ�ޡ�ִ�в�������֤����ʹ���ʧ�ܡ�</p>
+    <a class="text-link" href="{{ '/search/' | relative_url }}">�������� ��</a>
   </aside>
 </div>
