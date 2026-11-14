@@ -3,7 +3,7 @@
   if (themeToggle) {
     const applyTheme = (theme) => {
       document.documentElement.dataset.theme = theme;
-      localStorage.setItem('theme', theme);
+      try { localStorage.setItem('theme', theme); } catch (_) {}
       themeToggle.textContent = theme === 'dark' ? '☀' : '◐';
       themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换到浅色主题' : '切换到深色主题');
     };

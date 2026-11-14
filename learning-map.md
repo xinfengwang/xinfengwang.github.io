@@ -22,6 +22,7 @@ permalink: /learning-map/
       <a class="button primary" href="#reading-paths">选择学习路线 ↓</a>
       <a class="button" href="#series-map">查看全部系列 ↓</a>
     </div>
+    <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
     <p class="roadmap-stats">{{ series.size }} 个系列 <span aria-hidden="true">·</span> {{ total_featured }} 篇主线文章</p>
   </header>
 

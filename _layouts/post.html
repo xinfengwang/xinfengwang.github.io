@@ -19,6 +19,18 @@ layout: default
       <div class="article-meta">王新峰 · {{ page.date | date: "%Y-%m-%d" }}{% if page.updated %} · 更新于 {{ page.updated }}{% endif %} · <span id="reading-time">约 -- 分钟</span></div>
     </header>
 
+    <div class="reader-toolbar" aria-label="阅读设置">
+      <details class="reader-settings"><summary>字 / 阅读设置</summary><div class="reader-setting-fields">
+        <label>字号 <select id="reader-size"><option value="normal">标准</option><option value="large">大字</option><option value="larger">特大</option></select></label>
+        <label>字体 <select id="reader-font"><option value="sans">无衬线</option><option value="serif">衬线</option></select></label>
+        <label>宽度 <select id="reader-width"><option value="normal">标准</option><option value="wide">宽版</option></select></label>
+      </div></details>
+      <button type="button" id="reader-focus" aria-pressed="false">专注阅读</button>
+      <button type="button" id="reader-save" aria-pressed="false">收藏文章</button>
+      <a href="{{ '/library/' | relative_url }}">我的书架 →</a>
+    </div>
+    <p id="reader-status" class="reader-status" role="status" aria-live="polite"></p>
+    <div id="reader-resume" class="reading-return" hidden></div>
     {% if page.audience %}
     <section class="reading-brief" aria-label="阅读指引">
       <p><strong>适合谁读</strong>{{ page.audience }}</p>
@@ -48,13 +60,16 @@ layout: default
     <aside class="author-next"><strong>关于作者 · 王新峰</strong><p>关注 AI Agent 的检索、编排与可靠性。想了解我的实践，可以继续看<a href="{{ '/projects/' | relative_url }}">公开项目</a>；了解岗位背景，可以看<a href="{{ '/about/#capabilities' | relative_url }}">能力与工程经历</a>。</p></aside>
 
     <div class="article-tools" aria-label="Article tools">
+      <button class="article-tool" id="reader-read" type="button" aria-pressed="false">标记已读</button>
+      <a class="article-tool" href="https://github.com/xinfengwang/xinfengwang.github.io/issues/new?title={{ page.title | prepend: '文章反馈：' | uri_escape }}&amp;body={{ page.url | absolute_url | prepend: '文章链接：' | uri_escape }}">勘误与讨论 ↗</a>
+      <a class="article-tool" href="https://github.com/xinfengwang/xinfengwang.github.io/commits/main/{{ page.path }}">修改记录 ↗</a>
       <button class="article-tool" id="copy-link" type="button">复制文章链接</button>
       <button class="article-tool" id="share-article" type="button">分享文章</button>
       <a class="article-tool rss-link" href="{{ '/feed.xml' | relative_url }}">RSS</a>
     </div>
 
     {% if structured_series %}
-    <section class="series-directory">
+    <section class="series-directory" data-reading-series="{{ structured_series.id }}">
       <div class="series-directory-title">主线文章 · {{ structured_series.short_title }}</div>
       {% for ch in structured_series.chapters %}
         {% if ch.status == 'published' and ch.url %}
@@ -67,7 +82,7 @@ layout: default
     </section>
     {% elsif page.series %}
     {% assign series_posts = site.posts | where: "series", page.series | reverse %}
-    <section class="series-directory">
+    <section class="series-directory" data-reading-series="{{ structured_series.id }}">
       <div class="series-directory-title">SERIES · {{ page.series }}</div>
       {% for item in series_posts %}
         <a href="{{ item.url | relative_url }}" {% if item.url == page.url %}class="current"{% endif %}><span>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{{ item.title }}</a>

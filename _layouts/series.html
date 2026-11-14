@@ -22,6 +22,8 @@ layout: default
     <span>{{ s.short_title }}</span>
   </div>
 
+  <p class="reader-series-progress" data-series-progress="{{ s.id }}"></p>
+  <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
   <section class="series-overview-copy">
     {{ content }}
   </section>
