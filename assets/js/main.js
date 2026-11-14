@@ -114,7 +114,7 @@
     }
 
     const share = document.getElementById('share-article');
-    if (share) {
+    if (share && !document.getElementById('passage-tools')) {
       share.addEventListener('click', async () => {
         if (navigator.share) {
           try {

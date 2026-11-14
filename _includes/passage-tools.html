@@ -1,0 +1,31 @@
+<div id="passage-tools" data-article-title="{{ page.title | escape }}" data-source-path="{{ page.path | escape }}" data-article-url="{{ page.url | absolute_url }}">
+  <div class="selection-toolbar" id="selection-toolbar" role="group" aria-label="选中文字的操作" hidden>
+    <span>针对选中内容</span>
+    <button type="button" data-passage-action="feedback">反馈 / Issue</button>
+    <button type="button" data-passage-action="share">分享这段</button>
+    <button type="button" data-passage-action="copy">复制原文</button>
+    <button type="button" id="selection-close" aria-label="关闭选中文字工具栏">×</button>
+  </div>
+  <dialog id="passage-dialog" aria-labelledby="passage-dialog-title">
+    <div class="passage-dialog-heading"><h2 id="passage-dialog-title">分享与反馈</h2><button type="button" id="passage-close" aria-label="关闭">×</button></div>
+    <p id="passage-context" class="muted"></p>
+    <blockquote id="passage-quote"></blockquote>
+    <section id="passage-feedback-panel">
+      <label for="passage-comment">你的问题、建议或修正依据</label>
+      <textarea id="passage-comment" rows="4" maxlength="1200" placeholder="例如：这里的适用条件是否还需要补充……"></textarea>
+      <p class="passage-help">将带上文章、所在小节、引用原文和定位链接。点击下方按钮进入 GitHub，登录后由你确认提交。</p>
+      <div class="passage-actions"><a class="button primary" id="passage-issue" target="_blank" rel="noopener noreferrer">在 GitHub 提交 Issue ↗</a><a class="button" id="passage-edit" target="_blank" rel="noopener noreferrer">编辑原文 / 提 PR ↗</a><button class="button" type="button" id="passage-copy-feedback">复制反馈全文</button></div>
+      <p class="passage-help">想直接修正内容，可进入原文编辑页，修改后选择新分支并提出 Pull Request；没有写入权限时，GitHub 会引导你 Fork 后提交。</p>
+      <a id="passage-existing" target="_blank" rel="noopener noreferrer">查看这篇文章的已有反馈 ↗</a>
+    </section>
+    <section id="passage-share-panel" hidden>
+      <label for="passage-link">定位到原文的分享链接</label><input id="passage-link" readonly type="text">
+      <div class="passage-actions"><button class="button primary" type="button" id="passage-copy-link">复制定位链接</button><button class="button" type="button" id="passage-native-share">系统分享</button><button class="button" type="button" id="passage-card">生成分享图片</button></div>
+      <p class="passage-help">打开链接会定位到对应段落；选中摘录会随链接带上。图片带有原文二维码，可下载后分享。</p>
+      <div id="passage-card-preview" hidden><img id="passage-card-image" alt="包含文章标题、摘录与原文二维码的分享卡片"><a class="button" id="passage-card-download" download="article-quote.png">下载分享图片 PNG ↓</a></div>
+    </section>
+    <label id="passage-manual-label" for="passage-manual-copy" hidden>待复制内容</label><textarea id="passage-manual-copy" readonly rows="6" hidden></textarea>
+    <p id="passage-status" role="status" aria-live="polite"></p>
+  </dialog>
+  <noscript><p>你可以直接在 <a href="https://github.com/xinfengwang/xinfengwang.github.io/issues/new">GitHub 提出反馈</a>，或<a href="https://github.com/xinfengwang/xinfengwang.github.io/edit/main/{{ page.path }}">编辑这篇文章</a>。</p></noscript>
+</div>
