@@ -1304,13 +1304,8 @@
     "backlinks": []
   },
   "/2026/11/18/build-a-document-agent/": {
-    "source_sha256": "4043c3843cc77b107a699e3f2834e9d3ea6d43a5f2e63def43515aee130f206c",
+    "source_sha256": "056cfda4c35f42616e9e9730195bc731a6a8efffcc91818b7c1d29cf5efc9b66",
     "related": [
-      {
-        "url": "/2026/11/18/document-agent-regression/",
-        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
-        "reason": "本文引用的延伸阅读"
-      },
       {
         "url": "/2026/11/18/document-agent-context/",
         "title": "明明检索到了，Agent 为什么没把那段话用上？",
@@ -1320,6 +1315,11 @@
         "url": "/2026/11/18/document-agent-durable-write/",
         "title": "写入成功，为什么 Agent 还显示未完成？",
         "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
+        "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
@@ -1338,71 +1338,7 @@
     ]
   },
   "/2026/11/18/document-agent-context/": {
-    "source_sha256": "11047f7627f225aed71410057df1f7cfd90ddbafb09ea41c32ede8731d616b57",
-    "related": [
-      {
-        "url": "/2026/11/18/document-agent-release/",
-        "title": "总完成率没变，为什么还要回滚 Agent？",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/18/document-agent-regression/",
-        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
-        "reason": "本文引用的延伸阅读"
-      }
-    ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      },
-      {
-        "url": "/2026/11/18/document-agent-release/",
-        "title": "总完成率没变，为什么还要回滚 Agent？"
-      }
-    ]
-  },
-  "/2026/11/18/document-agent-durable-write/": {
-    "source_sha256": "e96bc742559f3f8604557e3cbfb58a301a7cfce559a88f54ba8f5da037dbc732",
-    "related": [
-      {
-        "url": "/2026/11/05/agent-checkpoint-idempotency/",
-        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/18/document-agent-regression/",
-        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
-        "reason": "本文引用的延伸阅读"
-      }
-    ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      },
-      {
-        "url": "/2026/11/18/document-agent-regression/",
-        "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
-      },
-      {
-        "url": "/2026/11/18/document-agent-release/",
-        "title": "总完成率没变，为什么还要回滚 Agent？"
-      }
-    ]
-  },
-  "/2026/11/18/document-agent-regression/": {
-    "source_sha256": "bb9a52f95171e5cf38f79686851ba8f5535cef1f1a118a36b0bdf2ed2258feda",
+    "source_sha256": "82959270e69fd1275e63bca790a6918b937dc6f618b181aab86d5adb7f30f976",
     "related": [
       {
         "url": "/2026/11/18/document-agent-release/",
@@ -1426,6 +1362,74 @@
         "title": "从零写一个文档 Agent：工具、状态和验收"
       },
       {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？"
+      },
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-durable-write/": {
+    "source_sha256": "d69226417ea5de989c8e77b6732513cda2129a51ba9843a1289ed872eec01d06",
+    "related": [
+      {
+        "url": "/2026/11/05/agent-checkpoint-idempotency/",
+        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      },
+      {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
+      },
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-regression/": {
+    "source_sha256": "4770f9f9f419aa6a28c7329c4ca6ffef23a4c21c3774b3c32c22251ed0d1e63c",
+    "related": [
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": [
+      {
         "url": "/2026/11/18/document-agent-context/",
         "title": "明明检索到了，Agent 为什么没把那段话用上？"
       },
@@ -1440,7 +1444,7 @@
     ]
   },
   "/2026/11/18/document-agent-release/": {
-    "source_sha256": "66c7540b9352930b87fbceeef587915ac2e373d952fa2c87c068fc38e8360484",
+    "source_sha256": "94716d1acaa02f3feb5ea12e3b871909da26dfc133344dc249f61fbcc87835ba",
     "related": [
       {
         "url": "/2026/11/18/document-agent-regression/",

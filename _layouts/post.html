@@ -5,6 +5,7 @@ layout: default
 {% if page.series_key %}
   {% for s in site.data.series %}{% if s.id == page.series_key %}{% assign structured_series = s %}{% endif %}{% endfor %}
 {% endif %}
+{% assign document_lab = site.data.document_agent_labs | where: 'url', page.url | first %}
 <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
 <div class="article-layout">
   <article class="article" id="article">
@@ -39,6 +40,19 @@ layout: default
       <p><strong>这篇讲什么</strong>{{ page.description }}</p>
       <p><strong>阅读基础</strong>{{ page.prerequisite }}</p>
     </section>
+    {% endif %}
+
+    {% if document_lab %}
+    <details class="reading-brief lab-navigation">
+      <summary>文档 Agent 实战 · {{ document_lab.title }}</summary>
+      <nav aria-label="文档 Agent 实战阅读顺序">
+        <ol>
+          {% for lab in site.data.document_agent_labs %}
+          <li>{% if lab.url == page.url %}<span aria-current="page">{{ lab.title }}</span>{% else %}<a href="{{ lab.url | relative_url }}">{{ lab.title }}</a>{% endif %}</li>
+          {% endfor %}
+        </ol>
+      </nav>
+    </details>
     {% endif %}
 
     <aside class="article-context" aria-label="文章类型与项目资料">

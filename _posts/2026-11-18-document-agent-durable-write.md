@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "写入成功，为什么 Agent 还显示未完成？"
-subtitle: "文档 Agent 实战 02｜把审批、操作编号、目标版本和回执落到两张状态表，再让进程真的退出一次。"
+subtitle: "把审批、操作编号、目标版本和回执落到两个库，再让进程真的退出一次。"
 date: 2026-11-18 20:05:00 +0800
 series: "Workflow 与 Multi-Agent"
 series_key: workflow-multi-agent
@@ -10,14 +10,14 @@ category: Tech
 tags: [Agent, Workflow, Checkpoint, Idempotency, Reliability]
 content_kind: 工程方法
 audience: "已经做过只读问答，正在给 Agent 接入保存、发布或更新类工具的读者。"
-prerequisite: "读过文档 Agent 第一篇，或了解工具调用、数据库事务和条件更新。"
+prerequisite: "了解一次工具调用，以及数据库事务和条件更新的基本用法。"
 description: "用两个 SQLite 数据库和独立子进程重现丢回执，检查恢复时能否补记完成、避免重复写入并拦住过期审批。"
 exercise: "让两个 worker 同时拿到同一个 approved 任务，观察目标端只产生一条回执；再试两个不同操作针对同一个旧版本的情况。"
 ---
 
 用户确认了发版检查清单，点了“保存草稿”。草稿库把版本从 7 改到 8，刚提交事务，Agent 进程就退出了。任务页仍显示“已批准”，刷新后再点一次，用户希望继续刚才的操作。这时如果起一个新操作，或只根据本地状态再写一次，就可能多生成一个版本。反过来，如果碰到所有超时都当作成功，也会漏掉那些根本没送到的写入。
 
-[上一篇](/2026/11/18/build-a-document-agent/)只会读文档。这里把已经审核好的清单写到一个模拟的草稿库。例子完全在本地运行，但两个库各自提交。这个设计保留了真实服务里最容易出问题的间隔：**草稿库提交成功，Agent 还没记下结果。**
+[工具调用实战](/2026/11/18/build-a-document-agent/)做到生成一份待审核的清单。这里把审核后的清单写进一个模拟草稿库。例子在本地运行，两个库各自提交，因此能重现这个间隔：**草稿库提交成功，Agent 还没记下结果。**
 
 ## 任务、操作和版本各自记什么？
 
@@ -51,17 +51,19 @@ COMMIT;
 
 ```mermaid
 sequenceDiagram
-    participant W as Worker
+    accTitle: 旧进程退出以后由新进程查回执
+    participant W as 旧进程
     participant A as Agent 库
     participant D as 草稿库
+    participant R as 新进程
     W->>A: 读取已批准操作
     W->>D: 用 op_id 写入草稿
     D->>D: 提交版本 8 和回执
-    Note over W,D: Worker 此时退出
-    W->>A: 新进程读到同一操作
-    W->>D: 查询 op_id
-    D-->>W: 回执指向版本 8
-    W->>A: 补记 saved
+    Note over W,D: 旧进程退出，本地仍是 approved
+    R->>A: 读取同一个操作
+    R->>D: 按 op_id 查询
+    D-->>R: 回执指向版本 8
+    R->>A: 补记 saved
 ```
 
 ## 让进程在两个地方退出
@@ -79,6 +81,23 @@ sequenceDiagram
 
 这里的版本号都是示例程序的实际断言。排查自己的写入路径时，至少收集三条证据：调用前持久化的操作编号、外部服务是否已有对应回执、任务最终保存的回执版本。任意一条缺失，都很难判断“下一次继续”会做什么。
 
+### 顺着两次恢复读源码
+
+从 `recovery.mjs` 的 `demo()` 开始。它启动独立子进程，进程在故障点以退出码 75 停下。重新进入 `worker()` 时，两种故障都看到 `job.state === "approved"`，所以接下来查的是同一个 `op_id` 的目标回执。
+
+```mermaid
+flowchart TB
+    accTitle: 恢复已批准写入时的回执分支
+    A["读取已批准的操作"] --> B{"已有匹配回执？"}
+    B -->|有| C["按原版本补记完成"]
+    B -->|无| D["复用操作编号，提交条件更新"]
+    D --> E{"目标版本匹配？"}
+    E -->|是| F["提交草稿与回执"] --> C
+    E -->|否| G["标记冲突，重新审核"]
+```
+
+新版 worker 用 `readReceipt()` 查询时，`receipt-lost` 已有版本 8 的回执，所以输出 `via: "receipt"`。`before-send` 查不到回执，才进入 `applyDraft()` 并写出版本 9，输出 `via: "write"`。图里“没有回执就试写”有两个前提：这个示例的查询直接读目标库，目标端也在事务内按同一个编号去重。下文会讲这些前提不成立时怎样处理。
+
 ## 外部服务没这么配合怎么办？
 
 示例里查回执直接读目标库，返回“没找到”可信；即使两个 worker 同时发起，目标端也有同一操作编号去重。真实 API 可能是最终一致的，可能没有按操作编号查询的接口，也可能把幂等窗口限制在短时间里。这时要从 API 的契约决定继续策略。
@@ -90,4 +109,4 @@ sequenceDiagram
 
 数据表持久化了业务事实，框架的 checkpoint 仍可帮助还原工作流。选框架之前先确认写入工具具备哪项语义。恢复时查一次回执，比重读所有模型消息更直接；如果外部不支持，上层框架没有办法凭本地日志确认那边是否写过。
 
-[上一篇：工具调用和证据验收](/2026/11/18/build-a-document-agent/) · [下一篇：把一次漏检索变成发布门禁](/2026/11/18/document-agent-regression/) · [检查点与幂等](/2026/11/05/agent-checkpoint-idempotency/)
+[检索与上下文](/2026/11/18/document-agent-context/) · [下一步：把故障转成回归用例](/2026/11/18/document-agent-regression/) · [工具调用和证据验收](/2026/11/18/build-a-document-agent/) · [检查点与幂等](/2026/11/05/agent-checkpoint-idempotency/)

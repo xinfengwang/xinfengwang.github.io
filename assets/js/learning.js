@@ -60,7 +60,7 @@
   function enhanceFigures(){
     body.querySelectorAll('img,.mermaid svg').forEach(figure=>{
       if(figures.has(figure))return;figures.add(figure);
-      const label=figure.getAttribute('alt')||figure.closest('figure')?.querySelector('figcaption')?.textContent||'文章示意图';
+      const label=figure.getAttribute('alt')||figure.querySelector('title')?.textContent||figure.closest('figure')?.querySelector('figcaption')?.textContent||'文章示意图';
       const expand=button('放大查看 ↗',()=>{
         trigger=expand;reset();caption.textContent=label;image.alt=label;
         if(figure.tagName.toLowerCase()==='svg'){blobURL=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(figure)],{type:'image/svg+xml'}));image.src=blobURL;}else image.src=figure.currentSrc||figure.src;

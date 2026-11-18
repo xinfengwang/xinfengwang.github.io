@@ -1,0 +1,15 @@
+- title: 工具调用和证据验收
+  url: /2026/11/18/build-a-document-agent/
+  description: 沿 call_id 核对两次模型请求和中间的工具结果。
+- title: 检索和上下文
+  url: /2026/11/18/document-agent-context/
+  description: 用同一段手册区分召回、排序、组装和引用问题。
+- title: 写入与故障恢复
+  url: /2026/11/18/document-agent-durable-write/
+  description: 让进程在草稿库提交后退出，再查回执恢复任务。
+- title: 回归评测
+  url: /2026/11/18/document-agent-regression/
+  description: 固定十条用例，比较两版的工具命中、引用和状态。
+- title: 灰度与回滚
+  url: /2026/11/18/document-agent-release/
+  description: 追踪总完成率掩盖的退步，切回后复查同一条请求。

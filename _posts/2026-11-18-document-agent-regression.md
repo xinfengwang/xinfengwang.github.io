@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Agent 改完真的更好吗？拿一次漏检索做回归"
-subtitle: "文档 Agent 实战 03｜把「上线」搜不到「发版」拆到工具结果，再用逐条差异决定能不能发布。"
+subtitle: "把「上线」搜不到「发版」拆到工具结果，再用逐条差异决定能不能发布。"
 date: 2026-11-18 20:10:00 +0800
 series: "Agent Evaluation 与 Reliability"
 series_key: evaluation-reliability
@@ -10,7 +10,7 @@ category: Tech
 tags: [Agent, Evaluation, RAG, Benchmark, Tracing]
 content_kind: 工程方法
 audience: "已经跑通工具调用，想知道模型、检索或提示词的改动能不能上线的读者。"
-prerequisite: "了解文档 Agent 的运行过程，能用 Node.js 24 跑前一篇的示例。"
+prerequisite: "能用 Node.js 24 跑通示例，知道工具命中和最终引用分别在哪里记录。"
 description: "同一批用例对比基线与候选检索配置，检查范围、证据、交付物及停止条件，输出逐条差异和可执行的发布门禁。"
 exercise: "故意让检索返回已经过期的片段，观察是哪条断言先拦住；随后补一个误召回用例，检查同义词规则影响的范围。"
 ---
@@ -52,6 +52,8 @@ exercise: "故意让检索返回已经过期的片段，观察是哪条断言先
 
 `visibleIds` 是允许送进模型的片段，评测脚本从 `search` 记录取集合比对。即使模型最终没引用不该看到的内容，前一阶段把它送进了上下文也要判失败。`expectedIds` 是交付物必须按顺序使用的来源。没有环境时还断言模型调用次数为 0；重复查询时断言两轮结束。对这种输出能确定判断的例子，直接写断言比抽一句“回答不错”有用。
 
+举个可以手工核对的例子：`prod_denied` 的 `visibleIds` 是空数组，期望返回 `needs_evidence`。假如搜索错误地带回了一段生产手册，模型最后自愿返回空清单，终态看起来仍可能“答对了”。`unexpectedEvidence` 会从搜索事件里找到这个 ID，照样判失败。检查过程与结果的差别，在这一条就能看出来。
+
 固定用例有十条。每条代表一个需要维持的行为：
 
 | 用例 | 期望 | 它能发现什么 |
@@ -65,6 +67,24 @@ exercise: "故意让检索返回已经过期的片段，观察是哪条断言先
 | `conflicting_handbooks` | `conflicting_evidence` | 两份当前资料互相冲突仍被交付 |
 | `repeat_tool` | `repeated_query`，第二轮停 | 模型重复同一调用 |
 | `search_down` | `search_unavailable` | 把服务不可用误当资料不存在 |
+
+### 一条请求怎样变成门禁结果
+
+`eval.mjs` 先用 `evaluate()` 分别跑完两套配置。每次取到的搜索事件、最终引用和状态会先通过同一组断言，然后用同一个用例 ID 比较前后。图里的“退步”有明确含义：同一条用例旧版通过，新版失败。
+
+```mermaid
+flowchart TB
+    accTitle: 同一批回归用例怎样比较两版
+    A["固定输入与预期"] --> B["基线运行"]
+    A --> C["候选运行"]
+    B --> D["分别核对证据、引用与状态"]
+    C --> D
+    D --> E{"候选有未通过的用例？"}
+    E -->|有| F["输出不通过的用例并退出失败"]
+    E -->|无| G["通过门禁，保留逐条差异"]
+```
+
+源码里的 `blocked` 收集候选所有未达预期的行，`regressed` 只收其中由通过变成失败的行。如果某条基线一直没过，候选也没修好，它仍出现在 `blocked` 里。这样可以区分这次新增的退步和一直存在的问题。
 
 ## 跑两遍，看逐条差异
 
@@ -99,8 +119,6 @@ exercise: "故意让检索返回已经过期的片段，观察是哪条断言先
 
 不要把模拟数据的结果直接外推到真实文档。把线上失败整理进评测时，保留授权后的必要输入和预期状态，删掉与复现无关的内容。有业务语义判断的样本单独标注，有确定答案的继续用断言。半年后回看，一个名字清楚、能指出哪阶段退步的用例，通常比一张只有平均分的图表更快帮你找到原因。
 
-[第一篇：工具调用和证据验收](/2026/11/18/build-a-document-agent/) · [上一篇：写入成功却丢了回执](/2026/11/18/document-agent-durable-write/) · [学习路线](/learning-map/#full-path)
-
-通过离线门禁后，可以继续跑[灰度对照和回滚练习](/2026/11/18/document-agent-release/)，看总完成率为什么会掩盖关键场景的退步。
+[写入与故障恢复](/2026/11/18/document-agent-durable-write/) · [下一步：用灰度对照验证关键场景](/2026/11/18/document-agent-release/) · [工具调用和证据验收](/2026/11/18/build-a-document-agent/)
 
 关于如何分层采样、维护保留集，可以接着读阿甘的[《评测集：AI 应用的单元测试》](https://arganzheng.life/eval-sets-the-unit-tests-of-ai-applications.html)。

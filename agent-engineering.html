@@ -11,13 +11,11 @@ permalink: /agent-engineering/
 
   <section id="practice" aria-labelledby="practice-title">
     <h2 id="practice-title">文档 Agent 实战</h2>
-    <ul>
-      <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">工具调用和证据验收</a>。沿 <code>call_id</code> 核对模型请求和工具回填。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">追踪证据在哪一步丢了</a>。对照召回、排序、上下文预算和最终引用。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">保存成功却丢了回执</a>。让进程在目标库提交后退出，再恢复同一次写入。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">把漏检索变成发布门禁</a>。固定十条用例，只改一处检索配置。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">灰度时怎样判断要不要回滚</a>。追踪总分掩盖的退步，切回后复查同一条请求。</li>
-    </ul>
+    <ol>
+      {% for lab in site.data.document_agent_labs %}
+        <li><a href="{{ lab.url | relative_url }}">{{ lab.title }}</a>。{{ lab.description }}</li>
+      {% endfor %}
+    </ol>
   </section>
 
   <nav class="knowledge-overview guide-contents" aria-label="开发指南目录">
