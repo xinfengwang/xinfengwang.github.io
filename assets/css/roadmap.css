@@ -81,6 +81,29 @@
   margin-top: 6px;
 }
 
+.roadmap-build {
+  padding-inline-start: 1.65em;
+  margin: 18px 0 0;
+}
+
+.roadmap-build li {
+  padding: 10px 0 12px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.roadmap-build a {
+  display: block;
+  width: fit-content;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .22em;
+}
+
+.roadmap-build span {
+  display: block;
+  color: var(--muted);
+}
+
 .roadmap-paths a, .roadmap-series .roadmap-actions a {
   text-decoration: underline;
   text-decoration-color: var(--line);

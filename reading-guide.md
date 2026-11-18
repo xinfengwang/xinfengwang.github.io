@@ -10,14 +10,14 @@ permalink: /reading-guide/
 
 # 从这里开始阅读
 
-这里关注一个问题：怎样把 Agent 做成能追踪、能验证、能恢复的工程系统。文章围绕工具、上下文、编排、评测和项目实践展开，也记录创意编程中的探索。
+想系统学 Agent 开发，可以从一个文档助手练起。先明确它要交付什么，再用文章补齐工具调用、检索、工作流和测试。遇到某一步卡住，也可以直接跳到对应主题。
 
 ## 根据你现在的问题选择入口
 
 | 你想做什么 | 建议入口 |
 | --- | --- |
 | 了解我的研发能力 | [代表项目](/projects/) → [工程经历](/experience/) |
-| 第一次系统学习 Agent | [一页工程概览](/agent-engineering/) → [学习地图](/learning-map/) |
+| 第一次系统学习 Agent | [开发指南](/agent-engineering/) → [文档 Agent 动手教程](/2026/11/18/build-a-document-agent/) → [学习路线](/learning-map/#full-path) |
 | 排查检索和执行故障 | [检索 Badcase](/2026/09/15/rag-badcase-debugging/) → [Tracing](/2026/09/11/agent-tracing/) |
 | 查某个具体概念 | [全文搜索](/search/)或[文章筛选](/archive/) |
 

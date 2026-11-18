@@ -47,6 +47,11 @@
       title: "MCP 工具接进来之后，谁决定数据能不能发出去？"
       status: published
       url: "/2026/11/05/mcp-tool-trust-boundary/"
+    - no: "09"
+      featured: true
+      title: "从零写一个文档 Agent：工具、状态和验收"
+      status: published
+      url: "/2026/11/18/build-a-document-agent/"
 
 - id: rag-context
   title: "RAG 与 Context Engineering：让 Agent 拿到正确上下文"

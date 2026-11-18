@@ -14,3 +14,19 @@
 .main-nav .search-link{font-size:14px}.hero-actions{flex-wrap:wrap}.big-search{color:var(--ink)}.big-search:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media(max-width:900px){.reader-path-grid{grid-template-columns:1fr}.reader-path-grid article{padding:18px}.reader-path-grid ol{margin-top:8px}}
 @media(max-width:680px){.capability-list{grid-template-columns:1fr}.article-filters{padding:16px}.article-filters label,.article-filters label:first-child{min-width:100%;width:100%}.contact-panel{padding:1px 16px 16px}.contact-panel h2{font-size:24px}.reading-brief{padding:14px 16px}.main-nav{max-width:300px}}
+
+.guide-contents ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 30px;
+  margin: 0;
+  padding-inline-start: 1.4em;
+}
+
+.knowledge-page section[id] {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 680px) {
+  .guide-contents ol { grid-template-columns: 1fr; }
+}

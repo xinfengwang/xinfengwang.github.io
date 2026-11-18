@@ -1,7 +1,7 @@
 ---
 layout: default
-title: AI Agent 工程学习地图
-description: 从工具调用、RAG 和 Agent 编排，到评测、Coding Agent 与项目复盘。按学习目标选择路线，直接阅读系列总纲与章节。
+title: AI Agent 开发学习路线
+description: 从需求与第一个工具调用开始，逐步完成检索、状态管理、结果验证、回归评测和上线准备。每一步都有文章和练习。
 permalink: /learning-map/
 ---
 {% assign series = site.data.series %}
@@ -14,35 +14,44 @@ permalink: /learning-map/
 
 <div class="wide-page roadmap">
   <header class="roadmap-hero">
-    <p class="eyebrow">LEARNING MAP / AI AGENT ENGINEERING</p>
-    <h1>AI Agent 工程学习地图</h1>
-    <p class="roadmap-intro">从第一次工具调用，到能追踪、验证和恢复的 Agent 系统。初学可以从基础读起，手上有项目也可以按当前卡点直达对应章节。</p>
-    <p class="roadmap-hint">术语还没串起来？先读<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">一页 Agent 工程概览</a>，再按路线深入。</p>
+    <h1>AI Agent 开发学习路线</h1>
+    <p class="roadmap-intro">每学一段就给同一个小项目加一项能力。先让它查文档，再让它保存进度，最后用一批固定任务检查改动有没有带来新的错误。</p>
     <div class="roadmap-actions">
-      <a class="button primary" href="#reading-paths">选择学习路线 ↓</a>
+      <a class="button primary" href="#full-path">按开发顺序学 ↓</a>
       <a class="button" href="#series-map">查看全部系列 ↓</a>
     </div>
     <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
     <p class="roadmap-stats">{{ series.size }} 个系列 <span aria-hidden="true">·</span> {{ total_featured }} 篇主线文章</p>
   </header>
 
+  <section id="full-path" class="roadmap-section" aria-labelledby="full-path-title">
+    <h2 id="full-path-title">从第一个工具到上线检查</h2>
+    <p class="roadmap-hint">会运行一段 JavaScript，就可以跟着<a class="text-link" href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">文档 Agent 教程</a>起步。也可以用下面的清单检查你自己的项目。</p>
+    <ol class="roadmap-build">
+      <li><a href="{{ '/agent-engineering/#scope' | relative_url }}">需求与验收</a><span>写一页任务说明，列出要交付什么、哪些信息缺失时要追问，以及三条验收用例。</span></li>
+      <li><a href="{{ '/2026/09/15/function-calling/' | relative_url }}">模型和工具</a><span>接通一个只读工具，能看到模型请求、参数校验和工具结果。试一次参数错误。</span></li>
+      <li><a href="{{ '/series/rag-context/' | relative_url }}">检索与上下文</a><span>给文档片段保留版本和出处，拿几条实际问法检查正确段落能否进到模型输入。</span></li>
+      <li><a href="{{ '/series/workflow-multi-agent/' | relative_url }}">工作流和恢复</a><span>记录当前阶段、已完成步骤和产物。模拟一次超时或中断，再从保存的状态继续。</span></li>
+      <li><a href="{{ '/series/evaluation-reliability/' | relative_url }}">验收和回归</a><span>给输出写断言，再把漏检索、错引用、权限不足和工具失败放进固定测试集。</span></li>
+      <li><a href="{{ '/agent-engineering/#release' | relative_url }}">上线和维护</a><span>给一组用户试用，记录版本、成功率、耗时和失败原因，演练一次如何暂停或切回旧配置。</span></li>
+    </ol>
+  </section>
+
   <section id="reading-paths" class="roadmap-section" aria-labelledby="paths-title">
-    <p class="eyebrow">01 / START HERE</p>
-    <h2 id="paths-title">按目标选一条路线</h2>
-    <p class="roadmap-hint">每一步直达文章。第一次来，选一条符合当前目标的路线，从第一篇开始。</p>
+    <h2 id="paths-title">已经在做项目？从手上的问题开始</h2>
     <div class="roadmap-paths">
       <article>
-        <h3>做出第一个 Agent</h3>
-        <p>适合会调用模型 API、想做出一个能查资料和调用工具的小项目的读者。</p>
+        <h3>知识库里有答案，Agent 却答错</h3>
+        <p>把一次回答拆开，看看资料在哪一步丢了，或者有没有被用错。</p>
         <ol>
-          <li><a href="{{ '/2026/09/15/agent-foundations-overview/' | relative_url }}">理解工具调用与权限</a></li>
-          <li><a href="{{ '/2026/09/15/rag-context-overview/' | relative_url }}">接入检索与上下文</a></li>
-          <li><a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">把步骤组织成工作流</a></li>
+          <li><a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">从召回和排序开始查</a></li>
+          <li><a href="{{ '/2026/09/15/permission-aware-rag/' | relative_url }}">确认结果是否落在用户权限内</a></li>
+          <li><a href="{{ '/agent-engineering/#verification' | relative_url }}">检查引用和答案是否对应</a></li>
         </ol>
       </article>
       <article>
-        <h3>让现有 Demo 更可靠</h3>
-        <p>适合已经跑通原型，正在处理失败恢复、错误定位和回归评测的读者。</p>
+        <h3>任务一中断，就得全部重跑</h3>
+        <p>用一次写入超时检查状态、回执和恢复路径。</p>
         <ol>
           <li><a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">记录状态与恢复路径</a></li>
           <li><a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">用 Trace 和评测定位问题</a></li>
@@ -62,12 +71,11 @@ permalink: /learning-map/
   </section>
 
   <section id="series-map" class="roadmap-section" aria-labelledby="series-title">
-    <p class="eyebrow">02 / SERIES INDEX</p>
-    <h2 id="series-title">从基础到项目实战</h2>
+    <h2 id="series-title">按主题深入</h2>
     <p class="roadmap-hint">每个系列只推荐几篇主线文章。术语、实现细节和延伸阅读放在各自的系列页。</p>
     <nav class="roadmap-jump" aria-label="系列导航">
       {% for item in series %}
-        <a href="#{{ item.id }}">{{ item.accent }} {{ item.short_title | escape }}</a>
+        <a href="#{{ item.id }}">{{ item.short_title | escape }}</a>
       {% endfor %}
     </nav>
 
@@ -112,9 +120,4 @@ permalink: /learning-map/
     <a class="text-link" href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">vLLM 学习笔记 →</a>
   </aside>
 
-  <aside class="roadmap-note" aria-label="贯穿全图的工程原则">
-    <strong>贯穿全图的工程原则</strong>
-    <p>模型负责理解、生成和提出决策。工程系统负责记录状态、限制权限、执行操作、验证结果和处理失败。</p>
-    <a class="text-link" href="{{ '/search/' | relative_url }}">搜索文章 →</a>
-  </aside>
 </div>

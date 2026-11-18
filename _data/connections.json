@@ -118,6 +118,11 @@
     "source_sha256": "16727d8cce821464e747e2d3f15ff00a6e368c25b095a543004433a055a39aab",
     "related": [
       {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/03/langgraph-for-multi-agent/",
         "title": "LangGraph 为什么更适合 Multi-Agent？",
         "reason": "共同主题：LangGraph、Multi-Agent"
@@ -126,14 +131,14 @@
         "url": "/2026/09/15/agent-runtime-overview/",
         "title": "总纲：为什么 Agent 需要 Runtime",
         "reason": "共同主题：LangGraph、Multi-Agent"
-      },
-      {
-        "url": "/2026/09/15/multi-agent-badcases/",
-        "title": "多 Agent 系统最常见的五类流转 Badcase",
-        "reason": "共同主题：LangGraph、Multi-Agent"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      }
+    ]
   },
   "/2026/09/13/context-engineering-workspace-codebase/": {
     "source_sha256": "681e626a4b55ffa58a67620b509bcc20705c0e84920db8da4e82bb65222fb0c3",
@@ -217,7 +222,12 @@
         "reason": "共同主题：Benchmark、Evaluation"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      }
+    ]
   },
   "/2026/09/15/agent-demo-to-system/": {
     "source_sha256": "2b495c41212bb6cbd2beb6da50deee5163e502b742a993f42f1226ca9444542c",
@@ -380,6 +390,11 @@
     "source_sha256": "7fbb0a7df5a5b51a9b63b5e1b190b36401b675f9c705483d60e71d3b1a23e52d",
     "related": [
       {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "共同主题：Evaluation、RAG"
+      },
+      {
         "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
         "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
         "reason": "共同主题：Evaluation、Workflow"
@@ -388,11 +403,6 @@
         "url": "/2026/09/13/context-engineering-workspace-codebase/",
         "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
         "reason": "共同主题：AI-Coding、RAG"
-      },
-      {
-        "url": "/2026/09/15/agent-harness-closed-loop/",
-        "title": "工程实践：Agent Harness 如何把 Workflow、Context 和 Evaluation 串成闭环？",
-        "reason": "共同主题：Evaluation、Workflow"
       }
     ],
     "backlinks": []
@@ -604,6 +614,11 @@
     "source_sha256": "8aa11bf690d3dd34154b6cb1370c11084f39d45707478ba30a6213a50cf4e3ce",
     "related": [
       {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/14/mcp-and-function-calling/",
         "title": "MCP：为什么有 Function Calling 还需要协议层？",
         "reason": "共同主题：Function-Calling、Tool-Use"
@@ -612,14 +627,14 @@
         "url": "/2026/09/15/tool-schema-router/",
         "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
         "reason": "共同主题：Function-Calling、Tool-Use"
-      },
-      {
-        "url": "/2026/09/15/agent-foundations-overview/",
-        "title": "总纲：AI Agent 到底在解决什么问题？",
-        "reason": "共同主题：Tool-Use"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      }
+    ]
   },
   "/2026/09/15/guardrail-codecheck/": {
     "source_sha256": "b0a1d1599e60d58124e0451b8f4b9b9bcb6b3edd6112868a5c58ea4e5b30dda6",
@@ -859,12 +874,17 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/gui-agent-badcase-loop/",
-        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
-        "reason": "共同主题：Badcase、Evaluation"
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "这篇文章引用了本文"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      }
+    ]
   },
   "/2026/09/15/rag-basics/": {
     "source_sha256": "d4bc3ffa0917e0af00276cb373fe9990e5b47f8ac86afae13cedb9f467e50ade",
@@ -1218,15 +1238,19 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/03/langgraph-for-multi-agent/",
-        "title": "LangGraph 为什么更适合 Multi-Agent？",
-        "reason": "共同主题：Workflow"
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
       {
         "url": "/2026/09/15/retry-rollback-replan/",
         "title": "Retry、Rollback 与 Replan：Agent 失败以后怎么继续？"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
       }
     ]
   },
@@ -1294,6 +1318,27 @@
       {
         "url": "/2026/09/15/coding-workflow/",
         "title": "Coding Workflow：Spec → Design → Tasks → Code 为什么比直接写代码稳？",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": []
+  },
+  "/2026/11/18/build-a-document-agent/": {
+    "source_sha256": "078b66268b72c5664d68102784ee3090ffd5700550cf0b1edd52a1ba6c189908",
+    "related": [
+      {
+        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
+        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/function-calling/",
+        "title": "Function Calling：模型到底是怎么学会调用工具的？",
         "reason": "本文引用的延伸阅读"
       }
     ],

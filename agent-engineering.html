@@ -1,76 +1,93 @@
 ---
 layout: default
-title: 一页理解 AI Agent 工程
-description: 从工具调用、检索与上下文、规划和工作流，到状态恢复、结果验证和回归评测，用项目案例串起 AI Agent 工程的关键问题。
+title: AI Agent 开发指南
+description: 用一个团队文档 Agent 串起需求、工具调用、检索与上下文、工作流、故障恢复、结果验证、回归评测和上线维护。
 permalink: /agent-engineering/
 ---
 <div class="narrow-page knowledge-page">
-  <p class="eyebrow">AGENT ENGINEERING / 知识概览</p>
-  <h1>一页理解 AI Agent 工程</h1>
-  <p class="lead">从“模型能提出下一步”到“系统能完成一项任务”，中间需要哪些工程能力？这页按我在项目和实习中遇到的问题，整理一条理解主线。</p>
-  <div class="knowledge-overview"><p><strong>目标与验收 → 获取上下文 → 规划与工具调用 → 执行并更新状态 → 验证结果 → 用失败样本改进</strong></p><p>这是一种阅读框架，各环节可以反复迭代。具体系统可能采用固定工作流，也可能让模型动态决定下一步。</p></div>
-  <p>如果你刚入门，可以从头读；如果正在做项目，可以直接检查下面六个问题。框架的价值在于把每个概念对应到具体责任与验证方式。</p>
+  <h1>AI Agent 开发指南</h1>
+  <p class="lead">假设团队有一堆研发文档，新同事问：“测试环境怎么发版？帮我整理一份检查清单。”Agent 需要找对环境的文档，读出发布条件，交付一份带出处的草稿。缺了关键资料就说清楚缺什么。</p>
+  <p>下面用这一个练习走完开发流程。想边读边写代码，可以跟着<a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">文档 Agent 动手教程</a>，先把检索、工具调用和结果检查跑通。</p>
+
+  <nav class="knowledge-overview guide-contents" aria-label="开发指南目录">
+    <ol>
+      <li><a href="#scope">定义任务和验收条件</a></li>
+      <li><a href="#tools">接入模型和工具</a></li>
+      <li><a href="#context">做检索和上下文</a></li>
+      <li><a href="#planning">确定工作流</a></li>
+      <li><a href="#state">处理权限、失败和恢复</a></li>
+      <li><a href="#verification">验收任务结果</a></li>
+      <li><a href="#evaluation">做回归、查失败原因</a></li>
+      <li><a href="#release">上线和维护</a></li>
+    </ol>
+  </nav>
+
+  <section id="scope">
+    <h2>1. 先写任务和验收条件，再选框架</h2>
+    <p>输入是用户的问题、目标环境和当前身份。第一版只做两件事：回答文档里的问题，按要求生成检查清单草稿。交付物里，每个关键步骤都有来源，来源能定位到文档的小节和版本。环境不明确时先追问，发布文档找不到时返回缺少的资料。</p>
+    <p>先写几条手工用例：明确指定测试环境、只说“发版”、用户看不到发布文档、两份手册对同一步骤的说明有冲突。每条用例先写预期结果，就有了第一批验收样本。路径固定的任务可以用表单和模板完成。需要理解自然语言、判断缺少什么资料或决定接下来查哪里时，再让模型参与。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/from-llm-to-agent/' | relative_url }}">从一次模型调用到 Agent</a> · <a href="{{ '/2026/11/01/agent-spec-change-lifecycle/' | relative_url }}">怎么把需求写成能执行的规格</a></p>
+  </section>
 
   <section id="tools">
-    <h2>1. 模型提出调用后，谁负责真正执行？</h2>
-    <p><strong>Function Calling</strong> 让模型按约定的工具描述提出调用名称与参数。应用程序需要解析请求、检查参数和权限、执行工具，再把结果返回给模型。工具描述应说明适用场景、参数含义和失败状态，避免把模糊的自然语言意图直接交给底层接口。</p>
-    <p><strong>MCP</strong> 提供应用与外部服务交换工具、资源等能力的协议接口。接入协议之后，应用仍需决定加载哪些能力、怎样处理返回结果，以及何时允许执行。MCP 的架构定位见<a href="https://modelcontextprotocol.io/docs/learn/architecture" target="_blank" rel="noreferrer">官方架构文档 ↗</a>。</p>
-    <p><strong>项目里怎么检查：</strong>遇到设备离线、参数越界或接口超时，调用层应返回可判断的状态；模型输出“已完成”之前，还应有实际执行依据。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/15/function-calling/' | relative_url }}">Function Calling</a> · <a href="{{ '/2026/09/14/mcp-and-function-calling/' | relative_url }}">MCP 与工具调用</a></p>
+    <h2>2. 先接通一个只读工具</h2>
+    <p>第一版只接 <code>search_docs(query, environment)</code>。模型提出搜索请求，服务端校验参数，按当前用户的权限查资料，再把文档 ID、版本和片段回给模型。账号身份从登录会话取得，搜索工具的环境参数则要和这个任务已经确认的环境一致。</p>
+    <p>先区分“搜到了”“没有匹配结果”和“搜索服务暂时不可用”。没有匹配结果时，可以换一个查询或请用户补充信息。服务暂时不可用时，可以做有限次数的重试。以后要把外部工具接进来，可以用 MCP 暴露工具和资源，应用仍要处理身份、参数、权限和超时。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/function-calling/' | relative_url }}">Function Calling 是怎么跑起来的</a> · <a href="{{ '/2026/09/15/tool-schema-router/' | relative_url }}">工具多了怎么选</a> · <a href="{{ '/2026/09/14/mcp-and-function-calling/' | relative_url }}">什么时候需要 MCP</a></p>
   </section>
 
   <section id="context">
-    <h2>2. 当前这一步，模型需要知道什么？</h2>
-    <p><strong>RAG</strong> 主要解决从资料中取回相关证据的问题。检索结果能否支持当前任务，还取决于文档解析、切分、过滤、排序和最终上下文组装。混合检索可以结合关键词匹配与语义相似度；RRF 按排名融合多路候选，是否有效需要放到固定查询集上比较。</p>
-    <p>在我的工程理解中，<strong>上下文工程</strong>还包括任务目标、工具说明、当前状态、代码库约束和已产生的证据。每一步应读取有来源、符合权限且与任务相关的信息；长期记忆还需要考虑时效、作用范围和更新方式。</p>
-    <p><strong>案例：</strong>GUI 知识库把节点、动作与完整路径一起保存，避免不同页面上的“添加”被当成同一功能。检索失败时，可以沿“入库 → 召回 → 排序 → 组装 → 生成”追踪预期证据首次丢失的位置。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/15/gui-agent-function-tree/' | relative_url }}">GUI 知识构建</a> · <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">RAG 失败排查</a> · <a href="{{ '/series/rag-context/' | relative_url }}">检索与上下文系列</a></p>
+    <h2>3. 让模型读到和任务有关的资料</h2>
+    <p>把文档按标题和小节切开，给每段保留环境、版本、更新时间和访问范围。搜索测试环境的发布说明时，先把范围收到当前用户有权限看的测试环境文档，再给符合条件的片段排序。查错误码和命令名时先试关键词，碰到同义表达和口语提问，再用一批固定问题比较混合检索有没有帮助。</p>
+    <p>给模型的上下文只放本轮任务需要的信息，例如问题、已确认的环境、候选片段和引用 ID。排查“文档明明有答案”时，顺着切分、召回、排序和上下文组装查下去：先看正确段落是否进入候选，再看它最后有没有进到模型输入。这样能知道该改索引、排序还是组装规则。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/hybrid-search/' | relative_url }}">关键词和向量怎么配合</a> · <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">有文档却搜不到时怎么查</a> · <a href="{{ '/2026/09/15/permission-aware-rag/' | relative_url }}">检索时怎样落实权限</a></p>
   </section>
 
   <section id="planning">
-    <h2>3. 哪些步骤由程序确定，哪些留给模型判断？</h2>
-    <p>流程明确时，可以用程序预定义步骤与分支；路径依赖任务和中间结果时，可以让模型动态规划。Anthropic 的<a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noreferrer">工程文章 ↗</a>按控制路径区分 Workflow 与 Agent，并建议从满足需求的简单方案开始，再根据任务表现增加复杂度。</p>
-    <p><strong>Planner + Executor</strong> 将“提出计划”和“执行计划”分开。结构化计划适合表达动作、依赖、前置条件和预算，执行器负责按接口约定调度工具。<strong>Multi-Agent</strong> 则进一步划分职责或上下文，但也增加交接、通信和状态同步的成本。</p>
-    <p><strong>案例：</strong>智能家居仓库用 LangGraph 保存各阶段结果，并根据占用状态、校验结果和重试次数选择后续路径。判断设计是否合理，要看分工是否清楚、失败如何返回，以及任务结束时有哪些验收依据。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/15/structured-plan-executor/' | relative_url }}">结构化计划与执行器</a> · <a href="{{ '/2026/09/09/smart-home-agent-loop/' | relative_url }}">智能家居工作流</a> · <a href="{{ '/series/workflow-multi-agent/' | relative_url }}">工作流与多 Agent 系列</a></p>
+    <h2>4. 把固定步骤写进工作流</h2>
+    <p>这个例子里的主流程很清楚：确认环境，检索资料，起草清单，检查引用，然后返回。确认环境和检查引用由程序控制。模型可以改写检索词、判断缺哪类资料，或根据已找到的资料起草。读到相互冲突的版本时，流程停在“需要确认”，让用户知道哪两份资料在冲突。</p>
+    <p>把任务状态放在工作流里，至少存任务 ID、环境、当前阶段、证据引用、草稿和重试次数。一个短流程用函数和显式状态就能起步。分支多了，需要暂停等待人工回复，或者一个任务要跨多个进程继续执行时，再考虑状态机框架。拆多 Agent 之前，先确定每个角色会拿到什么输入、交回什么产物、由谁判断完成。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">多步任务为什么要保存状态</a> · <a href="{{ '/2026/09/15/structured-plan-executor/' | relative_url }}">Planner 和 Executor 怎么分工</a> · <a href="{{ '/2026/09/15/multi-agent-shared-context/' | relative_url }}">多个 Agent 之间共享什么</a></p>
   </section>
 
   <section id="state">
-    <h2>4. 任务中断后，系统知道已经做过什么吗？</h2>
-    <p><strong>State</strong> 描述当前任务的目标、步骤、产物、失败和预算。<strong>Checkpoint</strong> 保存流程状态，帮助恢复执行。LangGraph 的<a href="https://docs.langchain.com/oss/python/langgraph/persistence" target="_blank" rel="noreferrer">持久化文档 ↗</a>还区分线程内状态检查点与跨线程持久数据，它们各自服务不同的记忆范围。</p>
-    <p>恢复执行还需要核对外部动作。请求可能已经写入成功，只是回执没有收到；此时直接重试可能重复操作。工程上需要结合目标服务能力，保存稳定的操作编号、结果回执或目标版本，区分成功、失败和结果未知。</p>
-    <p><strong>项目里怎么检查：</strong>在测试服务写入成功后模拟回执丢失，再恢复同一任务。观察外部状态、操作回执和本地完成记录是否一致；无法确认结果时，应保留未知状态并交给人核对。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">检查点与幂等</a> · <a href="{{ '/2026/09/15/retry-rollback-replan/' | relative_url }}">重试、回滚与重规划</a></p>
+    <h2>5. 区分超时、重试和恢复</h2>
+    <p>读文档超时，可以在总时限内重试。缺少权限时，结束这次调用并提示用户核对授权。如果后续允许把草稿写入团队系统，要先检查调用者的写入权限。需要审批时，审批要对应具体目标和草稿内容，修改后重新确认。</p>
+    <p>写入成功但回执丢失，是值得专门测试的情况。恢复任务时，检查点告诉你工作流走到哪一步，操作回执或目标系统的状态告诉你草稿是否已经保存。服务支持幂等时，同一个动作沿用同一个操作编号。回执也查不到时，把结果标为未知，待核对后再决定。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-safety-hitl/' | relative_url }}">工具权限和人工确认</a> · <a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">中断恢复时怎么避免重复执行</a> · <a href="{{ '/2026/09/15/retry-rollback-replan/' | relative_url }}">失败后什么时候重试、回滚或重新规划</a></p>
   </section>
 
   <section id="verification">
-    <h2>5. 用什么证据判断结果已经完成？</h2>
-    <p>验收条件应尽量落到可观察的结果：文件是否生成、数据是否更新、代码是否通过测试、设备是否达到预期状态。能够确定判断的条件可以用程序断言；开放性的表达质量可以辅助使用模型评审，并保留不确定性和人工复核入口。</p>
-    <p><strong>案例：</strong>ReproLab 用 Dataset → Run → Artifact → Claim 记录输入、执行、成果与结论。仓库中的<a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/hashing.py" target="_blank" rel="noreferrer">哈希实现 ↗</a>把代码、输入和环境共同纳入执行身份；<a href="https://github.com/xinfengwang/reprolab/blob/main/backend/app/services/lineage/reproduce.py" target="_blank" rel="noreferrer">复现模块 ↗</a>核对环境、重跑代码并比较产物，帮助定位结果变化。</p>
-    <p><strong>项目里怎么检查：</strong>为每条关键结论找出对应输入、执行记录与验收结果；改动代码或数据后，确认旧验证是否仍然适用。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}">ReproLab 数据血缘</a> · <a href="{{ '/2026/09/15/deterministic-agent-evaluation/' | relative_url }}">确定性结果比对</a></p>
+    <h2>6. 检查交付物，再告诉用户完成了</h2>
+    <p>用程序校验草稿是否包含必填项，引用 ID 是否来自本轮检索，且对应所选环境和有效版本。再检查内容是否真的得到该段文档的支持：“先跑冒烟测试”出现在引用中，才能把它当作发布要求。引用存在和引用支持结论是两条不同的检查，后一条可以从人工抽样开始。</p>
+    <p>返回结果时，把完成的工作和待确认项写清楚。比如“已根据测试环境手册生成草稿；文档没有写灰度比例，需要发布负责人确认”。如果任务有实际写入，拿到系统回执或读回结果后，再把状态记为完成。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/deterministic-agent-evaluation/' | relative_url }}">哪些结果可以直接写断言</a> · <a href="{{ '/2026/09/15/llm-as-judge/' | relative_url }}">什么时候用模型做辅助评审</a> · <a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}">看 ReproLab 怎么把结果和证据连起来</a></p>
   </section>
 
   <section id="evaluation">
-    <h2>6. 一次失败，怎样变成下一次改进的依据？</h2>
-    <p><strong>Trace</strong> 保存一次任务的上下文、计划、工具参数、执行结果与状态变化，帮助区分知识、规划、工具和验证问题。<strong>Benchmark</strong> 把任务、输入与验收条件固定下来，用于比较版本。<strong>Badcase</strong> 则是需要重现、定位并补入回归的具体失败样本。</p>
-    <p>指标需要明确统计对象。Top5 路径命中率衡量候选检索是否包含目标路径；端到端完成率衡量整个任务是否满足验收条件。知识库里的应用、节点和指令数量描述覆盖规模，应与执行效果分别呈现。比较方案时，还应同时观察成本、延迟和人工介入。</p>
-    <p><strong>项目里怎么检查：</strong>固定一批任务和验收条件，记录模型、提示词、工具与代码版本；每次只围绕可归因的改动比较结果，并保留未参与调优的任务检查泛化。</p>
-    <p class="knowledge-links">继续阅读：<a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">失败分层与 Trace</a> · <a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">设计回归任务集</a> · <a href="{{ '/series/evaluation-reliability/' | relative_url }}">评测与可靠性系列</a></p>
+    <h2>7. 用固定样本做回归，靠执行记录排查</h2>
+    <p>把第 1 步的手工用例变成可重复跑的样本。再加上旧版文档排到第一、搜到生产环境步骤、工具超时、引用不支持结论等失败场景。改模型、提示词或索引时，在同一批问题和文档版本上对比任务完成率、引用正确率、延迟和模型用量。越权检索单独检查，方便直接定位权限问题。</p>
+    <p>每次执行记录任务 ID、阶段、命中的文档版本、校验结果、错误类型和耗时。排查时，从“用户应该看到什么”一路追到第一个偏离预期的环节。找到原因后，把这次失败加入回归集，再改代码或索引。日志优先记 ID 和版本，原文和敏感字段按需留存并限制访问。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">一次 Agent 失败怎么定位</a> · <a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">怎么建立回归评测</a> · <a href="{{ '/2026/09/15/agent-badcase-loop/' | relative_url }}">如何把真实故障整理成测试</a></p>
+  </section>
+
+  <section id="release">
+    <h2>8. 小范围上线，按实际失败调优</h2>
+    <p>让一组同事先试只读问答。发布时记录模型、提示词、工具定义和索引版本，方便比较线上表现。观察任务完成率、人工接管率、工具超时率、延迟和成本。比如答案频繁引用旧版手册，就查索引的更新和版本过滤。单次任务频繁搜索同一份文档，就查工作流的停止条件和预算。</p>
+    <p>预先准备停止自动执行的入口。新版本出现异常时，可以退回兼容的旧配置，或先切成只读问答。涉及写入时，继续核对正在运行的任务和已发生的操作，软件版本回退后也要处理这些记录。线上新用例进入回归集，再决定要改哪里的实现。</p>
+    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-demo-to-system/' | relative_url }}">从 Demo 到有人实际使用</a> · <a href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">模型调用变慢，从哪些指标查起</a></p>
   </section>
 
   <section id="glossary">
-    <h2>把几个常见术语放回工程位置</h2>
+    <h2>开发时容易混在一起的几个词</h2>
     <dl class="glossary">
-      <dt>Agent</dt><dd>围绕目标获取反馈、选择动作并推进任务的系统。模型参与决策，应用负责状态、执行与约束。</dd>
-      <dt>Harness / Runtime</dt><dd>承载 Agent 执行的外围机制。本文用它指代工具接入、上下文、任务状态、预算、恢复和验证等能力；不同项目的范围会有差异。</dd>
-      <dt>Guardrail / Validator</dt><dd>对输入、动作或结果实施约束和检查。设计时要明确检查对象、拦截位置，以及失败后由谁处理。</dd>
-      <dt>Memory / Context</dt><dd>记忆提供可跨步骤或跨任务保留的信息；上下文是当前模型调用实际获得的信息。保存的信息仍需经过选择、权限与时效检查才能用于本次任务。</dd>
+      <dt>Context / State / Memory</dt>
+      <dd>Context 是这轮模型看到了什么。State 是任务进行到哪里。Memory 是以后还可能用到的信息，召回时仍要检查时效和权限。</dd>
+      <dt>Checkpoint / Receipt</dt>
+      <dd>Checkpoint 保存流程进度。Receipt 是工具或外部系统返回的操作凭据。恢复写操作时通常两边都要查。</dd>
+      <dt>Validation / Evaluation</dt>
+      <dd>Validation 检查这一次的结果能否交付。Evaluation 关心一批任务上的整体表现，以及某次修改带来的变化。</dd>
     </dl>
-  </section>
-  <section>
-    <h2>从自己的项目开始梳理</h2>
-    <p>选一个任务，写清目标与验收条件，画出信息、计划、工具和状态的流向，再加入一次失败。检查每一步输入从哪里来、动作由谁执行、结果由谁确认，以及中断后从哪里继续。</p>
-    <p><a href="{{ '/projects/' | relative_url }}">对照我的公开项目 →</a> · <a href="{{ '/learning-map/' | relative_url }}">按学习路线继续 →</a> · <a href="{{ '/about/#capabilities' | relative_url }}">了解我的工程实践 →</a></p>
+    <p><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">跟着代码做一遍 →</a> · <a href="{{ '/learning-map/' | relative_url }}">查各阶段的文章与练习 →</a> · <a href="{{ '/projects/' | relative_url }}">看公开项目实现 →</a></p>
   </section>
 </div>

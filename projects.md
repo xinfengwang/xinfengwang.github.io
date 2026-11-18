@@ -11,7 +11,7 @@ description: "Wang Xinfeng 的公开项目：AI Agent 工程、科研工作台�
     <p class="lead">这些项目围绕三个问题展开：Agent 如何获得可用知识，如何把计划变成受约束的执行，以及如何验证结果。项目页按问题、技术实现和公开资料组织，也保留三维交互与早期产品探索。</p>
   </div>
 
-  <p class="project-reading-note">阅读建议：想了解结果溯源，看 ReproLab；想了解多 Agent 编排，看智能家居；想了解操作知识与指令构建，看 GUI 知识库。完整技术脉络见<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">Agent 工程概览 →</a></p>
+  <p class="project-reading-note">看 ReproLab 怎么核对一次分析的输入和产物，智能家居怎么在执行前检查状态，GUI 知识库怎么区分不同页面上名字相同的按钮。想先理解这些问题在开发中出现在哪一步，可以从<a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">Agent 开发指南</a>读起。</p>
 
   <section class="project-directory" aria-label="公开项目总览">
     {% for project in site.data.projects %}

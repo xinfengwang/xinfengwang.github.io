@@ -1,5 +1,5 @@
 title: "Wang Xinfeng's Blog"
-description: "王新峰的技术博客与项目展示：AI Agent / 大模型应用研发，记录 GUI 知识构建、混合检索、工作流编排、执行验证和研发 Harness 实践。"
+description: "王新峰的 AI Agent 开发博客。从任务设计和工具调用入手，接上检索、工作流与状态恢复，再做结果验证、回归评测和上线检查。"
 url: "https://xinfengwang.github.io"
 baseurl: ""
 lang: zh-CN
@@ -14,17 +14,18 @@ profile:
   role: "AI Agent Engineer"
   school: "深圳大学 · 电子信息工程硕士"
   github: "https://github.com/xinfengwang"
-  tagline: "Build agents that can be traced, verified, and improved."
 
 nav:
   - title: 首页
     url: /
-  - title: 项目
-    url: /projects/
+  - title: 开发指南
+    url: /agent-engineering/
   - title: 学习路线
     url: /learning-map/
   - title: 全部文章
     url: /archive/
+  - title: 项目
+    url: /projects/
   - title: 个人经历
     url: /experience/
   - title: 关于我
