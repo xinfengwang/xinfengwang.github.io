@@ -147,6 +147,11 @@
       title: "Agent 任务恢复后，怎么避免把同一个动作做两遍？"
       status: published
       url: "/2026/11/05/agent-checkpoint-idempotency/"
+    - no: "09"
+      featured: true
+      title: "写入成功，为什么 Agent 还显示未完成？"
+      status: published
+      url: "/2026/11/18/document-agent-durable-write/"
 
 - id: evaluation-reliability
   title: "Agent Evaluation 与 Reliability：把智能系统做成工程系统"
@@ -193,6 +198,11 @@
       title: "Guardrail 与 CodeCheck：执行后验证为什么不可缺"
       status: published
       url: "/2026/09/15/guardrail-codecheck/"
+    - no: "08"
+      featured: true
+      title: "Agent 改完真的更好吗？拿一次漏检索做回归"
+      status: published
+      url: "/2026/11/18/document-agent-regression/"
 
 - id: ai-coding-harness
   title: "AI Coding 与 Agent Harness：从代码上下文到交付闭环"

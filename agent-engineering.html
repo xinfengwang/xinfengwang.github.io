@@ -7,7 +7,16 @@ permalink: /agent-engineering/
 <div class="narrow-page knowledge-page">
   <h1>AI Agent 开发指南</h1>
   <p class="lead">假设团队有一堆研发文档，新同事问：“测试环境怎么发版？帮我整理一份检查清单。”Agent 需要找对环境的文档，读出发布条件，交付一份带出处的草稿。缺了关键资料就说清楚缺什么。</p>
-  <p>下面用这一个练习走完开发流程。想边读边写代码，可以跟着<a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">文档 Agent 动手教程</a>，先把检索、工具调用和结果检查跑通。</p>
+  <p>这条任务看起来简单，实际会碰到三类问题：工具明明搜到了，模型下一轮为什么没用上？草稿已经保存，任务为什么还显示未完成？只改了一个检索词，怎么判断可以上线？每个问题都有一篇可以运行代码的实战。</p>
+
+  <section id="practice" aria-labelledby="practice-title">
+    <h2 id="practice-title">文档 Agent 实战</h2>
+    <ol>
+      <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">工具调用和证据验收</a>。抓住一条 <code>call_id</code>，对齐第一轮模型输出、工具结果和第二轮请求。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">保存成功却丢了回执</a>。让进程在目标库提交后退出，观察新进程怎样恢复同一次写入。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">把漏检索变成发布门禁</a>。固定十条用例，只改一处检索配置，核对改好的是哪一条。</li>
+    </ol>
+  </section>
 
   <nav class="knowledge-overview guide-contents" aria-label="开发指南目录">
     <ol>
@@ -31,7 +40,8 @@ permalink: /agent-engineering/
 
   <section id="tools">
     <h2>2. 先接通一个只读工具</h2>
-    <p>第一版只接 <code>search_docs(query, environment)</code>。模型提出搜索请求，服务端校验参数，按当前用户的权限查资料，再把文档 ID、版本和片段回给模型。账号身份从登录会话取得，搜索工具的环境参数则要和这个任务已经确认的环境一致。</p>
+    <p>第一版只接 <code>search_docs(query)</code>。模型提出搜索词，应用校验参数，使用任务已确认的环境和会话提供的权限查资料，再把文档 ID、版本和片段回给模型。</p>
+    <p>一次正常执行会留下四个可以核对的事件：模型提出调用，应用查到资料，用同一个 <code>call_id</code> 回填，再验收模型选择的来源。查到资料但模型仍答错时，先确认第二个请求真正带了哪些片段。</p>
     <p>先区分“搜到了”“没有匹配结果”和“搜索服务暂时不可用”。没有匹配结果时，可以换一个查询或请用户补充信息。服务暂时不可用时，可以做有限次数的重试。以后要把外部工具接进来，可以用 MCP 暴露工具和资源，应用仍要处理身份、参数、权限和超时。</p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/function-calling/' | relative_url }}">Function Calling 是怎么跑起来的</a> · <a href="{{ '/2026/09/15/tool-schema-router/' | relative_url }}">工具多了怎么选</a> · <a href="{{ '/2026/09/14/mcp-and-function-calling/' | relative_url }}">什么时候需要 MCP</a></p>
   </section>
@@ -47,6 +57,7 @@ permalink: /agent-engineering/
     <h2>4. 把固定步骤写进工作流</h2>
     <p>这个例子里的主流程很清楚：确认环境，检索资料，起草清单，检查引用，然后返回。确认环境和检查引用由程序控制。模型可以改写检索词、判断缺哪类资料，或根据已找到的资料起草。读到相互冲突的版本时，流程停在“需要确认”，让用户知道哪两份资料在冲突。</p>
     <p>把任务状态放在工作流里，至少存任务 ID、环境、当前阶段、证据引用、草稿和重试次数。一个短流程用函数和显式状态就能起步。分支多了，需要暂停等待人工回复，或者一个任务要跨多个进程继续执行时，再考虑状态机框架。拆多 Agent 之前，先确定每个角色会拿到什么输入、交回什么产物、由谁判断完成。</p>
+    <p>落到这个例子里，最多执行两次搜索。程序比较调用参数和剩余预算，重复请求直接退出。占满步数时，界面可以显示已找到哪些资料、还缺哪个主题。如果业务验收规定清单必须齐全，缺项的结果就保留在“需要补资料”状态。</p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">多步任务为什么要保存状态</a> · <a href="{{ '/2026/09/15/structured-plan-executor/' | relative_url }}">Planner 和 Executor 怎么分工</a> · <a href="{{ '/2026/09/15/multi-agent-shared-context/' | relative_url }}">多个 Agent 之间共享什么</a></p>
   </section>
 
@@ -54,6 +65,8 @@ permalink: /agent-engineering/
     <h2>5. 区分超时、重试和恢复</h2>
     <p>读文档超时，可以在总时限内重试。缺少权限时，结束这次调用并提示用户核对授权。如果后续允许把草稿写入团队系统，要先检查调用者的写入权限。需要审批时，审批要对应具体目标和草稿内容，修改后重新确认。</p>
     <p>写入成功但回执丢失，是值得专门测试的情况。恢复任务时，检查点告诉你工作流走到哪一步，操作回执或目标系统的状态告诉你草稿是否已经保存。服务支持幂等时，同一个动作沿用同一个操作编号。回执也查不到时，把结果标为未知，待核对后再决定。</p>
+    <p>调试时可以把进程停在两处：请求发出前，以及目标提交之后、本地记状态之前。在前一种情况下，恢复应当补做原操作；在后一种情况下，恢复只需要补记完成。两条路径都能看到相同的本地状态，因此要去目标端查操作回执。</p>
+    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">跑一次写入后的进程退出与恢复</a></p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-safety-hitl/' | relative_url }}">工具权限和人工确认</a> · <a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">中断恢复时怎么避免重复执行</a> · <a href="{{ '/2026/09/15/retry-rollback-replan/' | relative_url }}">失败后什么时候重试、回滚或重新规划</a></p>
   </section>
 
@@ -68,6 +81,8 @@ permalink: /agent-engineering/
     <h2>7. 用固定样本做回归，靠执行记录排查</h2>
     <p>把第 1 步的手工用例变成可重复跑的样本。再加上旧版文档排到第一、搜到生产环境步骤、工具超时、引用不支持结论等失败场景。改模型、提示词或索引时，在同一批问题和文档版本上对比任务完成率、引用正确率、延迟和模型用量。越权检索单独检查，方便直接定位权限问题。</p>
     <p>每次执行记录任务 ID、阶段、命中的文档版本、校验结果、错误类型和耗时。排查时，从“用户应该看到什么”一路追到第一个偏离预期的环节。找到原因后，把这次失败加入回归集，再改代码或索引。日志优先记 ID 和版本，原文和敏感字段按需留存并限制访问。</p>
+    <p>同一条测试要同时检查工具返回与最终清单。例如开发用户查生产发版时，清单应该为空，搜索事件也不能带回生产文档 ID。只检查最终输出，会漏掉模型已经看到不该看的资料这一类问题。</p>
+    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">用固定用例对照检索基线与候选版</a></p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">一次 Agent 失败怎么定位</a> · <a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">怎么建立回归评测</a> · <a href="{{ '/2026/09/15/agent-badcase-loop/' | relative_url }}">如何把真实故障整理成测试</a></p>
   </section>
 

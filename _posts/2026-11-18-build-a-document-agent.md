@@ -1,159 +1,121 @@
 ---
 layout: post
 title: "从零写一个文档 Agent：工具、状态和验收"
-subtitle: "用一份测试环境发版清单，把检索、工具参数校验、引用检查和第一组回归用例跑通。"
+subtitle: "文档 Agent 实战 01｜从两次模型请求和一个 call_id，看清执行循环、停止条件和证据校验。"
 date: 2026-11-18 20:00:00 +0800
+updated: 2026-11-18
 series: "AI Agent 基础"
 series_key: agent-foundations
 series_index: "09"
 category: Tech
 tags: [Agent, Tool-Use, RAG, Workflow, Evaluation]
 content_kind: 工程方法
-audience: "写过 JavaScript、想自己实现第一条 Agent 工作流的读者。"
-prerequisite: "能用 Node.js 运行 JavaScript，了解函数和对象。"
-description: "一个可在本地运行的文档 Agent 教学例子，包含只读检索、访问范围、状态流转、引用校验和回归断言。"
-exercise: "添加一份内容更接近问题但版本过期的文档，验证清单仍引用正确版本。"
+audience: "想写出第一条真正有工具调用的工作流，或正在排查 Agent 为什么重复调用工具的读者。"
+prerequisite: "会用 Node.js 24 运行 JavaScript，了解 JSON 和异步函数。"
+description: "用测试环境发版清单追踪一次真实形状的工具调用，从模型请求、call_id 配对、权限过滤，到停止条件与引用验收。"
+exercise: "让模型替身先查「冒烟测试」再查「构建编号」，检查两条工具结果都能成为证据，而且返回顺序由验收规则确定。"
 ---
 
-“测试环境怎么发版？给我列一份检查清单。”这句话很适合拿来写第一个 Agent。输入有一点模糊，输出却容易检查。可以拿着清单逐条核对：引用的是测试环境手册吗？手册里有这一步吗？文档找不到的时候，程序会怎么做？
+同一句“测试环境怎么发版”，手写函数会回答，接了模型的 Agent 却可能搜两次同一个词，还可能引用一份已经失效的手册。最难排查的一类错误是：终端上已经打印了正确的搜索结果，但第二轮模型像什么也没看见。工具有输出，模型有没有收到，要看请求里的消息序列。
 
-第一版给用户一份草稿，只读文档。实现分三步：程序确认环境和权限，模型参与检索或整理，程序检查输出。下面先用两个普通函数模拟模型答复，可以离线调试完整流程。改用真实模型时，工具边界和测试可以直接复用。
+这篇把一条任务从头跑一遍。任务很小：读团队发布文档，给用户一份带出处的清单草稿。第一步用可重复的模型替身观察每条消息。最后接入同一接口形状的真实模型适配器。清单到“待审核”为止，保存到团队系统会在[下一篇](/2026/11/18/document-agent-durable-write/)单独实现。
 
-## 开工前，先列出什么算做完
+## 先定任务的交付条件
 
-| 输入 | 预期结果 |
-| --- | --- |
-| 已确认测试环境，用户有权限 | 返回带文档版本和出处的步骤 |
-| 用户只说“帮我发版” | 先问是哪个环境 |
-| 用户没有文档访问权限 | 返回缺少可用资料，无草稿 |
-| 检索结果里只有旧版手册 | 返回缺少可用资料，无草稿 |
-| 草稿引用了本轮未召回的段落 | 校验失败，交付停止 |
+用户的问题和目标环境是两项输入。环境来自用户已确认的选择，权限组来自应用会话。测试环境清单要有“冒烟测试”和“构建编号”两项；生产清单要有“值班确认”和“构建编号”。这份必需项清单是业务规则，代码里的 `required` 显式维护。模型读到两份文档，不等于两个业务项都查齐了。
 
-这个版本把环境当作已经确认的任务字段。实际界面可以让用户选择环境，或者由模型从问题中抽取后请用户确认。用户身份和组权限由应用从会话里取得。
+| 条件 | 程序行为 | 用户能拿到什么 |
+| --- | --- | --- |
+| 环境未知 | 调模型前返回 `needs_environment` | 澄清问题 |
+| 资料匹配且必需项齐全 | `ready_for_review` | 有出处、带版本的草稿 |
+| 权限内没有命中，或缺少一个必需项 | `needs_evidence` | 缺资料的状态 |
+| 两份当前资料对同一项给出不同文本 | `conflicting_evidence` | 需要核对的主题 |
+| 搜索服务异常 | `search_unavailable` | 可重试的服务错误 |
+| 草稿引用本次执行中没出现的 ID | `invalid_draft` | 草稿停止交付 |
 
-## 把工具、状态和验收接起来
+有时只用程序就够了。用户若从固定菜单选择环境、请求固定模板，后端可按主题直接读取手册并排版。这个例子保留模型，是为了让它处理口语提问、决定先查哪一个词，以及一次查不全时换个查询。哪些步骤必须出现在清单上，仍由程序决定。
 
-把下面的代码存为 `agent.mjs`，用 `node agent.mjs` 运行。示例数据有一份当前测试手册、一份旧手册和一份生产手册。每个片段包含一个来源 ID、环境、版本和所属访问组。
+## 第一轮和第二轮之间，差了一条什么消息？
 
-```javascript
-import assert from "node:assert/strict";
+下载 <a href="/assets/examples/document-agent/agent.mjs" download>agent.mjs</a>，用 Node.js 24 运行 `node agent.mjs`。没有安装依赖的步骤。默认模型替身直接返回与 API 同形状的响应项，所以每次可以看到同样的结果。
 
-const docs = [
-  { id: "test-v2#checks", env: "test", version: "v2", group: "dev",
-    current: true, text: "发版前运行冒烟测试。" },
-  { id: "test-v2#record", env: "test", version: "v2", group: "dev",
-    current: true, text: "发版后记录构建编号。" },
-  { id: "test-v1#checks", env: "test", version: "v1", group: "dev",
-    current: false, text: "发版后再运行冒烟测试。" },
-  { id: "prod-v4#checks", env: "prod", version: "v4", group: "ops",
-    current: true, text: "发版前由值班经理确认。" },
-];
+第一次发送给模型的是问题、确认的环境、必需主题，以及工具定义。其中 `search_docs` 只允许一个参数 `query`。模型选择工具时，返回的主要字段如下：
 
-function searchDocs(query, env, groups) {
-  return docs.filter(doc =>
-    doc.current && doc.env === env && groups.includes(doc.group)
-    && doc.text.includes(query)
-  );
+```json
+{
+  "type": "function_call",
+  "name": "search_docs",
+  "call_id": "call_1",
+  "arguments": "{\"query\":\"发版\"}"
 }
-
-// 本地测试用的模型替身。工具调用和草稿分开返回。
-const localModel = {
-  chooseTool: ({ env }) => ({ name: "search_docs", query: "发版", env }),
-  draft: ({ sources }) => sources.map(doc => ({
-    sourceId: doc.id,
-    step: doc.text,
-  })),
-};
-
-function runTask({ question, env }, groups, model = localModel) {
-  const trace = [];
-  function finish(status, details = {}) {
-    return { status, trace, ...details };
-  }
-
-  if (env !== "test" && env !== "prod") {
-    return finish("needs_environment", { message: "要查哪个环境？" });
-  }
-
-  const call = model.chooseTool({ question, env });
-  if (call?.name !== "search_docs" || call.env !== env
-      || typeof call.query !== "string"
-      || !call.query.trim() || call.query.length > 60) {
-    return finish("invalid_tool_call");
-  }
-
-  const matches = searchDocs(call.query.trim(), env, groups);
-  const sources = matches.map(({ id, version, text }) => ({ id, version, text }));
-  trace.push({ stage: "search", sourceIds: sources.map(doc => doc.id) });
-  if (!sources.length) {
-    return finish("needs_evidence", { message: "没有找到可用的当前版本文档。" });
-  }
-
-  const steps = model.draft({ question, env, sources });
-  const byId = new Map(sources.map(doc => [doc.id, doc]));
-  const valid = Array.isArray(steps) && steps.length > 0 && steps.every(step => {
-    const source = byId.get(step?.sourceId);
-    return source && step.step === source.text;
-  });
-  trace.push({ stage: "validate", passed: valid });
-  if (!valid) return finish("invalid_draft");
-
-  return finish("ready_for_review", {
-    env,
-    steps: steps.map(({ sourceId, step }) => ({
-      sourceId, version: byId.get(sourceId).version, step,
-    })),
-  });
-}
-
-const question = "测试环境怎么发版？给我列一份检查清单。";
-const task = { question, env: "test" };
-const result = runTask(task, ["dev"]);
-assert.equal(result.status, "ready_for_review");
-assert.deepEqual(result.steps.map(step => step.sourceId),
-  ["test-v2#checks", "test-v2#record"]);
-assert.equal(runTask({ question: "帮我发版" }, ["dev"]).status,
-  "needs_environment");
-assert.equal(runTask(task, ["guest"]).status, "needs_evidence");
-assert.equal(runTask(task, ["dev"], {
-  ...localModel,
-  chooseTool: () => ({ name: "search_docs", query: "再运行", env: "test" }),
-}).status, "needs_evidence");
-assert.equal(runTask(task, ["dev"], {
-  ...localModel,
-  chooseTool: () => ({ name: "search_docs", query: "发版", env: "prod" }),
-}).status, "invalid_tool_call");
-assert.equal(runTask(task, ["dev"], {
-  ...localModel,
-  draft: () => [{ sourceId: "test-v1#checks", step: "发版后再运行冒烟测试。" }],
-}).status, "invalid_draft");
-assert.equal(runTask(task, ["dev"], {
-  ...localModel,
-  draft: () => [{ sourceId: "test-v2#checks", step: "可以跳过冒烟测试。" }],
-}).status, "invalid_draft");
-console.log(JSON.stringify(result, null, 2));
 ```
 
-最后一行打印任务结果。找到资料时，`trace` 先出现 `search`，里面有这次实际命中的文档，再出现 `validate`。缺少环境时，程序在模型调用前就返回。调用越权或校验失败时，结果里也没有草稿。拿这几个状态接 UI，用户能看到是需要补充信息、缺少资料，还是草稿没有通过检查。
+`arguments` 是 JSON 字符串。应用先解析，再检查允许的工具名、调用编号、参数字段和长度。调用搜索时，用程序内已确认的 `env` 和登录会话中的 `groups`。即使模型输出自带环境或权限字段，也会在参数检查时被拒绝。查询范围确定之后，才匹配关键词并截取最多四个片段。
 
-示例为了让断言清楚，要求每个步骤逐字对应一个证据片段。真实清单常常要合并多段材料或重写成行动项。可以改成每条带多个来源，程序检查引用范围，另做抽样评审确认改写后的意思仍然成立。还要检查关键步骤是否漏掉，因为单条引用正确也不能证明整份清单完整。
+接着保留这一轮的模型输出，把下面的结果项追加到同一个输入序列：
 
-## 接上真正的模型以后，先看两份输入
+```json
+{
+  "type": "function_call_output",
+  "call_id": "call_1",
+  "output": "{\"hits\":[{\"id\":\"test-v2#smoke\",\"version\":\"v2\",\"topic\":\"smoke\",\"text\":\"测试环境发版前，冒烟测试必须通过。\"}]}"
+}
+```
 
-第一次模型调用只需要用户问题、确认过的环境和可用工具定义。打开你所用模型的工具调用接口，把工具请求解析成示例里的 `name`、`query`、`env`。模型缺少工具调用、参数格式错了或选了别的环境，就按错误路径处理。第二次调用再把本轮检索片段交给模型，让它返回 `sourceId` 和步骤文本。两个调用都设置独立超时和任务总预算。接异步 SDK 时，把模型适配器和 `runTask` 改为异步，并添加对应的失败处理。
+这段只展示一个命中，方便看数据形状。默认运行还会返回构建编号那一条。第二次请求带着原问题、第一轮输出和工具结果；两条消息用同一个 `call_id` 配对。调试时如果日志有 `search` 却没有第二轮模型请求，先看异常或截止时间；如果第二轮也发出了，再核对消息里有没有对应的结果项。推理模型返回的推理项也要按接口约定一并带回。字段和请求细节见 [OpenAI Function calling 文档](https://developers.openai.com/api/docs/guides/function-calling)。
 
-如果结果不好，先看具体卡在哪次调用。第一次搜“上线”找不到包含“发版”的文档，可以给查询增加同义词或尝试混合检索。第二次已经看到正确文档，但仍把“发版前”写成“发版后”，就该查上下文格式、草稿生成规则和验收。两种情况的用户反馈可能都是“答案不对”，修的地方完全不同。
+```mermaid
+sequenceDiagram
+    participant A as 应用
+    participant M as 模型
+    participant D as 文档索引
+    A->>M: 问题、工具定义
+    M-->>A: 工具请求 call_1
+    A->>D: 在已确认的范围内检索
+    D-->>A: 当前版本片段
+    A->>M: 工具结果 call_1
+    M-->>A: 来源 ID
+    A->>A: 检查覆盖，再渲染草稿
+```
 
-更多细节见 [Function Calling](/2026/09/15/function-calling/) 和 [RAG 检索失败排查](/2026/09/15/rag-badcase-debugging/)。
+这里有两份容易混在一起的数据。`input` 是下次模型实际能看到的消息；`evidence` 是应用用来验收的 Map，键是本次搜索返回的片段 ID。后者还可以用来把来源定位到某版文档。对比日志里的 `search.sourceIds` 与下一轮请求中的工具输出，就能区分“应用查到了”和“模型拿到了”。
 
-## 加一个步骤，再补一条失败路径
+## 这个循环什么时候该停？
 
-试着在样例数据里加入一份过期手册，让它比当前版包含更多与问题相同的词。检查它依然不会进入检索结果。然后让搜索函数模拟两种异常：一次超时后恢复，以及持续不可用。给读取操作加总时限和有限重试，检查持续不可用时会返回单独的状态，方便 UI 提示用户稍后再试。
+源码中的 `runTask` 最多调三次模型，最多执行两次搜索。第三轮可以交草稿，如果仍请求执行工具，程序会以 `budget_exhausted` 结束。相同参数再次提交会返回 `repeated_query`；同一个调用编号再次出现属于协议异常，返回 `invalid_tool_call`。真实模型适配器用 `AbortSignal` 给请求设置单次上限，运行时也计算剩余总时间。示例检索只在内存中执行。如果换成网络检索，要把搜索改成异步并给检索客户端传截止时间；在调用前看一眼时钟，无法取消已经阻塞的请求。
 
-以后要让 Agent 保存草稿，给任务加一个待确认状态，让用户知道将保存的内容和位置。为同一逻辑写入保存操作编号，再模拟“保存成功但没有回执”。检查任务恢复时会先核对实际状态。能从这个故障继续往下做，才有理由把草稿保存交给别人试用。相关设计见 [工作流状态机](/2026/09/12/why-agent-workflow-needs-state-machine/) 和 [检查点与幂等](/2026/11/05/agent-checkpoint-idempotency/)。
+| 看见的执行记录 | 到哪里排查 |
+| --- | --- |
+| 模型轮次有调用，搜索事件缺失 | 工具名、参数、调用编号或预算被拒绝 |
+| 搜索命中为空，模型正常返回 | 对照当前版本、权限范围和查询词 |
+| 搜索有命中，验收仍少一个主题 | 确认丢在了召回环节，还是模型没选那个来源 |
+| 连续两次请求同一个词 | 看上一条结果有没有回填，再看是否真的需要模型决定重试 |
+| 模型请求超时 | 分开记录调用耗时和剩余预算，再判断是否重试或提示用户 |
 
-## 哪些测试要带到上线前
+限制“最多两次”是这个例子的产品选择。考虑把次数放宽前，先做一个实验：第一条只搜“冒烟测试”，第二条只搜“构建编号”。如果确实能补齐资料，再看额外一轮的延迟是否值得。频繁靠多轮才能凑齐固定项目，通常值得先改检索或直接按主题查询。
 
-先保留上面的断言，把模型或索引每次变化当成一次可比较的运行。再整理一组实际问法，覆盖口语、缺省环境、手册更新和不同用户组。每条留一份预期状态和允许引用的文档版本。只读试用时可以观察三件事：用户是不是拿到了可用清单、系统有多少次因为缺资料而停止、一次任务平均查几次文档。拿到稳定的基线以后，再决定该优化检索、模型调用还是流程分支。
+## 验收为什么只让模型交来源 ID？
 
-[回到 Agent 开发指南](/agent-engineering/)继续看上线和维护步骤。想把这组手工用例扩成持续回归，可以接着读 [Agent Benchmark 怎么设计](/2026/09/15/agent-benchmark/)。
+如果让模型直接写清单，它可能在正确引用后面加一句错误的操作前提。这个版本让它交 `{"sourceIds":["test-v2#smoke","test-v2#build"]}`，正文取自应用已经见过的文档片段，顺序按业务约定排。程序检查每个来源是否在 `evidence` 内、每个必需主题是否刚好覆盖一次、已召回片段有没有互相冲突。这样可以分别复现三个故障：旧版 ID 并未进入证据、两个 ID 都存在但遗漏了构建编号、两条仍然生效的材料说法不一致。最后一种只能发现已经出现在本轮证据里的冲突，索引中的潜在冲突还要靠文档治理和检索覆盖来处理。
+
+默认运行会先做几条断言，再打印结果。看 `trace` 的正常顺序：
+
+```text
+model round=1 calls=1
+search round=1 callId=call_1 [test-v2#smoke, test-v2#build]
+model round=2 calls=0
+validate selected=2 required=2
+ready_for_review
+```
+
+如果用生成文字替换原文摘录，至少保留逐项来源、所引用的版本和编辑后的文本。程序仍可检查引用范围与覆盖情况，语义是否被改反需要另一条评测或人工抽查。比如“通过后再发布”和“发布后再检查”用的是相近的词，实际顺序完全不同。
+
+## 接真实模型前先过本地运行
+
+`agent.mjs` 里的 `openAIModel` 用 `fetch` 接 Responses API。应用自己持有消息历史，适配器只负责发送请求、返回本轮输出；文档搜索、权限和验收继续走原来的代码。需要试实际请求时，在自己的终端设置 `OPENAI_API_KEY` 和 `OPENAI_MODEL`，选择支持函数调用和结构化输出的模型，再执行 `node agent.mjs --live`。这个入口会向 API 发送本篇随代码附带的示例问题和文档片段。默认运行和回归脚本使用模型替身。
+
+回看自己的实现，可以先问一个很具体的问题：**从模型提出搜索到用户看到清单，我能否找到那个贯穿两轮的调用编号，以及最终引用的原始片段？** 能找到，就有了排查回路。接下来才是把草稿保存后的另一类问题。
+
+[下一篇：写入成功，为什么任务还显示未完成？](/2026/11/18/document-agent-durable-write/) · [第三篇：把一次漏检索变成发布门禁](/2026/11/18/document-agent-regression/) · [开发指南](/agent-engineering/#practice)
+
+想把这个循环和大型 Coding Agent 的实现对照，可以读阿甘的[《最小 agent 循环的解剖》](https://arganzheng.life/anatomy-of-the-agent-loop.html)。

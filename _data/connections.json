@@ -118,11 +118,6 @@
     "source_sha256": "16727d8cce821464e747e2d3f15ff00a6e368c25b095a543004433a055a39aab",
     "related": [
       {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "这篇文章引用了本文"
-      },
-      {
         "url": "/2026/09/03/langgraph-for-multi-agent/",
         "title": "LangGraph 为什么更适合 Multi-Agent？",
         "reason": "共同主题：LangGraph、Multi-Agent"
@@ -131,14 +126,14 @@
         "url": "/2026/09/15/agent-runtime-overview/",
         "title": "总纲：为什么 Agent 需要 Runtime",
         "reason": "共同主题：LangGraph、Multi-Agent"
+      },
+      {
+        "url": "/2026/09/15/multi-agent-badcases/",
+        "title": "多 Agent 系统最常见的五类流转 Badcase",
+        "reason": "共同主题：LangGraph、Multi-Agent"
       }
     ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      }
-    ]
+    "backlinks": []
   },
   "/2026/09/13/context-engineering-workspace-codebase/": {
     "source_sha256": "681e626a4b55ffa58a67620b509bcc20705c0e84920db8da4e82bb65222fb0c3",
@@ -196,9 +191,9 @@
         "reason": "共同主题：Evaluation、Tracing"
       },
       {
-        "url": "/2026/09/15/gui-agent-badcase-loop/",
-        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
-        "reason": "共同主题：Badcase、Evaluation"
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
+        "reason": "共同主题：Evaluation、Tracing"
       }
     ],
     "backlinks": []
@@ -222,12 +217,7 @@
         "reason": "共同主题：Benchmark、Evaluation"
       }
     ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      }
-    ]
+    "backlinks": []
   },
   "/2026/09/15/agent-demo-to-system/": {
     "source_sha256": "2b495c41212bb6cbd2beb6da50deee5163e502b742a993f42f1226ca9444542c",
@@ -614,11 +604,6 @@
     "source_sha256": "8aa11bf690d3dd34154b6cb1370c11084f39d45707478ba30a6213a50cf4e3ce",
     "related": [
       {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "这篇文章引用了本文"
-      },
-      {
         "url": "/2026/09/14/mcp-and-function-calling/",
         "title": "MCP：为什么有 Function Calling 还需要协议层？",
         "reason": "共同主题：Function-Calling、Tool-Use"
@@ -627,14 +612,14 @@
         "url": "/2026/09/15/tool-schema-router/",
         "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
         "reason": "共同主题：Function-Calling、Tool-Use"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Tool-Use"
       }
     ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      }
-    ]
+    "backlinks": []
   },
   "/2026/09/15/guardrail-codecheck/": {
     "source_sha256": "b0a1d1599e60d58124e0451b8f4b9b9bcb6b3edd6112868a5c58ea4e5b30dda6",
@@ -874,17 +859,12 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "这篇文章引用了本文"
+        "url": "/2026/09/15/gui-agent-badcase-loop/",
+        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
+        "reason": "共同主题：Badcase、Evaluation"
       }
     ],
-    "backlinks": [
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
-      }
-    ]
+    "backlinks": []
   },
   "/2026/09/15/rag-basics/": {
     "source_sha256": "d4bc3ffa0917e0af00276cb373fe9990e5b47f8ac86afae13cedb9f467e50ade",
@@ -984,9 +964,9 @@
         "reason": "这篇文章引用了本文"
       },
       {
-        "url": "/2026/09/03/langgraph-for-multi-agent/",
-        "title": "LangGraph 为什么更适合 Multi-Agent？",
-        "reason": "共同主题：Workflow"
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "reason": "共同主题：Reliability、Workflow"
       }
     ],
     "backlinks": [
@@ -1233,14 +1213,14 @@
         "reason": "本文引用的延伸阅读"
       },
       {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/11/01/reliable-development-agent-harness/",
         "title": "研发 Agent Harness：规范、上下文与验证闭环",
         "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收",
-        "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
@@ -1249,8 +1229,8 @@
         "title": "Retry、Rollback 与 Replan：Agent 失败以后怎么继续？"
       },
       {
-        "url": "/2026/11/18/build-a-document-agent/",
-        "title": "从零写一个文档 Agent：工具、状态和验收"
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？"
       }
     ]
   },
@@ -1324,24 +1304,93 @@
     "backlinks": []
   },
   "/2026/11/18/build-a-document-agent/": {
-    "source_sha256": "078b66268b72c5664d68102784ee3090ffd5700550cf0b1edd52a1ba6c189908",
+    "source_sha256": "9c47ed18ce055226c53cd395c7cadada34be9f3011416b518bd432d5a720b28e",
     "related": [
       {
-        "url": "/2026/09/12/why-agent-workflow-needs-state-machine/",
-        "title": "为什么 Agent Workflow 需要状态机，而不是让 LLM 自由流转？",
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/rag-badcase-debugging/",
-        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/function-calling/",
-        "title": "Function Calling：模型到底是怎么学会调用工具的？",
+        "url": "/2026/09/15/ai-agent-engineering-map/",
+        "title": "AI Agent 工程学习地图：从 Tool Use 到 Reliable Agent",
+        "reason": "共同主题：Evaluation、RAG"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-durable-write/": {
+    "source_sha256": "e96bc742559f3f8604557e3cbfb58a301a7cfce559a88f54ba8f5da037dbc732",
+    "related": [
+      {
+        "url": "/2026/11/05/agent-checkpoint-idempotency/",
+        "title": "Agent 任务恢复后，怎么避免把同一个动作做两遍？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
         "reason": "本文引用的延伸阅读"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-regression/": {
+    "source_sha256": "7df3de34936e12a4691cc88cffcf64231e22a6b161016d1288ddc951d277c1a4",
+    "related": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/evaluation-overview/",
+        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
+        "reason": "共同主题：Benchmark、Evaluation"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      },
+      {
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？"
+      }
+    ]
   }
 }
