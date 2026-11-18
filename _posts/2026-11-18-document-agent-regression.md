@@ -101,4 +101,6 @@ exercise: "故意让检索返回已经过期的片段，观察是哪条断言先
 
 [第一篇：工具调用和证据验收](/2026/11/18/build-a-document-agent/) · [上一篇：写入成功却丢了回执](/2026/11/18/document-agent-durable-write/) · [学习路线](/learning-map/#full-path)
 
+通过离线门禁后，可以继续跑[灰度对照和回滚练习](/2026/11/18/document-agent-release/)，看总完成率为什么会掩盖关键场景的退步。
+
 关于如何分层采样、维护保留集，可以接着读阿甘的[《评测集：AI 应用的单元测试》](https://arganzheng.life/eval-sets-the-unit-tests-of-ai-applications.html)。

@@ -26,14 +26,14 @@ permalink: /learning-map/
 
   <section id="full-path" class="roadmap-section" aria-labelledby="full-path-title">
     <h2 id="full-path-title">从第一个工具到上线检查</h2>
-    <p class="roadmap-hint">先跟着<a class="text-link" href="{{ '/agent-engineering/#practice' | relative_url }}">文档 Agent 实战三篇</a>跑一遍。用 Node.js 24 可以观察工具调用、重现一次丢回执、比较两版检索。再用下面的清单对照自己的项目。</p>
+    <p class="roadmap-hint">先跟着<a class="text-link" href="{{ '/agent-engineering/#practice' | relative_url }}">文档 Agent 实战</a>跑一遍。用 Node.js 24 可以追踪模型实际拿到的证据、重现一次丢回执，再演练一次发布回滚。</p>
     <ol class="roadmap-build">
       <li><a href="{{ '/agent-engineering/#scope' | relative_url }}">需求与验收</a><span>写一页任务说明，列出要交付什么、哪些信息缺失时要追问，以及三条验收用例。</span></li>
       <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">模型和工具</a><span>接通一个只读工具，检查模型提出的调用与回填的工具结果是否用了同一个编号。</span></li>
-      <li><a href="{{ '/series/rag-context/' | relative_url }}">检索与上下文</a><span>给文档片段保留版本和出处，拿几条实际问法检查正确段落能否进到模型输入。</span></li>
+      <li><a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">检索与上下文</a><span>用同一段手册追踪召回、排序、工具结果与引用。把预算调低，观察丢的是哪一段。</span></li>
       <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">工作流和恢复</a><span>在目标提交后让进程退出。恢复时分别检查任务状态、操作回执和外部版本。</span></li>
       <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">验收和回归</a><span>针对同一批用例跑基线和候选版，列出哪些改好了、哪些退步了，再决定能否发布。</span></li>
-      <li><a href="{{ '/agent-engineering/#release' | relative_url }}">上线和维护</a><span>给一组用户试用，记录版本、成功率、耗时和失败原因，演练一次如何暂停或切回旧配置。</span></li>
+      <li><a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">上线和维护</a><span>对照同一批请求在两版的记录，按关键场景看退步。切回后重放原请求，确认为什么恢复。</span></li>
     </ol>
   </section>
 

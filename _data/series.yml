@@ -97,6 +97,11 @@
       title: "权限 RAG：最小权限、元数据过滤与越权防护"
       status: published
       url: "/2026/09/15/permission-aware-rag/"
+    - no: "08"
+      featured: true
+      title: "明明检索到了，Agent 为什么没把那段话用上？"
+      status: published
+      url: "/2026/11/18/document-agent-context/"
 
 - id: workflow-multi-agent
   title: "Workflow 与 Multi-Agent：从自由流转到可控编排"
@@ -203,6 +208,11 @@
       title: "Agent 改完真的更好吗？拿一次漏检索做回归"
       status: published
       url: "/2026/11/18/document-agent-regression/"
+    - no: "09"
+      featured: true
+      title: "总完成率没变，为什么还要回滚 Agent？"
+      status: published
+      url: "/2026/11/18/document-agent-release/"
 
 - id: ai-coding-harness
   title: "AI Coding 与 Agent Harness：从代码上下文到交付闭环"

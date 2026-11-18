@@ -7,15 +7,17 @@ permalink: /agent-engineering/
 <div class="narrow-page knowledge-page">
   <h1>AI Agent 开发指南</h1>
   <p class="lead">假设团队有一堆研发文档，新同事问：“测试环境怎么发版？帮我整理一份检查清单。”Agent 需要找对环境的文档，读出发布条件，交付一份带出处的草稿。缺了关键资料就说清楚缺什么。</p>
-  <p>这条任务看起来简单，实际会碰到三类问题：工具明明搜到了，模型下一轮为什么没用上？草稿已经保存，任务为什么还显示未完成？只改了一个检索词，怎么判断可以上线？每个问题都有一篇可以运行代码的实战。</p>
+  <p>下面的五篇实战围绕同一张发版清单展开。从第一次工具调用开始，追踪哪些证据真的进了模型，再试一次写入恢复、离线回归和灰度回滚。</p>
 
   <section id="practice" aria-labelledby="practice-title">
     <h2 id="practice-title">文档 Agent 实战</h2>
-    <ol>
-      <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">工具调用和证据验收</a>。抓住一条 <code>call_id</code>，对齐第一轮模型输出、工具结果和第二轮请求。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">保存成功却丢了回执</a>。让进程在目标库提交后退出，观察新进程怎样恢复同一次写入。</li>
-      <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">把漏检索变成发布门禁</a>。固定十条用例，只改一处检索配置，核对改好的是哪一条。</li>
-    </ol>
+    <ul>
+      <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">工具调用和证据验收</a>。沿 <code>call_id</code> 核对模型请求和工具回填。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">追踪证据在哪一步丢了</a>。对照召回、排序、上下文预算和最终引用。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">保存成功却丢了回执</a>。让进程在目标库提交后退出，再恢复同一次写入。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">把漏检索变成发布门禁</a>。固定十条用例，只改一处检索配置。</li>
+      <li><a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">灰度时怎样判断要不要回滚</a>。追踪总分掩盖的退步，切回后复查同一条请求。</li>
+    </ul>
   </section>
 
   <nav class="knowledge-overview guide-contents" aria-label="开发指南目录">
@@ -50,6 +52,7 @@ permalink: /agent-engineering/
     <h2>3. 让模型读到和任务有关的资料</h2>
     <p>把文档按标题和小节切开，给每段保留环境、版本、更新时间和访问范围。搜索测试环境的发布说明时，先把范围收到当前用户有权限看的测试环境文档，再给符合条件的片段排序。查错误码和命令名时先试关键词，碰到同义表达和口语提问，再用一批固定问题比较混合检索有没有帮助。</p>
     <p>给模型的上下文只放本轮任务需要的信息，例如问题、已确认的环境、候选片段和引用 ID。排查“文档明明有答案”时，顺着切分、召回、排序和上下文组装查下去：先看正确段落是否进入候选，再看它最后有没有进到模型输入。这样能知道该改索引、排序还是组装规则。</p>
+    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">追踪同一段证据在四个阶段的去向</a></p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/hybrid-search/' | relative_url }}">关键词和向量怎么配合</a> · <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">有文档却搜不到时怎么查</a> · <a href="{{ '/2026/09/15/permission-aware-rag/' | relative_url }}">检索时怎样落实权限</a></p>
   </section>
 
@@ -90,6 +93,8 @@ permalink: /agent-engineering/
     <h2>8. 小范围上线，按实际失败调优</h2>
     <p>让一组同事先试只读问答。发布时记录模型、提示词、工具定义和索引版本，方便比较线上表现。观察任务完成率、人工接管率、工具超时率、延迟和成本。比如答案频繁引用旧版手册，就查索引的更新和版本过滤。单次任务频繁搜索同一份文档，就查工作流的停止条件和预算。</p>
     <p>预先准备停止自动执行的入口。新版本出现异常时，可以退回兼容的旧配置，或先切成只读问答。涉及写入时，继续核对正在运行的任务和已发生的操作，软件版本回退后也要处理这些记录。线上新用例进入回归集，再决定要改哪里的实现。</p>
+    <p>总完成率不变时，也按用户角色、工作区和任务类型看前后差异。回滚后重跑原来失败的请求，核对实际生效的版本和索引，看缺的证据有没有回来。</p>
+    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">对照两版执行记录，演练灰度和回滚</a></p>
     <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-demo-to-system/' | relative_url }}">从 Demo 到有人实际使用</a> · <a href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">模型调用变慢，从哪些指标查起</a></p>
   </section>
 

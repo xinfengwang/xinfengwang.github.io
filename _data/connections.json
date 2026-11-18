@@ -1304,7 +1304,7 @@
     "backlinks": []
   },
   "/2026/11/18/build-a-document-agent/": {
-    "source_sha256": "9c47ed18ce055226c53cd395c7cadada34be9f3011416b518bd432d5a720b28e",
+    "source_sha256": "4043c3843cc77b107a699e3f2834e9d3ea6d43a5f2e63def43515aee130f206c",
     "related": [
       {
         "url": "/2026/11/18/document-agent-regression/",
@@ -1312,17 +1312,21 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/18/document-agent-durable-write/",
-        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/ai-agent-engineering-map/",
-        "title": "AI Agent 工程学习地图：从 Tool Use 到 Reliable Agent",
-        "reason": "共同主题：Evaluation、RAG"
+        "url": "/2026/11/18/document-agent-durable-write/",
+        "title": "写入成功，为什么 Agent 还显示未完成？",
+        "reason": "本文引用的延伸阅读"
       }
     ],
     "backlinks": [
+      {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？"
+      },
       {
         "url": "/2026/11/18/document-agent-durable-write/",
         "title": "写入成功，为什么 Agent 还显示未完成？"
@@ -1330,6 +1334,36 @@
       {
         "url": "/2026/11/18/document-agent-regression/",
         "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-context/": {
+    "source_sha256": "11047f7627f225aed71410057df1f7cfd90ddbafb09ea41c32ede8731d616b57",
+    "related": [
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
+        "reason": "本文引用的延伸阅读"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收"
+      },
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？"
       }
     ]
   },
@@ -1360,12 +1394,21 @@
       {
         "url": "/2026/11/18/document-agent-regression/",
         "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
+      },
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？"
       }
     ]
   },
   "/2026/11/18/document-agent-regression/": {
-    "source_sha256": "7df3de34936e12a4691cc88cffcf64231e22a6b161016d1288ddc951d277c1a4",
+    "source_sha256": "bb9a52f95171e5cf38f79686851ba8f5535cef1f1a118a36b0bdf2ed2258feda",
     "related": [
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？",
+        "reason": "本文引用的延伸阅读"
+      },
       {
         "url": "/2026/11/18/build-a-document-agent/",
         "title": "从零写一个文档 Agent：工具、状态和验收",
@@ -1375,11 +1418,6 @@
         "url": "/2026/11/18/document-agent-durable-write/",
         "title": "写入成功，为什么 Agent 还显示未完成？",
         "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/09/15/evaluation-overview/",
-        "title": "总纲：为什么 Agent 的评测比聊天机器人难",
-        "reason": "共同主题：Benchmark、Evaluation"
       }
     ],
     "backlinks": [
@@ -1388,8 +1426,46 @@
         "title": "从零写一个文档 Agent：工具、状态和验收"
       },
       {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？"
+      },
+      {
         "url": "/2026/11/18/document-agent-durable-write/",
         "title": "写入成功，为什么 Agent 还显示未完成？"
+      },
+      {
+        "url": "/2026/11/18/document-agent-release/",
+        "title": "总完成率没变，为什么还要回滚 Agent？"
+      }
+    ]
+  },
+  "/2026/11/18/document-agent-release/": {
+    "source_sha256": "66c7540b9352930b87fbceeef587915ac2e373d952fa2c87c068fc38e8360484",
+    "related": [
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/11/agent-tracing/",
+        "title": "Agent Tracing：一次失败到底错在哪一层？",
+        "reason": "共同主题：Evaluation、Tracing"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/18/document-agent-context/",
+        "title": "明明检索到了，Agent 为什么没把那段话用上？"
+      },
+      {
+        "url": "/2026/11/18/document-agent-regression/",
+        "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
       }
     ]
   }

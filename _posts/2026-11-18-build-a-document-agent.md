@@ -118,4 +118,6 @@ ready_for_review
 
 [下一篇：写入成功，为什么任务还显示未完成？](/2026/11/18/document-agent-durable-write/) · [第三篇：把一次漏检索变成发布门禁](/2026/11/18/document-agent-regression/) · [开发指南](/agent-engineering/#practice)
 
+如果工具结果里缺少关键证据，可以先做[召回、排序和上下文组装的排查练习](/2026/11/18/document-agent-context/)。
+
 想把这个循环和大型 Coding Agent 的实现对照，可以读阿甘的[《最小 agent 循环的解剖》](https://arganzheng.life/anatomy-of-the-agent-loop.html)。
