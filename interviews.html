@@ -1,0 +1,55 @@
+---
+layout: default
+title: 面经
+description: 算法手撕、Agent 工程和 AI 技术应用面试题。先看题自测，点击展开参考答案。
+permalink: /interviews/
+---
+{% assign groups = site.data.interviews.coding | concat: site.data.interviews.agent | concat: site.data.interviews.ai %}
+<article class="wide-page interview-page" data-interview-bank>
+  <header class="interview-header">
+    <h1>面经</h1>
+    <p class="lead">算法手撕、Agent 工程与 AI 技术应用。先看题自测，再展开参考答案。</p>
+  </header>
+  <div class="interview-filter" hidden>
+    <label for="interview-search">搜索题目</label>
+    <input id="interview-search" type="search" placeholder="例如 LoRA、滑动窗口、LC146" autocomplete="off">
+    <p class="interview-status" role="status"></p>
+  </div>
+  <nav class="interview-index" aria-label="面经题目目录">
+    {% assign tracks = groups | group_by: 'track' %}
+    {% for track in tracks %}
+      <div class="interview-index-group">
+        <h2>{{ track.name | escape }}</h2>
+        <ul>
+          {% for group in track.items %}
+            <li><a href="#{{ group.id }}">{{ group.title | escape }} <span>{{ group.questions.size }}</span></a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </nav>
+  {% for group in groups %}
+    <section class="interview-section" id="{{ group.id }}" aria-labelledby="{{ group.id }}-heading">
+      <h2 id="{{ group.id }}-heading">{{ group.title | escape }}</h2>
+      <ol class="interview-questions">
+        {% for question in group.questions %}
+          <li class="interview-question" id="{{ question.id }}" value="{{ forloop.index }}"{% if question.keywords %} data-keywords="{{ question.keywords | escape }}"{% endif %}>
+            <h3>{{ question.title | escape }}</h3>
+            {% if question.prompt %}<p class="interview-prompt">{{ question.prompt | escape }}</p>{% endif %}
+            <details class="interview-answer">
+              <summary>答案</summary>
+              <div class="interview-answer-body">
+                {% for part in question.answer %}
+                  <p>{% if part.label %}<strong>{{ part.label | escape }}</strong> {% endif %}{{ part.text | escape }}</p>
+                {% endfor %}
+                {% if question.code %}<pre><code>{{ question.code | escape }}</code></pre>{% endif %}
+                {% if question.complexity %}<p><strong>复杂度</strong> {{ question.complexity | escape }}</p>{% endif %}
+              </div>
+            </details>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endfor %}
+</article>
+<script src="{{ '/assets/js/interviews.js' | relative_url }}" defer></script>
