@@ -1,0 +1,26 @@
+---
+layout: default
+title: Agent 开发知识地图
+description: 查看 Agent 开发的完整流程和八个知识板块。
+permalink: /learning-map/
+---
+<div class="narrow-page knowledge-page">
+  <h1>Agent 开发知识地图</h1>
+  <p class="lead"><a class="button primary" href="{{ '/agent-engineering/' | relative_url }}">进入开发知识地图 →</a></p>
+  <ul id="series-map">
+    <li id="full-path"><a href="{{ '/agent-engineering/#lifecycle' | relative_url }}">Agent 全生命周期开发流程</a></li>
+    <li id="reading-paths"><a href="{{ '/agent-engineering/#topics' | relative_url }}">八个知识板块</a></li>
+    {% for series in site.data.series %}
+    <li id="{{ series.id }}"><a href="{{ '/series/' | append: series.id | append: '/' | relative_url }}">{{ series.title | escape }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<script>
+  const legacyTopic = {
+    'full-path': '#lifecycle', 'reading-paths': '#topics', 'series-map': '#topics',
+    'agent-foundations': 'foundations/', 'rag-context': 'capabilities/',
+    'workflow-multi-agent': 'architecture/', 'ai-coding-harness': 'frontier/',
+    'evaluation-reliability': 'quality/', 'project-cases': 'cases/'
+  };
+  location.replace({{ '/agent-engineering/' | relative_url | jsonify }} + (Object.hasOwn(legacyTopic, location.hash.slice(1)) ? legacyTopic[location.hash.slice(1)] : ''));
+</script>

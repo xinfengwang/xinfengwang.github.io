@@ -4,12 +4,17 @@ layout: default
 <section class="hero">
   <p class="eyebrow">王新峰的技术博客</p>
   <h1>AI Agent 技术专栏</h1>
-  <p class="hero-copy">多个 Agent 怎样交接，模型如何读懂项目规则，一条任务出了故障又怎样恢复。每篇围绕一个工程问题，结合公开实现、技术文章和研究，拆开机制和设计取舍。</p>
+  <p class="hero-copy">从需求分析、核心能力和架构设计，到评估、安全与生产运维。按开发流程建立全局认识，再从八个专题深入阅读。</p>
   <div class="hero-actions">
-    <a class="button primary" href="{{ '/agent-topics/' | relative_url }}">阅读技术专题 →</a>
-    <a class="button" href="{{ '/agent-engineering/' | relative_url }}">Agent 开发指南</a>
-    <a class="text-link" href="{{ '/projects/' | relative_url }}">看项目实现 →</a>
+    <a class="button primary" href="{{ '/agent-engineering/#lifecycle' | relative_url }}">完整开发流程 →</a>
+    <a class="button" href="{{ '/agent-topics/' | relative_url }}">阅读技术专题</a>
   </div>
+</section>
+
+<section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
+<section class="roadmap-section" id="agent-knowledge-map" aria-labelledby="knowledge-map-title">
+  <div class="section-heading"><h2 id="knowledge-map-title">Agent 开发知识地图</h2><span class="rule"></span><a href="{{ '/agent-engineering/' | relative_url }}">完整知识地图 →</a></div>
+  {% include engineering-topics.html %}
 </section>
 
 {% assign editorial_posts = site.posts | where: 'editorial', true %}
@@ -19,40 +24,6 @@ layout: default
     {% for post in editorial_posts limit: 4 %}
       {% include editorial-card.html article=post %}
     {% endfor %}
-  </div>
-</section>
-
-<section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
-<section class="reader-paths" aria-labelledby="reader-paths-title">
-  <div class="section-heading"><span id="reader-paths-title">开发指南与实战</span><span class="rule"></span><a href="{{ '/agent-engineering/#practice' | relative_url }}">全部实战 →</a></div>
-  <div class="reader-path-grid">
-    <article>
-      <h2>刚开始写第一个 Agent</h2>
-      <p>先拿一个有明确交付物的任务练手。接上一个只读工具，跑通从提问到返回带出处的答案。</p>
-      <ol>
-        <li><a href="{{ '/agent-engineering/#scope' | relative_url }}">写清任务和验收条件</a></li>
-        <li><a href="{{ '/2026/09/15/function-calling/' | relative_url }}">让模型发起第一次工具调用</a></li>
-        <li><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">动手做一个文档 Agent</a></li>
-      </ol>
-    </article>
-    <article>
-      <h2>原型能跑，多步任务容易出错</h2>
-      <p>把检索结果、当前步骤和已完成的动作存下来，看看失败后能不能接着做。</p>
-      <ol>
-        <li><a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">搜到了，证据在哪一步丢了？</a></li>
-        <li><a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">用状态机串起多步任务</a></li>
-        <li><a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">写入成功却没收到回执，怎么恢复？</a></li>
-      </ol>
-    </article>
-    <article>
-      <h2>准备交给别人用</h2>
-      <p>先测权限、超时和失败用例。改了模型或工作流之后，用同一批任务检查结果有没有退步。</p>
-      <ol>
-        <li><a href="{{ '/2026/09/15/agent-safety-hitl/' | relative_url }}">决定哪些动作需要人工确认</a></li>
-        <li><a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">总完成率没变，为什么要回滚？</a></li>
-        <li><a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">把一次漏检索变成上线门禁</a></li>
-      </ol>
-    </article>
   </div>
 </section>
 

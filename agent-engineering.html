@@ -1,111 +1,48 @@
 ---
 layout: default
-title: AI Agent 开发指南
-description: 用一个团队文档 Agent 串起需求、工具调用、检索与上下文、工作流、故障恢复、结果验证、回归评测和上线维护。
+title: Agent 开发知识地图
+description: 从需求分析到生产迭代，沿七步开发闭环和八个专题学习 Agent Engineering。
 permalink: /agent-engineering/
 ---
-<div class="narrow-page knowledge-page">
-  <h1>AI Agent 开发指南</h1>
-  <p class="lead">假设团队有一堆研发文档，新同事问：“测试环境怎么发版？帮我整理一份检查清单。”Agent 需要找对环境的文档，读出发布条件，交付一份带出处的草稿。缺了关键资料就说清楚缺什么。</p>
-  <p>下面的五篇实战围绕同一张发版清单展开。从第一次工具调用开始，追踪哪些证据真的进了模型，再试一次写入恢复、离线回归和灰度回滚。</p>
+<div class="wide-page engineering-map">
+  <header class="roadmap-hero">
+    <h1>Agent 开发知识地图</h1>
+    <p class="roadmap-intro">从一份能验收的需求开始，做出能调用工具、处理异常、稳定交付的 Agent。按开发流程走一遍，也可以从当前遇到的问题进入专题。</p>
+    <div class="roadmap-actions">
+      <a class="button primary" href="#lifecycle">看完整开发流程</a>
+      <a class="button" href="#topics">浏览八个知识板块</a>
+    </div>
+    <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
+  </header>
 
-  <section id="practice" aria-labelledby="practice-title">
-    <h2 id="practice-title">文档 Agent 实战</h2>
-    <ol>
-      {% for lab in site.data.document_agent_labs %}
-        <li><a href="{{ lab.url | relative_url }}">{{ lab.title }}</a>。{{ lab.description }}</li>
-      {% endfor %}
+  <section class="roadmap-section" aria-labelledby="lifecycle">
+    <span id="scope" class="engineering-anchor"></span><span id="full-path" class="engineering-anchor"></span>
+    <h2 id="lifecycle">Agent 全生命周期开发流程</h2>
+    <p class="roadmap-hint">线上失败进入回归集，再回到需求、架构或能力实现。交付目标变了，就重新定义验收条件。</p>
+    <pre><code class="language-mermaid">flowchart TB
+      A["需求分析与场景定义"] --> B["Agent 架构设计"]
+      B --> C["核心能力开发"]
+      C --> D["编排与协作"]
+      D --> E["评估与安全治理"]
+      E --> F["部署与生产运维"]
+      F --> G["持续优化与迭代"]
+      G -->|按失败原因修订| A
+    </code></pre>
+    <ol class="roadmap-build engineering-lifecycle">
+      <li><a href="{{ '/2026/11/19/agent-engineering-foundations/#task-contract' | relative_url }}">需求分析与场景定义</a><span>确认用户、输入、交付物、权限边界和成功标准，写出正常、缺信息及越界用例。</span></li>
+      <li id="planning"><a href="{{ '/agent-engineering/architecture/' | relative_url }}">Agent 架构设计</a><span>确定谁决定下一步，任务状态存在哪里，工具、模型和记忆怎么分工。</span></li>
+      <li id="tools"><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">核心能力开发</a><span>做出模型调用、工具、检索、记忆和规划的最小链路，并保留可核对的中间结果。</span></li>
+      <li id="state"><a href="{{ '/2026/11/19/agent-engineering-architecture/#state-machine' | relative_url }}">Agent 编排与协作</a><span>串接状态迁移、角色交接和人工审批，验证中断后能否按预期恢复。</span></li>
+      <li id="verification"><a href="{{ '/agent-engineering/quality/' | relative_url }}">评估与安全治理</a><span>用固定任务做回归，在工具执行前检查权限，用 Trace 定位失败环节。</span></li>
+      <li id="release"><a href="{{ '/agent-engineering/production/' | relative_url }}">部署与生产运维</a><span>上线服务和 Worker，配置超时、监控、灰度与回滚，并量化延迟和成本。</span></li>
+      <li id="evaluation"><a href="{{ '/2026/11/19/agent-engineering-quality/#feedback-loop' | relative_url }}">持续优化与迭代</a><span>收集真实失败，重放并找出最早的偏差。修复进入下一轮回归和发布。</span></li>
     </ol>
   </section>
 
-  <nav class="knowledge-overview guide-contents" aria-label="开发指南目录">
-    <ol>
-      <li><a href="#scope">定义任务和验收条件</a></li>
-      <li><a href="#tools">接入模型和工具</a></li>
-      <li><a href="#context">做检索和上下文</a></li>
-      <li><a href="#planning">确定工作流</a></li>
-      <li><a href="#state">处理权限、失败和恢复</a></li>
-      <li><a href="#verification">验收任务结果</a></li>
-      <li><a href="#evaluation">做回归、查失败原因</a></li>
-      <li><a href="#release">上线和维护</a></li>
-    </ol>
-  </nav>
-
-  <section id="scope">
-    <h2>1. 先写任务和验收条件，再选框架</h2>
-    <p>输入是用户的问题、目标环境和当前身份。第一版只做两件事：回答文档里的问题，按要求生成检查清单草稿。交付物里，每个关键步骤都有来源，来源能定位到文档的小节和版本。环境不明确时先追问，发布文档找不到时返回缺少的资料。</p>
-    <p>先写几条手工用例：明确指定测试环境、只说“发版”、用户看不到发布文档、两份手册对同一步骤的说明有冲突。每条用例先写预期结果，就有了第一批验收样本。路径固定的任务可以用表单和模板完成。需要理解自然语言、判断缺少什么资料或决定接下来查哪里时，再让模型参与。</p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/from-llm-to-agent/' | relative_url }}">从一次模型调用到 Agent</a> · <a href="{{ '/2026/11/01/agent-spec-change-lifecycle/' | relative_url }}">怎么把需求写成能执行的规格</a></p>
-  </section>
-
-  <section id="tools">
-    <h2>2. 先接通一个只读工具</h2>
-    <p>第一版只接 <code>search_docs(query)</code>。模型提出搜索词，应用校验参数，使用任务已确认的环境和会话提供的权限查资料，再把文档 ID、版本和片段回给模型。</p>
-    <p>一次正常执行会留下四个可以核对的事件：模型提出调用，应用查到资料，用同一个 <code>call_id</code> 回填，再验收模型选择的来源。查到资料但模型仍答错时，先确认第二个请求真正带了哪些片段。</p>
-    <p>先区分“搜到了”“没有匹配结果”和“搜索服务暂时不可用”。没有匹配结果时，可以换一个查询或请用户补充信息。服务暂时不可用时，可以做有限次数的重试。以后要把外部工具接进来，可以用 MCP 暴露工具和资源，应用仍要处理身份、参数、权限和超时。</p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/function-calling/' | relative_url }}">Function Calling 是怎么跑起来的</a> · <a href="{{ '/2026/09/15/tool-schema-router/' | relative_url }}">工具多了怎么选</a> · <a href="{{ '/2026/09/14/mcp-and-function-calling/' | relative_url }}">什么时候需要 MCP</a></p>
-  </section>
-
-  <section id="context">
-    <h2>3. 让模型读到和任务有关的资料</h2>
-    <p>把文档按标题和小节切开，给每段保留环境、版本、更新时间和访问范围。搜索测试环境的发布说明时，先把范围收到当前用户有权限看的测试环境文档，再给符合条件的片段排序。查错误码和命令名时先试关键词，碰到同义表达和口语提问，再用一批固定问题比较混合检索有没有帮助。</p>
-    <p>给模型的上下文只放本轮任务需要的信息，例如问题、已确认的环境、候选片段和引用 ID。排查“文档明明有答案”时，顺着切分、召回、排序和上下文组装查下去：先看正确段落是否进入候选，再看它最后有没有进到模型输入。这样能知道该改索引、排序还是组装规则。</p>
-    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-context/' | relative_url }}">追踪同一段证据在四个阶段的去向</a></p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/hybrid-search/' | relative_url }}">关键词和向量怎么配合</a> · <a href="{{ '/2026/09/15/rag-badcase-debugging/' | relative_url }}">有文档却搜不到时怎么查</a> · <a href="{{ '/2026/09/15/permission-aware-rag/' | relative_url }}">检索时怎样落实权限</a></p>
-  </section>
-
-  <section id="planning">
-    <h2>4. 把固定步骤写进工作流</h2>
-    <p>这个例子里的主流程很清楚：确认环境，检索资料，起草清单，检查引用，然后返回。确认环境和检查引用由程序控制。模型可以改写检索词、判断缺哪类资料，或根据已找到的资料起草。读到相互冲突的版本时，流程停在“需要确认”，让用户知道哪两份资料在冲突。</p>
-    <p>把任务状态放在工作流里，至少存任务 ID、环境、当前阶段、证据引用、草稿和重试次数。一个短流程用函数和显式状态就能起步。分支多了，需要暂停等待人工回复，或者一个任务要跨多个进程继续执行时，再考虑状态机框架。拆多 Agent 之前，先确定每个角色会拿到什么输入、交回什么产物、由谁判断完成。</p>
-    <p>落到这个例子里，最多执行两次搜索。程序比较调用参数和剩余预算，重复请求直接退出。占满步数时，界面可以显示已找到哪些资料、还缺哪个主题。如果业务验收规定清单必须齐全，缺项的结果就保留在“需要补资料”状态。</p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/12/why-agent-workflow-needs-state-machine/' | relative_url }}">多步任务为什么要保存状态</a> · <a href="{{ '/2026/09/15/structured-plan-executor/' | relative_url }}">Planner 和 Executor 怎么分工</a> · <a href="{{ '/2026/09/15/multi-agent-shared-context/' | relative_url }}">多个 Agent 之间共享什么</a></p>
-  </section>
-
-  <section id="state">
-    <h2>5. 区分超时、重试和恢复</h2>
-    <p>读文档超时，可以在总时限内重试。缺少权限时，结束这次调用并提示用户核对授权。如果后续允许把草稿写入团队系统，要先检查调用者的写入权限。需要审批时，审批要对应具体目标和草稿内容，修改后重新确认。</p>
-    <p>写入成功但回执丢失，是值得专门测试的情况。恢复任务时，检查点告诉你工作流走到哪一步，操作回执或目标系统的状态告诉你草稿是否已经保存。服务支持幂等时，同一个动作沿用同一个操作编号。回执也查不到时，把结果标为未知，待核对后再决定。</p>
-    <p>调试时可以把进程停在两处：请求发出前，以及目标提交之后、本地记状态之前。在前一种情况下，恢复应当补做原操作；在后一种情况下，恢复只需要补记完成。两条路径都能看到相同的本地状态，因此要去目标端查操作回执。</p>
-    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-durable-write/' | relative_url }}">跑一次写入后的进程退出与恢复</a></p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-safety-hitl/' | relative_url }}">工具权限和人工确认</a> · <a href="{{ '/2026/11/05/agent-checkpoint-idempotency/' | relative_url }}">中断恢复时怎么避免重复执行</a> · <a href="{{ '/2026/09/15/retry-rollback-replan/' | relative_url }}">失败后什么时候重试、回滚或重新规划</a></p>
-  </section>
-
-  <section id="verification">
-    <h2>6. 检查交付物，再告诉用户完成了</h2>
-    <p>用程序校验草稿是否包含必填项，引用 ID 是否来自本轮检索，且对应所选环境和有效版本。再检查内容是否真的得到该段文档的支持：“先跑冒烟测试”出现在引用中，才能把它当作发布要求。引用存在和引用支持结论是两条不同的检查，后一条可以从人工抽样开始。</p>
-    <p>返回结果时，把完成的工作和待确认项写清楚。比如“已根据测试环境手册生成草稿；文档没有写灰度比例，需要发布负责人确认”。如果任务有实际写入，拿到系统回执或读回结果后，再把状态记为完成。</p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/deterministic-agent-evaluation/' | relative_url }}">哪些结果可以直接写断言</a> · <a href="{{ '/2026/09/15/llm-as-judge/' | relative_url }}">什么时候用模型做辅助评审</a> · <a href="{{ '/2026/09/15/reprolab-provenance/' | relative_url }}">看 ReproLab 怎么把结果和证据连起来</a></p>
-  </section>
-
-  <section id="evaluation">
-    <h2>7. 用固定样本做回归，靠执行记录排查</h2>
-    <p>把第 1 步的手工用例变成可重复跑的样本。再加上旧版文档排到第一、搜到生产环境步骤、工具超时、引用不支持结论等失败场景。改模型、提示词或索引时，在同一批问题和文档版本上对比任务完成率、引用正确率、延迟和模型用量。越权检索单独检查，方便直接定位权限问题。</p>
-    <p>每次执行记录任务 ID、阶段、命中的文档版本、校验结果、错误类型和耗时。排查时，从“用户应该看到什么”一路追到第一个偏离预期的环节。找到原因后，把这次失败加入回归集，再改代码或索引。日志优先记 ID 和版本，原文和敏感字段按需留存并限制访问。</p>
-    <p>同一条测试要同时检查工具返回与最终清单。例如开发用户查生产发版时，清单应该为空，搜索事件也不能带回生产文档 ID。只检查最终输出，会漏掉模型已经看到不该看的资料这一类问题。</p>
-    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-regression/' | relative_url }}">用固定用例对照检索基线与候选版</a></p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/11/agent-tracing/' | relative_url }}">一次 Agent 失败怎么定位</a> · <a href="{{ '/2026/09/15/agent-benchmark/' | relative_url }}">怎么建立回归评测</a> · <a href="{{ '/2026/09/15/agent-badcase-loop/' | relative_url }}">如何把真实故障整理成测试</a></p>
-  </section>
-
-  <section id="release">
-    <h2>8. 小范围上线，按实际失败调优</h2>
-    <p>让一组同事先试只读问答。发布时记录模型、提示词、工具定义和索引版本，方便比较线上表现。观察任务完成率、人工接管率、工具超时率、延迟和成本。比如答案频繁引用旧版手册，就查索引的更新和版本过滤。单次任务频繁搜索同一份文档，就查工作流的停止条件和预算。</p>
-    <p>预先准备停止自动执行的入口。新版本出现异常时，可以退回兼容的旧配置，或先切成只读问答。涉及写入时，继续核对正在运行的任务和已发生的操作，软件版本回退后也要处理这些记录。线上新用例进入回归集，再决定要改哪里的实现。</p>
-    <p>总完成率不变时，也按用户角色、工作区和任务类型看前后差异。回滚后重跑原来失败的请求，核对实际生效的版本和索引，看缺的证据有没有回来。</p>
-    <p class="knowledge-links">动手 <a href="{{ '/2026/11/18/document-agent-release/' | relative_url }}">对照两版执行记录，演练灰度和回滚</a></p>
-    <p class="knowledge-links">继续读 <a href="{{ '/2026/09/15/agent-demo-to-system/' | relative_url }}">从 Demo 到有人实际使用</a> · <a href="{{ '/2026/11/05/vllm-serving-notes/' | relative_url }}">模型调用变慢，从哪些指标查起</a></p>
-  </section>
-
-  <section id="glossary">
-    <h2>开发时容易混在一起的几个词</h2>
-    <dl class="glossary">
-      <dt>Context / State / Memory</dt>
-      <dd>Context 是这轮模型看到了什么。State 是任务进行到哪里。Memory 是以后还可能用到的信息，召回时仍要检查时效和权限。</dd>
-      <dt>Checkpoint / Receipt</dt>
-      <dd>Checkpoint 保存流程进度。Receipt 是工具或外部系统返回的操作凭据。恢复写操作时通常两边都要查。</dd>
-      <dt>Validation / Evaluation</dt>
-      <dd>Validation 检查这一次的结果能否交付。Evaluation 关心一批任务上的整体表现，以及某次修改带来的变化。</dd>
-    </dl>
-    <p><a href="{{ '/2026/11/18/build-a-document-agent/' | relative_url }}">跟着代码做一遍 →</a> · <a href="{{ '/learning-map/' | relative_url }}">查各阶段的文章与练习 →</a> · <a href="{{ '/projects/' | relative_url }}">看公开项目实现 →</a></p>
+  <section class="roadmap-section" aria-labelledby="topics">
+    <span id="context" class="engineering-anchor"></span><span id="practice" class="engineering-anchor"></span>
+    <h2 id="topics">八个知识板块</h2>
+    <p class="roadmap-hint">每个板块都有主文与小节目录。工具调用、RAG、记忆和架构模式另有专题详解，项目实战提供四个独立案例。</p>
+    {% include engineering-topics.html %}
   </section>
 </div>

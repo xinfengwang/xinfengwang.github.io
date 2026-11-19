@@ -1,0 +1,10 @@
+<div class="engineering-topic-grid">
+  {% for topic in site.data.agent_engineering %}
+  {% assign topic_url = '/agent-engineering/' | append: topic.id | append: '/' %}
+  <article class="engineering-topic-card">
+    <h3><a href="{{ topic_url | relative_url }}">{{ topic.title | escape }}</a></h3>
+    <p>{{ topic.summary | escape }}</p>
+    <p class="engineering-terms">{{ topic.topics | join: ' · ' | escape }}</p>
+  </article>
+  {% endfor %}
+</div>

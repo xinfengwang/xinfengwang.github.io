@@ -5,12 +5,16 @@ layout: default
 {% if page.series_key %}
   {% for s in site.data.series %}{% if s.id == page.series_key %}{% assign structured_series = s %}{% endif %}{% endfor %}
 {% endif %}
+{% assign engineering_topic = site.data.agent_engineering | where: 'id', page.engineering_topic | first %}
 {% assign document_lab = site.data.document_agent_labs | where: 'url', page.url | first %}
 <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
 <div class="article-layout">
   <article class="article" id="article">
     <header class="article-header">
-      {% if page.editorial %}
+      {% if engineering_topic %}
+        {% assign engineering_topic_url = '/agent-engineering/' | append: engineering_topic.id | append: '/' %}
+        <p class="eyebrow"><a href="{{ engineering_topic_url | relative_url }}">{{ engineering_topic.title | escape }}</a></p>
+      {% elsif page.editorial %}
         <p class="eyebrow"><a href="{{ '/agent-topics/' | relative_url }}">技术专题</a></p>
       {% elsif structured_series %}
         <p class="eyebrow"><a href="{{ '/series/' | append: structured_series.id | append: '/' | relative_url }}">{{ structured_series.short_title }}</a>{% if page.series_index %} · 第 {{ page.series_index }} 章{% endif %}</p>
@@ -57,7 +61,7 @@ layout: default
     </details>
     {% endif %}
 
-    {% unless page.editorial %}
+    {% unless page.editorial or engineering_topic %}
     <aside class="article-context" aria-label="文章类型与项目资料">
       <strong>{{ page.content_kind | default: '工程方法' }}</strong>
       {% if page.project_id %}{% assign related_project = site.data.projects | where: 'id', page.project_id | first %}
@@ -84,8 +88,10 @@ layout: default
     {% include project-evidence.html %}
 
     {% if page.exercise %}<section class="reading-exercise"><h2>读完可以试一件事</h2><p>{{ page.exercise }}</p></section>{% endif %}
+    {% unless engineering_topic %}
     <aside class="author-next"><strong>关于作者 · 王新峰</strong><p>关注 AI Agent 的检索、编排与可靠性。想了解我的实践，可以继续看<a href="{{ '/projects/' | relative_url }}">公开项目</a>；了解岗位背景，可以看<a href="{{ '/about/#capabilities' | relative_url }}">能力与工程经历</a>。</p></aside>
 
+    {% endunless %}
     <div class="article-tools" aria-label="Article tools">
       <button class="article-tool" id="reader-read" type="button" aria-pressed="false">标记已读</button>
       <a class="article-tool" href="https://github.com/xinfengwang/xinfengwang.github.io/issues/new?title={{ page.title | prepend: '文章反馈：' | uri_escape }}&amp;body={{ page.url | absolute_url | prepend: '文章链接：' | uri_escape }}" data-whole-feedback>勘误与讨论 ↗</a>
@@ -138,7 +144,11 @@ layout: default
     {% include article-connections.html %}
     {% include feedback-records.html %}
     <nav class="post-nav" aria-label="继续阅读">
-      <a href="{{ '/learning-map/' | relative_url }}{% if structured_series %}#{{ structured_series.id }}{% endif %}"><small>← 浏览学习路线</small><strong>返回学习地图</strong></a>
+      {% if engineering_topic %}
+      <a href="{{ engineering_topic_url | relative_url }}"><small>← 返回知识板块</small><strong>{{ engineering_topic.title | escape }}</strong></a>
+      {% else %}
+      <a href="{{ '/agent-engineering/' | relative_url }}"><small>← 浏览开发流程</small><strong>Agent 开发知识地图</strong></a>
+      {% endif %}
       {% if next_read %}<a class="next" href="{{ next_read.url | relative_url }}"><small>继续阅读 →</small><strong>{{ next_read.title | escape }}</strong></a>{% endif %}
     </nav>
   </article>
