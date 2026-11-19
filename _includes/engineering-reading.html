@@ -1,0 +1,22 @@
+{% if page.engineering_reading %}
+<section class="article-connections" aria-labelledby="engineering-reading">
+  <h2 id="engineering-reading">阅读路径</h2>
+  {% assign groups = 'prerequisites,next,related' | split: ',' %}
+  {% assign headings = '前置知识,后续阅读,相关专题' | split: ',' %}
+  <dl>
+    {% for group in groups %}
+    {% assign readings = page.engineering_reading[group] %}
+    {% if readings.size > 0 %}
+    <dt><strong>{{ headings[forloop.index0] }}</strong></dt>
+    <dd>
+      <ul>
+        {% for item in readings %}
+        <li><a class="text-link" href="{{ item.url | relative_url }}">{{ item.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    </dd>
+    {% endif %}
+    {% endfor %}
+  </dl>
+</section>
+{% endif %}

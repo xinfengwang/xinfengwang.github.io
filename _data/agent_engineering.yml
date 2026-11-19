@@ -1,6 +1,6 @@
 - id: foundations
   title: 基础理论与核心概念
-  summary: 从一次对话、一个固定流程和一个工具循环，理解 Agent 的自主性从哪里来。
+  summary: 追踪一次真实形状的执行循环，弄清模型怎样选动作、运行时如何验收，以及任务何时停止。
   slug: agent-engineering-foundations
   topics: [定义与演进, Chatbot 与 Workflow, 感知与反馈, 执行循环, 自主性边界]
   reading: [from-llm-to-agent, function-calling]

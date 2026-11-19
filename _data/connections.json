@@ -593,6 +593,11 @@
     "source_sha256": "f7487e357435bfffcceffe9e5685ab4547c2d676be1e4b2210b1682248b664aa",
     "related": [
       {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/14/mcp-and-function-calling/",
         "title": "MCP：为什么有 Function Calling 还需要协议层？",
         "reason": "共同主题：Tool-Use"
@@ -601,14 +606,14 @@
         "url": "/2026/09/15/agent-foundations-overview/",
         "title": "总纲：AI Agent 到底在解决什么问题？",
         "reason": "共同主题：Tool-Use"
-      },
-      {
-        "url": "/2026/09/15/function-calling/",
-        "title": "Function Calling：模型到底是怎么学会调用工具的？",
-        "reason": "共同主题：Tool-Use"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
+      }
+    ]
   },
   "/2026/09/15/function-calling/": {
     "source_sha256": "8aa11bf690d3dd34154b6cb1370c11084f39d45707478ba30a6213a50cf4e3ce",
@@ -629,12 +634,7 @@
         "reason": "共同主题：Function-Calling、Tool-Use"
       }
     ],
-    "backlinks": [
-      {
-        "url": "/2026/11/19/agent-engineering-foundations/",
-        "title": "从 Chatbot 到 Agent，谁决定下一步？"
-      }
-    ]
+    "backlinks": []
   },
   "/2026/09/15/guardrail-codecheck/": {
     "source_sha256": "b0a1d1599e60d58124e0451b8f4b9b9bcb6b3edd6112868a5c58ea4e5b30dda6",
@@ -1587,28 +1587,32 @@
     ]
   },
   "/2026/11/19/agent-case-support/": {
-    "source_sha256": "d0f5b62de9c3c5e9b2601d466db8ed20858228a62551ce82c662311d74d07fe1",
+    "source_sha256": "0a1fdccf3794ad594d5665fff55dc106408632c47010ce34509ef29ff988fcc5",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-cases/",
-        "title": "四个 Agent 实战，验证从客服到平台的工程能力",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
-        "url": "/2026/11/19/agent-deep-dive-tool-use/",
-        "title": "Function Calling 实战，模型提出调用以后发生了什么？",
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
         "reason": "本文引用的延伸阅读"
       },
       {
         "url": "/2026/11/19/agent-case-research/",
         "title": "Research Agent 实战，让报告的结论能追到原始证据",
         "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/18/build-a-document-agent/",
+        "title": "从零写一个文档 Agent：工具、状态和验收",
+        "reason": "共同主题：Evaluation、RAG"
       }
     ],
     "backlinks": [
       {
         "url": "/2026/11/19/agent-engineering-cases/",
         "title": "四个 Agent 实战，验证从客服到平台的工程能力"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -1626,15 +1630,19 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/agent-foundations-overview/",
-        "title": "总纲：AI Agent 到底在解决什么问题？",
-        "reason": "共同主题：Memory"
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
+        "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
         "title": "拆开 Agent 的八项能力，从工具调用到环境验证"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -1665,7 +1673,7 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-durability/": {
-    "source_sha256": "4534de816583f266986ee827fc7643c5f94a9f80d24758f39fea4a8b8d7bdd40",
+    "source_sha256": "7195427215cbb0bc5a099b639236e3bd8b7169c3c0fdf88d6c0d240e4db4b271",
     "related": [
       {
         "url": "/2026/11/19/agent-deep-dive-deployment/",
@@ -1673,8 +1681,8 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-engineering-production/",
-        "title": "Agent 如何变成能部署、恢复和回滚的服务",
+        "url": "/2026/11/19/agent-deep-dive-langgraph/",
+        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -1689,8 +1697,16 @@
         "title": "Agent 部署与灰度，从任务队列到版本回滚"
       },
       {
+        "url": "/2026/11/19/agent-deep-dive-langgraph/",
+        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？"
+      },
+      {
         "url": "/2026/11/19/agent-deep-dive-long-running/",
         "title": "长时 Agent 怎么把目标、计划和外部回执一起带过重启？"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -1729,25 +1745,30 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-langgraph/": {
-    "source_sha256": "28c7f28274543a8ad7fbe762dd332abb2cb430a8c6d885f003b613f64e44bcf7",
+    "source_sha256": "f70e89125ae3cf9fb4b34cd0a35a3304e010fee112a483d3b384d5706bcddb30",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-frameworks/",
-        "title": "Agent 框架怎么选，看它接管了执行链的哪一层",
+        "url": "/2026/11/19/agent-deep-dive-durability/",
+        "title": "任务写入成功后进程退出，Agent 怎样从回执恢复？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-mcp-a2a/",
-        "title": "MCP 和 A2A 的边界，从一次跨应用研究任务看清",
-        "reason": "共同主题：Framework、MCP"
+        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
+        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？",
+        "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/14/mcp-and-function-calling/",
-        "title": "MCP：为什么有 Function Calling 还需要协议层？",
-        "reason": "共同主题：MCP"
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：LangGraph、Workflow"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-deep-dive-durability/",
+        "title": "任务写入成功后进程退出，Agent 怎样从回执恢复？"
+      }
+    ]
   },
   "/2026/11/19/agent-deep-dive-llm-prompt/": {
     "source_sha256": "76c9d61d9d9393d17549bceda7fffc299b4db6cc1e8e4f4320ccb64065045b33",
@@ -1774,13 +1795,13 @@
     "source_sha256": "1a827f134a70c5881ebd2629f61074d079d23a6e2a68a5033d52fb9529322e76",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-frontier/",
-        "title": "从 Deep Research 到长时运行，怎样读懂 Agent 的下一步",
+        "url": "/2026/11/19/agent-deep-dive-durability/",
+        "title": "任务写入成功后进程退出，Agent 怎样从回执恢复？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-durability/",
-        "title": "任务写入成功后进程退出，Agent 怎样从回执恢复？",
+        "url": "/2026/11/19/agent-engineering-frontier/",
+        "title": "从 Deep Research 到长时运行，怎样读懂 Agent 的下一步",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -1800,13 +1821,13 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-langgraph/",
-        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？",
-        "reason": "共同主题：Framework、MCP"
-      },
-      {
         "url": "/2026/09/14/mcp-and-function-calling/",
         "title": "MCP：为什么有 Function Calling 还需要协议层？",
+        "reason": "共同主题：MCP"
+      },
+      {
+        "url": "/2026/09/15/tool-schema-router/",
+        "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
         "reason": "共同主题：MCP"
       }
     ],
@@ -1839,16 +1860,16 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-plan-execute/": {
-    "source_sha256": "ab08edff20f268f089fd9273363ce87721832a12ed186c24aeacc5e875c0bbd9",
+    "source_sha256": "7d23c24d55b056256aa6b35d677f03cda3b5d0798f856a1ec68a71bf9840b2dd",
     "related": [
-      {
-        "url": "/2026/11/19/agent-deep-dive-react/",
-        "title": "ReAct 怎么落地，工具结果怎样改变下一步？",
-        "reason": "本文引用的延伸阅读"
-      },
       {
         "url": "/2026/11/19/agent-deep-dive-supervisor/",
         "title": "Supervisor 与多 Agent，为什么交接必须携带产物？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -1863,6 +1884,10 @@
         "title": "Research Agent 实战，让报告的结论能追到原始证据"
       },
       {
+        "url": "/2026/11/19/agent-deep-dive-langgraph/",
+        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？"
+      },
+      {
         "url": "/2026/11/19/agent-deep-dive-react/",
         "title": "ReAct 怎么落地，工具结果怎样改变下一步？"
       },
@@ -1873,6 +1898,10 @@
       {
         "url": "/2026/11/19/agent-engineering-architecture/",
         "title": "Agent 架构怎么选，从固定工作流到多 Agent"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -1910,29 +1939,29 @@
     "source_sha256": "15b1952d0ebc43607fe1307e33e3737a896889e87a3efe4ea64aaf98e15d8d3b",
     "related": [
       {
-        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
-        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？",
-        "reason": "本文引用的延伸阅读"
-      },
-      {
         "url": "/2026/11/19/agent-engineering-architecture/",
         "title": "Agent 架构怎么选，从固定工作流到多 Agent",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/agent-foundations-overview/",
-        "title": "总纲：AI Agent 到底在解决什么问题？",
-        "reason": "共同主题：Planning、Tool-Use"
+        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
+        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
+        "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
       {
-        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
-        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？"
-      },
-      {
         "url": "/2026/11/19/agent-engineering-architecture/",
         "title": "Agent 架构怎么选，从固定工作流到多 Agent"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -1966,17 +1995,22 @@
         "reason": "本文引用的延伸阅读"
       },
       {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/11/agent-tracing/",
         "title": "Agent Tracing：一次失败到底错在哪一层？",
         "reason": "共同主题：Evaluation、Reliability"
-      },
-      {
-        "url": "/2026/09/15/agent-benchmark/",
-        "title": "Agent Benchmark：怎么设计真正能回归的任务集？",
-        "reason": "共同主题：Evaluation、Reliability"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
+      }
+    ]
   },
   "/2026/11/19/agent-deep-dive-supervisor/": {
     "source_sha256": "ac4d89c5dc87a7a7024d4ae906cce39202187a94f3793e2050157a5fac183f8c",
@@ -2009,11 +2043,11 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-tool-use/": {
-    "source_sha256": "0136db30f6a69a209c56c9b0347926993fde404b71ae1105aa6a4955fab7ddf2",
+    "source_sha256": "40ccc559d5ec02b143a541f2279494c19ee8adbba91a3d31e742c128a32bf70a",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-capabilities/",
-        "title": "拆开 Agent 的八项能力，从工具调用到环境验证",
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -2029,10 +2063,6 @@
     ],
     "backlinks": [
       {
-        "url": "/2026/11/19/agent-case-support/",
-        "title": "智能客服 Agent 实战，从查单到带依据的答复"
-      },
-      {
         "url": "/2026/11/19/agent-deep-dive-llm-prompt/",
         "title": "LLM 与 Prompt，怎样让 Agent 稳定输出可执行决策？"
       },
@@ -2043,6 +2073,10 @@
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
         "title": "拆开 Agent 的八项能力，从工具调用到环境验证"
+      },
+      {
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -2098,8 +2132,8 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-tool-use/",
-        "title": "Function Calling 实战，模型提出调用以后发生了什么？",
+        "url": "/2026/11/19/agent-engineering-architecture/",
+        "title": "Agent 架构怎么选，从固定工作流到多 Agent",
         "reason": "本文引用的延伸阅读"
       }
     ],
@@ -2117,16 +2151,12 @@
         "title": "RAG 实战，为什么正确的政策没进入模型？"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-tool-use/",
-        "title": "Function Calling 实战，模型提出调用以后发生了什么？"
-      },
-      {
         "url": "/2026/11/19/agent-engineering-architecture/",
         "title": "Agent 架构怎么选，从固定工作流到多 Agent"
       },
       {
         "url": "/2026/11/19/agent-engineering-foundations/",
-        "title": "从 Chatbot 到 Agent，谁决定下一步？"
+        "title": "Agent 的运行机制与核心原理"
       }
     ]
   },
@@ -2163,10 +2193,6 @@
         "title": "Research Agent 实战，让报告的结论能追到原始证据"
       },
       {
-        "url": "/2026/11/19/agent-case-support/",
-        "title": "智能客服 Agent 实战，从查单到带依据的答复"
-      },
-      {
         "url": "/2026/11/19/agent-engineering-frontier/",
         "title": "从 Deep Research 到长时运行，怎样读懂 Agent 的下一步"
       },
@@ -2177,25 +2203,37 @@
     ]
   },
   "/2026/11/19/agent-engineering-foundations/": {
-    "source_sha256": "d81f80857e42fdb29255e26ef607ae009bc8dd0ecae5bd9e968f2b714a899d9a",
+    "source_sha256": "4c0f8a9ed1c1f50b5651de5f2214c0661544b9add7fa33a50b56ed9dbf590a96",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-capabilities/",
-        "title": "拆开 Agent 的八项能力，从工具调用到环境验证",
+        "url": "/2026/11/19/agent-case-support/",
+        "title": "智能客服 Agent 实战，从查单到带依据的答复",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/function-calling/",
-        "title": "Function Calling：模型到底是怎么学会调用工具的？",
+        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
+        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-engineering-frontier/",
-        "title": "从 Deep Research 到长时运行，怎样读懂 Agent 的下一步",
-        "reason": "这篇文章引用了本文"
+        "url": "/2026/11/19/agent-deep-dive-tool-use/",
+        "title": "Function Calling 实战，模型提出调用以后发生了什么？",
+        "reason": "本文引用的延伸阅读"
       }
     ],
     "backlinks": [
+      {
+        "url": "/2026/11/19/agent-case-support/",
+        "title": "智能客服 Agent 实战，从查单到带依据的答复"
+      },
+      {
+        "url": "/2026/11/19/agent-deep-dive-plan-execute/",
+        "title": "Plan-and-Execute，怎样把计划变成能检查的依赖图？"
+      },
+      {
+        "url": "/2026/11/19/agent-deep-dive-tool-use/",
+        "title": "Function Calling 实战，模型提出调用以后发生了什么？"
+      },
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
         "title": "拆开 Agent 的八项能力，从工具调用到环境验证"
@@ -2220,16 +2258,12 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-langgraph/",
-        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？",
+        "url": "/2026/11/19/agent-deep-dive-mcp-a2a/",
+        "title": "MCP 和 A2A 的边界，从一次跨应用研究任务看清",
         "reason": "这篇文章引用了本文"
       }
     ],
     "backlinks": [
-      {
-        "url": "/2026/11/19/agent-deep-dive-langgraph/",
-        "title": "LangGraph 从 State 到 Checkpoint，审批以后从哪里继续？"
-      },
       {
         "url": "/2026/11/19/agent-deep-dive-mcp-a2a/",
         "title": "MCP 和 A2A 的边界，从一次跨应用研究任务看清"
@@ -2301,10 +2335,6 @@
       {
         "url": "/2026/11/19/agent-deep-dive-agent-state/",
         "title": "Context、Memory 和 State 怎样分工？"
-      },
-      {
-        "url": "/2026/11/19/agent-deep-dive-durability/",
-        "title": "任务写入成功后进程退出，Agent 怎样从回执恢复？"
       },
       {
         "url": "/2026/11/19/agent-engineering-frameworks/",

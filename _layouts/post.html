@@ -141,6 +141,7 @@ layout: default
       {% assign next_read = site.posts | where: 'url', page.continue_reading | first %}
     {% endif %}
 
+    {% include engineering-reading.html %}
     {% include article-connections.html %}
     {% include feedback-records.html %}
     <nav class="post-nav" aria-label="继续阅读">
