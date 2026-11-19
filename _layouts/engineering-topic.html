@@ -16,6 +16,9 @@ layout: default
       <h2 id="topic-content">本专题讲什么</h2>
       <p>{{ chapter.description | escape }}</p>
       <p class="engineering-terms">{{ topic.topics | join: ' · ' | escape }}</p>
+      {% if topic.learning_series %}
+      <p><a class="text-link" href="{{ topic.learning_series.url | relative_url }}">{{ topic.learning_series.title | escape }} →</a></p>
+      {% endif %}
       {% if topic.chapters %}
       <h3>专题文章</h3>
       <ol>

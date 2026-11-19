@@ -1,0 +1,393 @@
+"""A reproducible RAG retrieval lab. Python 3.11+, standard library only."""
+from argparse import ArgumentParser
+from collections import Counter
+from dataclasses import asdict, dataclass
+from functools import cache
+from html.parser import HTMLParser
+from math import log, sqrt
+from pathlib import Path
+import json
+import re
+
+
+ROOT = Path(__file__).resolve().parent
+WORD = re.compile(r"[^\W_]+(?:-[^\W_]+)*", re.UNICODE)
+
+
+def normalize(text):
+    return " ".join(text.split())
+
+
+@dataclass(frozen=True)
+class Block:
+    kind: str
+    text: str
+    source_line: int
+    start: int
+    end: int
+
+
+@dataclass(frozen=True)
+class Document:
+    id: str
+    title: str
+    revision: int
+    region: str
+    scope: str
+    active: bool
+    text: str
+    blocks: tuple[Block, ...]
+
+
+@dataclass(frozen=True)
+class Chunk:
+    doc: str
+    start: int
+    end: int
+    text: str
+
+
+class PolicyHTML(HTMLParser):
+    """Read a controlled subset of HTML, including single-header tables."""
+
+    ignored = {"nav", "script", "style"}
+    content_tags = {"h1": "title", "h2": "heading", "h3": "heading", "p": "paragraph", "li": "paragraph"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.blocks = []
+        self.hidden = []
+        self.block = None
+        self.headers = []
+        self.row = []
+        self.cell = None
+        self.line = 1
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.ignored:
+            self.hidden.append(tag)
+        if self.hidden:
+            return
+        if tag in self.content_tags:
+            self.block = (tag, self.getpos()[0], [])
+        elif tag == "table":
+            self.headers = []
+        elif tag == "tr":
+            self.row = []
+            self.line = self.getpos()[0]
+        elif tag in {"td", "th"}:
+            if any(name in {"rowspan", "colspan"} and value != "1" for name, value in attrs):
+                raise ValueError("merged cells need a layout-aware parser")
+            self.cell = (tag, [])
+
+    def handle_endtag(self, tag):
+        if self.hidden:
+            if tag == self.hidden[-1]:
+                self.hidden.pop()
+            return
+        if self.cell and tag == self.cell[0]:
+            self.row.append((tag, normalize("".join(self.cell[1]))))
+            self.cell = None
+        elif tag == "tr" and self.row:
+            values = [text for _, text in self.row]
+            if all(kind == "th" for kind, _ in self.row):
+                self.headers = values
+            else:
+                if len(values) != len(self.headers) or any(kind != "td" for kind, _ in self.row):
+                    raise ValueError(f"unsupported table at line {self.line}")
+                joined = " | ".join(f"{header}: {value}" for header, value in zip(self.headers, values, strict=True))
+                self.blocks.append(("table_row", self.line, joined))
+        elif self.block and tag == self.block[0]:
+            name, line, parts = self.block
+            self.blocks.append((self.content_tags[name], line, normalize("".join(parts))))
+            self.block = None
+
+    def handle_data(self, text):
+        if not self.hidden:
+            if self.cell:
+                self.cell[1].append(text)
+            elif self.block:
+                self.block[2].append(text)
+
+
+def text_blocks(source, markdown):
+    parts = []
+    line_start = 1
+    fenced = False
+    for number, line in enumerate(source.splitlines() + [""], 1):
+        if markdown and line.strip().startswith("```"):
+            if parts:
+                yield "paragraph", line_start, normalize(" ".join(parts))
+                parts = []
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        heading = re.fullmatch(r"(#{1,6})\s+(.+)", line) if markdown else None
+        if not line.strip() or heading:
+            if parts:
+                yield "paragraph", line_start, normalize(" ".join(parts))
+                parts = []
+            if heading:
+                yield ("title" if heading[1] == "#" else "heading"), number, normalize(heading[2])
+        else:
+            if not parts:
+                line_start = number
+            parts.append(line)
+    if fenced:
+        raise ValueError("unclosed Markdown code fence")
+
+
+def parse(raw):
+    if raw["format"] == "html":
+        parser = PolicyHTML()
+        parser.feed(raw["source"])
+        parser.close()
+        source_blocks = parser.blocks
+    elif raw["format"] in {"markdown", "text"}:
+        source_blocks = text_blocks(raw["source"], markdown=raw["format"] == "markdown")
+    else:
+        raise ValueError(f"unsupported format: {raw['format']}")
+
+    blocks = []
+    cursor = 0
+    for kind, line, text in source_blocks:
+        if not text:
+            continue
+        blocks.append(Block(kind, text, line, cursor, cursor + len(text)))
+        cursor += len(text) + 1
+    if not blocks:
+        raise ValueError(f"empty parsed document: {raw['id']}")
+    return Document(
+        id=raw["id"], title=raw["title"], revision=raw["revision"], region=raw["region"],
+        scope=raw["scope"], active=raw["active"], text="\n".join(block.text for block in blocks),
+        blocks=tuple(blocks),
+    )
+
+
+def tokens(text):
+    return [match.group().casefold() for match in WORD.finditer(text)]
+
+
+def windows(document, start, end, size, overlap):
+    positions = [match.start() + start for match in WORD.finditer(document.text[start:end])]
+    if not positions:
+        return
+    stride = size - overlap
+    for index in range(0, len(positions), stride):
+        stop = min(index + size, len(positions))
+        left = start if index == 0 else positions[index]
+        right = end if stop == len(positions) else positions[stop]
+        yield Chunk(document.id, left, right, document.text[left:right])
+        if stop == len(positions):
+            break
+
+
+def chunk_document(document, strategy, size=18, overlap=6):
+    if size < 1 or not 0 <= overlap < size:
+        raise ValueError("chunk size must exceed overlap")
+    if strategy in {"fixed", "overlap"}:
+        return list(windows(document, 0, len(document.text), size, overlap if strategy == "overlap" else 0))
+    if strategy != "section":
+        raise ValueError(f"unknown strategy: {strategy}")
+
+    # Section headings and table rows are structural boundaries.
+    groups = []
+    current = []
+    for block in document.blocks:
+        if block.kind in {"heading", "table_row"} and current:
+            groups.append(current)
+            current = []
+        current.append(block)
+        if block.kind == "table_row":
+            groups.append(current)
+            current = []
+    if current:
+        groups.append(current)
+
+    chunks = []
+    for group in groups:
+        left, right = group[0].start, group[-1].end
+        chunks.extend(windows(document, left, right, size, overlap))
+    return chunks
+
+
+def visible(document, question):
+    return document.active and document.region in {question["region"], "global"} and (
+        document.scope == "public" or question["role"] == "ops" and document.scope == "ops"
+    )
+
+
+def resolve_evidence(question, documents):
+    spans = []
+    for evidence in question["evidence"]:
+        document = documents[evidence["doc"]]
+        needle = evidence["needle"]
+        if not visible(document, question) or not needle or document.text.count(needle) != 1:
+            raise ValueError(f"evidence must be visible and unique: {question['id']} / {document.id}")
+        start = document.text.index(needle)
+        spans.append((document.id, start, start + len(needle)))
+    return spans
+
+
+def load_data():
+    corpus = json.loads((ROOT / "corpus.json").read_text(encoding="utf-8"))
+    labels = json.loads((ROOT / "eval.json").read_text(encoding="utf-8"))
+    if corpus["version"] != labels["corpus"]:
+        raise ValueError("evaluation labels target a different corpus version")
+    documents = {raw["id"]: parse(raw) for raw in corpus["documents"]}
+    questions = labels["queries"]
+    if len(documents) != len(corpus["documents"]) or len({q["id"] for q in questions}) != len(questions):
+        raise ValueError("document and question IDs must be unique")
+    for question in questions:
+        resolve_evidence(question, documents)
+    return documents, questions
+
+
+def embed(text, idf=None):
+    weights = Counter(tokens(text))
+    if idf is not None:
+        weights = {term: count * idf[term] for term, count in weights.items() if term in idf}
+    length = sqrt(sum(value * value for value in weights.values()))
+    return {term: value / length for term, value in weights.items()} if length else {}
+
+
+def cosine(left, right):
+    return sum(weight * right.get(term, 0.0) for term, weight in left.items())
+
+
+def make_sparse_ranker(chunks, method):
+    seen = Counter(term for chunk in chunks for term in set(tokens(chunk.text)))
+    idf = {term: 1 + log((1 + len(chunks)) / (1 + count)) for term, count in seen.items()} if method == "tfidf" else None
+    vectors = [embed(chunk.text, idf) for chunk in chunks]
+
+    def rank(query):
+        query_vector = embed(query, idf)
+        return select_ranked(chunks, [cosine(query_vector, vector) for vector in vectors], positive_only=True)
+
+    return rank
+
+
+def select_ranked(chunks, scores, positive_only):
+    pairs = zip(chunks, scores, strict=True)
+    return sorted(
+        ((chunk, score) for chunk, score in pairs if score > 0 or not positive_only),
+        key=lambda pair: (-pair[1], pair[0].doc, pair[0].start),
+    )
+
+
+def covers(chunk, span):
+    doc, left, right = span
+    return chunk.doc == doc and chunk.start <= left and chunk.end >= right
+
+
+def evaluate(documents, questions, chunks, ranker_factory, k, explain=None):
+    evidence_found = 0
+    evidence_total = 0
+    complete = 0
+    answerable = 0
+    reciprocal = 0.0
+    no_label = 0
+    no_label_retrieved = 0
+
+    @cache
+    def ranker_for(ids):
+        return ranker_factory([chunk for chunk in chunks if chunk.doc in ids])
+
+    for question in questions:
+        spans = resolve_evidence(question, documents)
+        allowed = tuple(document.id for document in documents.values() if visible(document, question))
+        ranked = ranker_for(allowed)(question["query"])[:k]
+        if any(chunk.doc not in allowed for chunk, _ in ranked):
+            raise AssertionError(f"scope leak: {question['id']}")
+        if explain == question["id"]:
+            print(f"query={question['id']} gold={spans}")
+            for chunk, score in ranked:
+                matched = [index + 1 for index, span in enumerate(spans) if covers(chunk, span)]
+                preview = normalize(chunk.text)
+                print(f"  {chunk.doc}[{chunk.start}:{chunk.end}] {score:.4f} gold={matched} {preview}")
+
+        if not spans:
+            no_label += 1
+            no_label_retrieved += bool(ranked)
+            continue
+        found = [span for span in spans if any(covers(chunk, span) for chunk, _ in ranked)]
+        first = next((rank for rank, (chunk, _) in enumerate(ranked, 1) if any(covers(chunk, span) for span in spans)), 0)
+        evidence_found += len(found)
+        evidence_total += len(spans)
+        complete += len(found) == len(spans)
+        answerable += 1
+        reciprocal += 1 / first if first else 0
+
+    return {
+        "evidence_recall": f"{evidence_found}/{evidence_total}",
+        "complete_queries": f"{complete}/{answerable}",
+        "mrr": round(reciprocal / answerable, 3) if answerable else 0,
+        "unanswerable_with_candidates": f"{no_label_retrieved}/{no_label}",
+    }
+
+
+def all_chunks(documents, strategy, size, overlap):
+    # Keep historical documents for the format lab. Index only active ones.
+    return [chunk for doc in documents.values() if doc.active
+            for chunk in chunk_document(doc, strategy, size, overlap)]
+
+
+def verify(documents, questions):
+    codes = documents["codes"]
+    first_row = next(block for block in codes.blocks if block.kind == "table_row")
+    assert first_row.text == "Code: REF-201 | Meaning: Pending payment | Action: Wait for payment settlement."
+    assert "REF-999" not in codes.text
+    assert "June archive" not in documents["cancel-us"].text
+    assert embed("") == {} and abs(cosine(embed("payment payment"), embed("payment")) - 1) < 1e-9
+    for doc in documents.values():
+        for block in doc.blocks:
+            assert doc.text[block.start:block.end] == block.text
+        for strategy in ("fixed", "overlap", "section"):
+            for chunk in chunk_document(doc, strategy):
+                assert chunk.text == doc.text[chunk.start:chunk.end]
+                assert 0 < len(tokens(chunk.text)) <= 18
+    assert not visible(documents["cancel-us-archive"], questions[0])
+    ops_query = next(question for question in questions if question["id"] == "ops_queue")
+    public_query = next(question for question in questions if question["id"] == "no_access")
+    assert visible(documents["warehouse-ops"], ops_query)
+    assert not visible(documents["warehouse-ops"], public_query)
+    chunks = all_chunks(documents, "section", 18, 6)
+    result = evaluate(documents, questions, chunks, lambda rows: make_sparse_ranker(rows, "tfidf"), 3)
+    assert result["complete_queries"] == "12/12", result
+
+
+def main():
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("mode", choices=["verify", "parse", "chunk", "embed"])
+    parser.add_argument("--document", default="codes")
+    parser.add_argument("--size", type=int, default=18)
+    parser.add_argument("--overlap", type=int, default=6)
+    parser.add_argument("--top-k", type=int, default=3)
+    parser.add_argument("--explain", help="show gold spans and candidate chunks for this query ID")
+    args = parser.parse_args()
+    if args.top_k < 1 or not 0 <= args.overlap < args.size:
+        parser.error("top-k must be positive, and size must exceed overlap")
+    documents, questions = load_data()
+    if args.explain and args.explain not in {question["id"] for question in questions}:
+        parser.error("unknown query ID")
+    if args.mode == "verify":
+        verify(documents, questions)
+        print(f"Verified {len(documents)} documents and {len(questions)} labeled queries.")
+    elif args.mode == "parse":
+        if args.document not in documents:
+            parser.error("unknown document ID")
+        print(json.dumps(asdict(documents[args.document]), indent=2, ensure_ascii=False))
+    else:
+        matrix = [(name, "tfidf") for name in ("fixed", "overlap", "section")] if args.mode == "chunk" else [
+            ("section", "count"), ("section", "tfidf"),
+        ]
+        for strategy, method in matrix:
+            chunks = all_chunks(documents, strategy, args.size, args.overlap)
+            total_tokens = sum(len(tokens(chunk.text)) for chunk in chunks)
+            result = evaluate(documents, questions, chunks, lambda rows: make_sparse_ranker(rows, method), args.top_k, args.explain)
+            print(f"{strategy}/{method}: chunks={len(chunks)}, tokens={total_tokens}, {result}")
+
+
+if __name__ == "__main__":
+    main()

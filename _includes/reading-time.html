@@ -1,0 +1,14 @@
+{% assign prose_segments = include.body | split: '<pre' %}
+{% capture reading_text %}
+  {% for segment in prose_segments %}
+    {% if forloop.first %}
+      {{ segment }}
+    {% elsif segment contains '</pre>' %}
+      {% assign pieces = segment | append: ' ' | split: '</pre>' %}
+      {{ pieces | last }}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% assign prose_size = reading_text | strip_html | normalize_whitespace | size %}
+{% assign reading_minutes = prose_size | plus: 499 | divided_by: 500 | at_least: 1 %}
+<span id="reading-time">约 {{ reading_minutes }} 分钟</span>

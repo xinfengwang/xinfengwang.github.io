@@ -8,6 +8,9 @@
   title: 核心技术与能力体系
   summary: 拆开模型、工具、知识、记忆、规划、推理、协作和外部环境，理解它们在一次执行中的职责。
   slug: agent-engineering-capabilities
+  learning_series:
+    title: RAG 深度系列
+    url: /series/rag-context/#rag-curriculum
   topics: [LLM 与 Prompt, Tool Use, RAG, Memory, Planning, Reasoning, Multi-Agent, 外部环境交互]
   chapters: [agent-deep-dive-llm-prompt, agent-deep-dive-tool-use, agent-deep-dive-rag, agent-deep-dive-agent-state]
   reading: [rag-basics, hybrid-search, agent-memory, structured-plan-executor]

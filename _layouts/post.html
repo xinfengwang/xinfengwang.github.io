@@ -23,7 +23,7 @@ layout: default
       {% endif %}
       <h1>{{ page.title }}</h1>
       {% if page.subtitle %}<p class="article-subtitle">{{ page.subtitle }}</p>{% endif %}
-      <div class="article-meta">王新峰 · {{ page.date | date: "%Y-%m-%d" }}{% if page.updated %} · 更新于 {{ page.updated }}{% endif %} · <span id="reading-time">约 -- 分钟</span></div>
+      <div class="article-meta">王新峰 · {{ page.date | date: "%Y-%m-%d" }}{% if page.updated %} · 更新于 {{ page.updated }}{% endif %} · {% include reading-time.html body=content %}</div>
     </header>
 
     <div class="reader-toolbar" aria-label="阅读设置">

@@ -14,11 +14,20 @@
   }
 
   const article = document.querySelector('.article-body');
+  const readingTime = document.getElementById('reading-time');
+  if (article && readingTime) {
+    const prose = article.cloneNode(true);
+    prose.querySelectorAll('pre, .mermaid, figure, svg, script, style, [hidden]').forEach(node => node.remove());
+    const walker = document.createTreeWalker(prose, NodeFilter.SHOW_TEXT);
+    const parts = [];
+    while (walker.nextNode()) parts.push(walker.currentNode.textContent);
+    const text = parts.join(' ');
+    const han = text.match(/\p{Script=Han}/gu)?.length ?? 0;
+    const words = text.replace(/\p{Script=Han}/gu, ' ').match(/[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu)?.length ?? 0;
+    const minutes = Math.max(1, Math.ceil(han / 500 + words / 230));
+    readingTime.textContent = `约 ${minutes} 分钟`;
+  }
   if (article) {
-    const words = article.innerText.trim().length;
-    const minutes = Math.max(1, Math.round(words / 500));
-    const reading = document.getElementById('reading-time');
-    if (reading) reading.textContent = `约 ${minutes} 分钟`;
 
     const progressBar = document.getElementById('reading-progress-bar');
     if (progressBar) {

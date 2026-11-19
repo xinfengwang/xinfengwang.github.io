@@ -144,14 +144,14 @@
         "reason": "共同主题：Context-Engineering、RAG"
       },
       {
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标",
+        "reason": "共同主题：Context-Engineering、RAG"
+      },
+      {
         "url": "/2026/09/10/coding-agent-harness/",
         "title": "Coding Agent 到底比普通 Agent 多了什么？",
         "reason": "共同主题：AI-Coding、Context-Engineering"
-      },
-      {
-        "url": "/2026/09/15/agent-memory/",
-        "title": "Agent Memory：短期记忆、长期记忆与可控召回",
-        "reason": "共同主题：Context-Engineering、RAG"
       }
     ],
     "backlinks": []
@@ -703,6 +703,11 @@
     "source_sha256": "cfe664f01b1b40d658f78d4f7699432a53f22fa95b07aaf2097e262cd9fbc940",
     "related": [
       {
+        "url": "/2026/11/19/rag-embedding/",
+        "title": "Embedding：从词项向量到双塔编码",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/15/rag-badcase-debugging/",
         "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
         "reason": "这篇文章引用了本文"
@@ -711,17 +716,16 @@
         "url": "/2026/09/15/rag-basics/",
         "title": "RAG 基础：Chunk、Embedding、Vector Search 到底怎么串起来？",
         "reason": "共同主题：RAG、Vector-Search"
-      },
-      {
-        "url": "/2026/09/08/rag-for-agent-planning/",
-        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
-        "reason": "共同主题：RAG"
       }
     ],
     "backlinks": [
       {
         "url": "/2026/09/15/rag-badcase-debugging/",
         "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？"
+      },
+      {
+        "url": "/2026/11/19/rag-embedding/",
+        "title": "Embedding：从词项向量到双塔编码"
       }
     ]
   },
@@ -874,30 +878,30 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/gui-agent-badcase-loop/",
-        "title": "GUI Agent：Badcase 怎么从一次失败变成回归资产？",
-        "reason": "共同主题：Badcase、Evaluation"
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知",
+        "reason": "共同主题：Evaluation、RAG"
       }
     ],
     "backlinks": []
   },
   "/2026/09/15/rag-basics/": {
-    "source_sha256": "d4bc3ffa0917e0af00276cb373fe9990e5b47f8ac86afae13cedb9f467e50ade",
+    "source_sha256": "953189fcaffa9efb98a2c6a4c1516cf4c6bb461c71b74a95e7088d3a174a642f",
     "related": [
+      {
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/rag-embedding/",
+        "title": "Embedding：从词项向量到双塔编码",
+        "reason": "共同主题：Embedding、RAG"
+      },
       {
         "url": "/2026/09/15/hybrid-search/",
         "title": "Hybrid Search：关键词、向量与 RRF 为什么要一起用？",
         "reason": "共同主题：RAG、Vector-Search"
-      },
-      {
-        "url": "/2026/09/08/rag-for-agent-planning/",
-        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
-        "reason": "共同主题：RAG"
-      },
-      {
-        "url": "/2026/09/13/context-engineering-workspace-codebase/",
-        "title": "Context Engineering：Workspace 与 Codebase 应该怎么分？",
-        "reason": "共同主题：RAG"
       }
     ],
     "backlinks": []
@@ -1906,7 +1910,7 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-rag/": {
-    "source_sha256": "af56943f75d7795e50c863d33e7ef0eb5c3a0654918a15a2a4a189705c14929c",
+    "source_sha256": "575011ae69cf1ee195d3a6437eb426ff40ef639cb4ea3193d454ed1583aa3dd5",
     "related": [
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
@@ -1914,14 +1918,14 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-tool-use/",
-        "title": "Function Calling 实战，模型提出调用以后发生了什么？",
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/09/15/rag-badcase-debugging/",
-        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
-        "reason": "共同主题：Evaluation、RAG"
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标",
+        "reason": "本文引用的延伸阅读"
       }
     ],
     "backlinks": [
@@ -1932,6 +1936,10 @@
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
         "title": "拆开 Agent 的八项能力，从工具调用到环境验证"
+      },
+      {
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标"
       }
     ]
   },
@@ -2437,6 +2445,100 @@
       {
         "url": "/2026/11/19/agent-orchestration-after-delegation/",
         "title": "任务交给多个 Agent 之后，谁负责把事情做完？"
+      }
+    ]
+  },
+  "/2026/11/19/rag-chunking/": {
+    "source_sha256": "dd41ad4bc0fe8b1e529a7ea00f9ae6b716f6dbc00bba29ae25a3159f3bdc437a",
+    "related": [
+      {
+        "url": "/2026/11/19/rag-embedding/",
+        "title": "Embedding：从词项向量到双塔编码",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 实战，为什么正确的政策没进入模型？",
+        "reason": "这篇文章引用了本文"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 实战，为什么正确的政策没进入模型？"
+      },
+      {
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标"
+      },
+      {
+        "url": "/2026/11/19/rag-embedding/",
+        "title": "Embedding：从词项向量到双塔编码"
+      }
+    ]
+  },
+  "/2026/11/19/rag-document-parsing/": {
+    "source_sha256": "269541fe9722b555c03d5f3e94fce73c79b471ec9df143026a5d35c7e86cdb8e",
+    "related": [
+      {
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 实战，为什么正确的政策没进入模型？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/rag-basics/",
+        "title": "RAG 基础：Chunk、Embedding、Vector Search 到底怎么串起来？",
+        "reason": "这篇文章引用了本文"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/09/15/rag-basics/",
+        "title": "RAG 基础：Chunk、Embedding、Vector Search 到底怎么串起来？"
+      },
+      {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 实战，为什么正确的政策没进入模型？"
+      },
+      {
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知"
+      }
+    ]
+  },
+  "/2026/11/19/rag-embedding/": {
+    "source_sha256": "20bffbc6b0cb1ee8460ae075baae7f22ca23069337e34ded934fa5c6173d763f",
+    "related": [
+      {
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/hybrid-search/",
+        "title": "Hybrid Search：关键词、向量与 RRF 为什么要一起用？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/rag-basics/",
+        "title": "RAG 基础：Chunk、Embedding、Vector Search 到底怎么串起来？",
+        "reason": "共同主题：Embedding、RAG"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/19/rag-chunking/",
+        "title": "Chunking：固定窗口、重叠与结构感知"
       }
     ]
   }

@@ -70,6 +70,18 @@
       title: "RAG 基础：Chunk、Embedding、Vector Search"
       status: published
       url: "/2026/09/15/rag-basics/"
+    - no: "01a"
+      title: "RAG 文档解析：表头、章节和证据坐标"
+      status: published
+      url: "/2026/11/19/rag-document-parsing/"
+    - no: "01b"
+      title: "Chunking：固定窗口、重叠与结构感知"
+      status: published
+      url: "/2026/11/19/rag-chunking/"
+    - no: "01c"
+      title: "Embedding：从词项向量到双塔编码"
+      status: published
+      url: "/2026/11/19/rag-embedding/"
     - no: "02"
       featured: true
       title: "Hybrid Search：关键词、向量与 RRF 融合"

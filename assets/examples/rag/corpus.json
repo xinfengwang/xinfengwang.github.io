@@ -1,0 +1,105 @@
+{
+  "version": "support-v1",
+  "documents": [
+    {
+      "id": "cancel-us",
+      "format": "html",
+      "title": "US order cancellation",
+      "revision": 3,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "<nav>Help · June archive</nav><h1>US order cancellation</h1>\n<h2>Before warehouse release</h2>\n<p>For a US order queued in the warehouse, cancellation is available before warehouse release.</p>\n<p>Open the Orders page, select the order, and choose Cancel order.</p>\n<h2>Carrier handoff</h2>\n<p>After carrier handoff, an order cannot be canceled online. Ask support to request a shipment intercept.</p>\n<p>An intercept is a request only. The carrier can decline it.</p>"
+    },
+    {
+      "id": "cancel-us-archive",
+      "format": "markdown",
+      "title": "US cancellation archive",
+      "revision": 2,
+      "region": "us",
+      "scope": "public",
+      "active": false,
+      "source": "# US cancellation archive\n\n## Carrier handoff\nAfter carrier handoff, a buyer can cancel automatically for two hours. This legacy rule is retained for training."
+    },
+    {
+      "id": "cancel-eu",
+      "format": "markdown",
+      "title": "EU order cancellation",
+      "revision": 2,
+      "region": "eu",
+      "scope": "public",
+      "active": true,
+      "source": "# EU order cancellation\n\n## Carrier handoff\nAfter carrier handoff, use the EU return portal once tracking shows delivery.\n\n## Pickup\nFor a pickup order waiting at the store, cancel through the pickup receipt."
+    },
+    {
+      "id": "codes",
+      "format": "html",
+      "title": "Refund error codes",
+      "revision": 4,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "<h1>Refund error codes</h1><h2>Gateway responses</h2>\n<p>Use the complete error code from the refund receipt. A code for a captured payment differs from one for a pending payment.</p>\n<table><thead><tr><th>Code</th><th>Meaning</th><th>Action</th></tr></thead>\n<tbody><tr><td>REF-201</td><td>Pending payment</td><td>Wait for payment settlement.</td></tr>\n<tr><td>REF-210</td><td>Duplicate request</td><td>Look up the original refund receipt.</td></tr>\n<tr><td>REF-305</td><td>Card expired</td><td>Contact billing support for a manual review.</td></tr></tbody></table>\n<script>tracking_config = {code: \"REF-999\"}</script>"
+    },
+    {
+      "id": "return-window",
+      "format": "markdown",
+      "title": "US return eligibility",
+      "revision": 5,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "# US return eligibility\n\n## Delivery clock\nStandard items can be returned within 30 calendar days of confirmed delivery. Personalized items are excluded from this window.\n\n## Damaged items\nReport a damaged item to support within 48 hours of confirmed delivery. Attach photos of the outer packaging and item."
+    },
+    {
+      "id": "returns-guide",
+      "format": "text",
+      "title": "US return instructions",
+      "revision": 1,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "Create a return label in the Orders page after your return request has been approved. Print the label before drop-off.\n\nA refund is sent to the original payment method after the warehouse verifies the return."
+    },
+    {
+      "id": "billing",
+      "format": "markdown",
+      "title": "Billing settlement and refunds",
+      "revision": 4,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "# Billing settlement and refunds\n\n## Settled payment\nCard refunds typically appear within 5 business days after the refund receipt is issued.\n\n## Pending payment\nDo not issue a refund while the payment is pending. Wait for payment settlement using the status on the original payment receipt."
+    },
+    {
+      "id": "warehouse-ops",
+      "format": "html",
+      "title": "Warehouse operations notes",
+      "revision": 6,
+      "region": "us",
+      "scope": "ops",
+      "active": true,
+      "source": "<h1>Warehouse operations notes</h1>\n<h2>Delayed carrier scan</h2><p>For an internal scan delay, warehouse operators should open the carrier reconciliation queue.</p>\n<h2>Intercept</h2><p>Internal operators record unsuccessful intercepts with code OPS-417.</p>"
+    },
+    {
+      "id": "shipping",
+      "format": "markdown",
+      "title": "Shipping FAQ",
+      "revision": 3,
+      "region": "us",
+      "scope": "public",
+      "active": true,
+      "source": "# Shipping FAQ\n\n## Tracking updates\nA shipping confirmation is sent when a label is created. Tracking may update before a carrier handoff.\n\n## Notifications\nBuyers can opt out of shipping email notifications in account settings."
+    },
+    {
+      "id": "workspace",
+      "format": "markdown",
+      "title": "Account and workshop FAQ",
+      "revision": 1,
+      "region": "global",
+      "scope": "public",
+      "active": true,
+      "source": "# Account and workshop FAQ\n\n## Receipt archive\nDownload your payment receipt from account settings.\n\n## Workshops\nWorkshop seats cannot be refunded after the event starts. Review the workshop cancellation policy in the event receipt."
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "version": "evidence-v1",
+  "corpus": "support-v1",
+  "queries": [
+    {
+      "id": "cancel_warehouse",
+      "query": "Can I cancel an order queued in the warehouse before release?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "cancel-us",
+          "needle": "cancellation is available before warehouse release."
+        }
+      ]
+    },
+    {
+      "id": "intercept",
+      "query": "Can the carrier still stop the parcel after handoff?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "cancel-us",
+          "needle": "After carrier handoff, an order cannot be canceled online. Ask support to request a shipment intercept."
+        }
+      ]
+    },
+    {
+      "id": "intercept_limit",
+      "query": "For a shipment intercept after handoff, can support guarantee success?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "cancel-us",
+          "needle": "Ask support to request a shipment intercept."
+        },
+        {
+          "doc": "cancel-us",
+          "needle": "The carrier can decline it."
+        }
+      ]
+    },
+    {
+      "id": "eu_return",
+      "query": "After carrier handoff, where should an EU buyer make a return?",
+      "region": "eu",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "cancel-eu",
+          "needle": "use the EU return portal once tracking shows delivery."
+        }
+      ]
+    },
+    {
+      "id": "refund_201",
+      "query": "What action should I take for refund code REF-201?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "codes",
+          "needle": "Code: REF-201 | Meaning: Pending payment | Action: Wait for payment settlement."
+        }
+      ]
+    },
+    {
+      "id": "refund_210",
+      "query": "How do I handle REF-210 duplicate request?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "codes",
+          "needle": "Code: REF-210 | Meaning: Duplicate request | Action: Look up the original refund receipt."
+        }
+      ]
+    },
+    {
+      "id": "return_exception",
+      "query": "What is the time limit for standard returns, and do personalized items qualify?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "return-window",
+          "needle": "within 30 calendar days of confirmed delivery."
+        },
+        {
+          "doc": "return-window",
+          "needle": "Personalized items are excluded from this window."
+        }
+      ]
+    },
+    {
+      "id": "damaged",
+      "query": "What deadline and photos are required for a damaged item?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "return-window",
+          "needle": "within 48 hours of confirmed delivery."
+        },
+        {
+          "doc": "return-window",
+          "needle": "Attach photos of the outer packaging and item."
+        }
+      ]
+    },
+    {
+      "id": "refund_days",
+      "query": "How soon is a card refund visible after the receipt is issued?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "billing",
+          "needle": "within 5 business days after the refund receipt is issued."
+        }
+      ]
+    },
+    {
+      "id": "return_and_refund",
+      "query": "Where do I get a return label and where does the refund go?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "returns-guide",
+          "needle": "Create a return label in the Orders page after your return request has been approved."
+        },
+        {
+          "doc": "returns-guide",
+          "needle": "A refund is sent to the original payment method"
+        }
+      ]
+    },
+    {
+      "id": "ops_queue",
+      "query": "What internal queue handles a delayed carrier scan?",
+      "region": "us",
+      "role": "ops",
+      "evidence": [
+        {
+          "doc": "warehouse-ops",
+          "needle": "warehouse operators should open the carrier reconciliation queue."
+        }
+      ]
+    },
+    {
+      "id": "no_access",
+      "query": "What internal queue handles a delayed carrier scan?",
+      "region": "us",
+      "role": "public",
+      "evidence": []
+    },
+    {
+      "id": "no_version",
+      "query": "Can I still cancel automatically for two hours after carrier handoff?",
+      "region": "us",
+      "role": "public",
+      "evidence": [
+        {
+          "doc": "cancel-us",
+          "needle": "After carrier handoff, an order cannot be canceled online."
+        }
+      ]
+    },
+    {
+      "id": "no_evidence",
+      "query": "What is the deadline for replacing a gift card lost abroad?",
+      "region": "eu",
+      "role": "public",
+      "evidence": []
+    }
+  ]
+}

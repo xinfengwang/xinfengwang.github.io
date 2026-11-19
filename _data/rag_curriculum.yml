@@ -1,0 +1,62 @@
+- id: architecture
+  title: RAG 整体架构与核心原理
+  prerequisite: 从用户问题到可引用证据
+  focus: 认识离线入库与在线检索，区分候选命中、上下文送达和答案验收。
+  url: /2026/09/15/rag-basics/
+  note: 现有导读
+- id: parsing
+  title: 文档解析与数据预处理
+  prerequisite: 理解离线索引的输入输出
+  focus: 保留标题、页码与表格语义，构建可回查的规范化文档。
+  url: /2026/11/19/rag-document-parsing/
+- id: chunking
+  title: Chunking 分块策略
+  prerequisite: 文档解析与稳定证据坐标
+  focus: 对比固定窗口、重叠与按节切分，测量证据断裂和索引膨胀。
+  url: /2026/11/19/rag-chunking/
+- id: embedding
+  title: Embedding 向量化原理
+  prerequisite: 固定分块策略与证据评估集
+  focus: 从词频和 TF-IDF 到双塔编码，区分精确排序和模型表示质量。
+  url: /2026/11/19/rag-embedding/
+- id: ann
+  title: 向量数据库与 ANN 检索
+  prerequisite: Embedding、相似度与精确 Top-K
+  focus: 比较 HNSW、IVF 与量化，基于精确排序测召回、时延和索引开销。
+- id: bm25
+  title: BM25 与关键词检索
+  prerequisite: 文档预处理、分词与关键词基线
+  focus: 从倒排表到长度归一化、词频饱和与词项诊断。
+- id: hybrid
+  title: Hybrid Search 与 RRF
+  prerequisite: BM25、向量检索与候选窗口
+  focus: 融合跨量纲排序，评估合并窗口和重复候选。
+  reference: /2026/09/15/hybrid-search/
+- id: rerank
+  title: Rerank 重排序
+  prerequisite: 混合召回与候选集质量
+  focus: 比较双塔与交叉编码，测候选深度、时延和排序收益。
+  reference: /2026/11/19/agent-deep-dive-rag/#ranking
+- id: rewrite
+  title: Query Rewrite 与 Multi-Query
+  prerequisite: 稳定的召回与重排基线
+  focus: 保留实体和版本约束，核验改写带来的新增证据与语义漂移。
+- id: advanced
+  title: Advanced RAG
+  prerequisite: 分块、混合检索、重排与查询改写
+  focus: 实验父子检索、多级装配、预算裁剪和面向任务的检索编排。
+  reference: /2026/11/19/agent-deep-dive-rag/#packing
+- id: graph
+  title: GraphRAG
+  prerequisite: 稳定的文档来源与传统检索基线
+  focus: 从实体关系抽取到局部和全局查询，评估构图成本和可追溯性。
+- id: agentic
+  title: Agentic RAG
+  prerequisite: Query Rewrite、检索质量评估与 Agent 执行循环
+  focus: 实现检索决策、证据缺口检测、带预算的迭代检索与退出。
+  reference: /2026/09/08/rag-for-agent-planning/
+- id: evaluation
+  title: RAG 评估与性能优化
+  prerequisite: 召回、重排、上下文装配和引用验收
+  focus: 分层追踪证据，比较质量、延迟、成本与拒答，对同一评测集做消融。
+  reference: /2026/09/15/rag-badcase-debugging/

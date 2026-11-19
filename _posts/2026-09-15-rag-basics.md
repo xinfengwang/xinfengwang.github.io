@@ -37,6 +37,8 @@ Context Assembly
 LLM
 ```
 
+这篇先建立从离线入库到在线检索的全链路视图。需要亲手比较解析器、分块和编码器时，可以沿 [RAG 深度系列](/series/rag-context/#rag-curriculum) 从 [文档解析](/2026/11/19/rag-document-parsing/) 做起。
+
 ## Chunk 为什么是第一道关键设计
 
 Chunk 太大，会把大量无关内容一起召回；Chunk 太小，又可能丢失上下文。
