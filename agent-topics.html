@@ -1,0 +1,16 @@
+---
+layout: default
+title: AI Agent 技术专题
+description: 以公开实现、工程案例和研究为线索，理解 AI Agent 的架构与工程取舍。
+permalink: /agent-topics/
+---
+<header class="hero editorial-index-header">
+  <h1>AI Agent 技术专题</h1>
+  <p class="hero-copy">从一个具体问题开始。顺着实现拆机制，看不同系统怎么做，以及这些做法在哪些场景里值得借鉴。</p>
+</header>
+<div class="editorial-article-grid editorial-index-grid">
+  {% assign editorial_posts = site.posts | where: 'editorial', true %}
+  {% for post in editorial_posts %}
+    {% include editorial-card.html article=post %}
+  {% endfor %}
+</div>

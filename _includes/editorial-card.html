@@ -1,0 +1,10 @@
+<article class="editorial-article-card">
+  <a class="editorial-article-link" href="{{ include.article.url | relative_url }}">
+    {% if include.article.cover %}<img src="{{ include.article.cover | relative_url }}" alt="" width="1200" height="600" loading="lazy" decoding="async">{% endif %}
+    <div class="editorial-article-text">
+      <time datetime="{{ include.article.date | date_to_xmlschema }}">{{ include.article.date | date: '%Y-%m-%d' }}</time>
+      <h2>{{ include.article.title }}</h2>
+      <p>{{ include.article.subtitle }}</p>
+    </div>
+  </a>
+</article>

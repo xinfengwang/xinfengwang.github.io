@@ -25,3 +25,44 @@ html[data-theme="dark"] .main-nav a{color:var(--muted)}html[data-theme="dark"] .
 
 .start-here-grid>a{grid-template-columns:1fr}.start-here-grid span{grid-row:auto;color:var(--accent);font-family:inherit;margin-bottom:8px}.start-here-grid small{color:var(--muted)}
 .project-showcase>*{min-width:0;max-width:100%}.project-facts span{overflow-wrap:anywhere}.project-visual img{max-width:100%}.mini-arch{max-width:100%}.mini-arch>*{flex-shrink:0}
+
+/* Illustrated engineering articles */
+.editorial-featured { margin: 34px 0 30px; }
+.editorial-featured .section-heading h2 { margin: 0; font: inherit; color: var(--ink); }
+.editorial-article-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.editorial-featured .editorial-article-grid { margin-top: 18px; }
+.editorial-index-grid { padding: 28px 0 64px; }
+.editorial-article-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.editorial-article-link { display: block; height: 100%; color: var(--ink); }
+.editorial-article-link:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.editorial-article-link img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  background: var(--soft);
+}
+.editorial-article-text { padding: 16px 19px 20px; }
+.editorial-article-text time { color: var(--muted); font-size: 12px; }
+.editorial-article-text h2 {
+  margin: 5px 0 7px;
+  font-size: clamp(19px, 2.1vw, 24px);
+  line-height: 1.4;
+}
+.editorial-article-text p { margin: 0; color: var(--muted); font-size: 14px; }
+.editorial-cover { margin: 24px 0; }
+.editorial-cover img { display: block; width: 100%; height: auto; border-radius: 9px; }
+@media (max-width: 650px) {
+  .editorial-article-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .editorial-article-text { padding: 14px 16px 17px; }
+}

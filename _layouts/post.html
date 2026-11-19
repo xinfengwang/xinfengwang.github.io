@@ -10,7 +10,9 @@ layout: default
 <div class="article-layout">
   <article class="article" id="article">
     <header class="article-header">
-      {% if structured_series %}
+      {% if page.editorial %}
+        <p class="eyebrow"><a href="{{ '/agent-topics/' | relative_url }}">技术专题</a></p>
+      {% elsif structured_series %}
         <p class="eyebrow"><a href="{{ '/series/' | append: structured_series.id | append: '/' | relative_url }}">{{ structured_series.short_title }}</a>{% if page.series_index %} · 第 {{ page.series_index }} 章{% endif %}</p>
       {% elsif page.series %}
         <p class="eyebrow">{{ page.series }}{% if page.series_index %} · {{ page.series_index }}{% endif %}</p>
@@ -55,6 +57,7 @@ layout: default
     </details>
     {% endif %}
 
+    {% unless page.editorial %}
     <aside class="article-context" aria-label="文章类型与项目资料">
       <strong>{{ page.content_kind | default: '工程方法' }}</strong>
       {% if page.project_id %}{% assign related_project = site.data.projects | where: 'id', page.project_id | first %}
@@ -64,13 +67,19 @@ layout: default
       {% else %}<p>围绕通用工程问题的设计讨论；示例用于解释方法，实际实现与效果需结合具体项目验证。</p>{% endif %}
       {% if page.scope_note %}<p class="scope-note">{{ page.scope_note }}</p>{% endif %}
     </aside>
+    {% endunless %}
 
     <details class="mobile-toc" id="mobile-toc" hidden>
       <summary>本文目录</summary>
       <nav id="mobile-toc-list" aria-label="本文目录"></nav>
     </details>
 
-    <div class="article-body">{{ content }}</div>
+    <div class="article-body">
+      {% if page.cover %}
+        <figure class="editorial-cover"><img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | escape }}" width="1200" height="600" fetchpriority="high"></figure>
+      {% endif %}
+      {{ content }}
+    </div>
     {% include passage-tools.html %}
     {% include project-evidence.html %}
 

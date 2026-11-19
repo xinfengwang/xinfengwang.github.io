@@ -1472,5 +1472,57 @@
         "title": "Agent 改完真的更好吗？拿一次漏检索做回归"
       }
     ]
+  },
+  "/2026/11/19/agent-orchestration-after-delegation/": {
+    "source_sha256": "6cfde08c42f503085f6cff223bebe2db8a54b6158f40438478fb96fbef12e549",
+    "related": [
+      {
+        "url": "/2026/11/19/coding-agent-project-ontology/",
+        "title": "Coding Agent 记住了项目，为什么还是会改错？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/03/langgraph-for-multi-agent/",
+        "title": "LangGraph 为什么更适合 Multi-Agent？",
+        "reason": "共同主题：Multi-Agent"
+      },
+      {
+        "url": "/2026/09/09/smart-home-agent-loop/",
+        "title": "Smart Home：感知—预测—决策—验证—执行闭环怎么设计？",
+        "reason": "共同主题：Multi-Agent"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/19/coding-agent-project-ontology/",
+        "title": "Coding Agent 记住了项目，为什么还是会改错？"
+      }
+    ]
+  },
+  "/2026/11/19/coding-agent-project-ontology/": {
+    "source_sha256": "7257a7163d7ee578684d8658e92a6379b1b8422715e860b64e51e97b949387af",
+    "related": [
+      {
+        "url": "/2026/11/19/agent-orchestration-after-delegation/",
+        "title": "任务交给多个 Agent 之后，谁负责把事情做完？",
+        "reason": "本文引用的延伸阅读"
+      },
+      {
+        "url": "/2026/09/15/agent-foundations-overview/",
+        "title": "总纲：AI Agent 到底在解决什么问题？",
+        "reason": "共同主题：Memory"
+      },
+      {
+        "url": "/2026/09/15/agent-memory/",
+        "title": "Agent Memory：短期记忆、长期记忆与可控召回",
+        "reason": "共同主题：Memory"
+      }
+    ],
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-orchestration-after-delegation/",
+        "title": "任务交给多个 Agent 之后，谁负责把事情做完？"
+      }
+    ]
   }
 }

@@ -23,14 +23,15 @@
   <meta property="og:description" content="{{ meta_description | escape }}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:site_name" content="{{ site.title | escape }}">
-  <meta name="twitter:card" content="summary">
+  {% if page.cover %}<meta property="og:image" content="{{ page.cover | absolute_url }}"><meta property="og:image:alt" content="{{ page.cover_alt | escape }}">{% endif %}
+  <meta name="twitter:card" content="{% if page.cover %}summary_large_image{% else %}summary{% endif %}">
   <link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/v2.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/series.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/polish.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/features.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/editorial.css" | relative_url }}?v=20261112-2">
+  <link rel="stylesheet" href="{{ "/assets/css/editorial.css" | relative_url }}?v=20261119">
   <link rel="stylesheet" href="{{ "/assets/css/reader.css" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/reading-tools.css" | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/learning.css' | relative_url }}">
