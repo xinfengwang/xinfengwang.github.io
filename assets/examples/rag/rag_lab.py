@@ -12,6 +12,9 @@ import re
 
 ROOT = Path(__file__).resolve().parent
 WORD = re.compile(r"[^\W_]+(?:-[^\W_]+)*", re.UNICODE)
+SENTENCE_END = re.compile(r"(?<=[.!?。！？])\s+|(?<=[。！？])(?=\S)")
+BOUNDARIES = (re.compile(r"\n+"), SENTENCE_END, re.compile(r"\s+"))
+CHUNK_STRATEGIES = ("fixed", "overlap", "recursive", "section", "semantic", "parent_child")
 
 
 def normalize(text):
@@ -56,6 +59,7 @@ class PolicyHTML(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.blocks = []
+        self.images = []
         self.hidden = []
         self.block = None
         self.headers = []
@@ -68,6 +72,12 @@ class PolicyHTML(HTMLParser):
             self.hidden.append(tag)
         if self.hidden:
             return
+        if tag == "img":
+            attributes = dict(attrs)
+            self.images.append({
+                "line": self.getpos()[0], "uri": attributes.get("src"),
+                "alt": normalize(attributes.get("alt") or ""),
+            })
         if tag in self.content_tags:
             self.block = (tag, self.getpos()[0], [])
         elif tag == "table":
@@ -183,15 +193,8 @@ def windows(document, start, end, size, overlap):
             break
 
 
-def chunk_document(document, strategy, size=18, overlap=6):
-    if size < 1 or not 0 <= overlap < size:
-        raise ValueError("chunk size must exceed overlap")
-    if strategy in {"fixed", "overlap"}:
-        return list(windows(document, 0, len(document.text), size, overlap if strategy == "overlap" else 0))
-    if strategy != "section":
-        raise ValueError(f"unknown strategy: {strategy}")
-
-    # Section headings and table rows are structural boundaries.
+def section_spans(document):
+    """Keep headings with their section. Treat each table row as an atomic group."""
     groups = []
     current = []
     for block in document.blocks:
@@ -205,11 +208,94 @@ def chunk_document(document, strategy, size=18, overlap=6):
     if current:
         groups.append(current)
 
-    chunks = []
     for group in groups:
-        left, right = group[0].start, group[-1].end
-        chunks.extend(windows(document, left, right, size, overlap))
-    return chunks
+        yield group[0].start, group[-1].end
+
+
+def split_at(text, start, end, boundary):
+    cuts = [start]
+    cuts.extend(match.end() for match in boundary.finditer(text, start, end) if start < match.end() < end)
+    cuts.append(end)
+    return list(zip(cuts, cuts[1:]))
+
+
+def fits(text, start, end, size):
+    return len(tokens(text[start:end])) <= size
+
+
+def pack(document, spans, size):
+    """Merge adjacent spans while preserving the original coordinates."""
+    start = end = None
+    for left, right in spans:
+        if start is None:
+            start = left
+        elif not fits(document.text, start, right, size):
+            yield Chunk(document.id, start, end, document.text[start:end])
+            start = left
+        end = right
+    if start is not None and tokens(document.text[start:end]):
+        yield Chunk(document.id, start, end, document.text[start:end])
+
+
+def recursive_spans(document, start, end, size, separators=BOUNDARIES):
+    if fits(document.text, start, end, size):
+        yield start, end
+    elif separators:
+        for left, right in split_at(document.text, start, end, separators[0]):
+            yield from recursive_spans(document, left, right, size, separators[1:])
+    else:
+        for chunk in windows(document, start, end, size, 0):
+            yield chunk.start, chunk.end
+
+
+def lexical_adjacent_scores(texts):
+    weights = inverse_document_frequency(texts)
+    vectors = [embed(text, weights) for text in texts]
+    return [cosine(left, right) for left, right in zip(vectors, vectors[1:])]
+
+
+def semantic_chunks(document, size, threshold=0.15, adjacent_scores=lexical_adjacent_scores):
+    """Place boundaries where neighboring sentences cease to be similar."""
+    sentences = [
+        span for left, right in section_spans(document)
+        for span in split_at(document.text, left, right, SENTENCE_END)
+    ]
+    if not sentences:
+        return
+    texts = [document.text[left:right] for left, right in sentences]
+    group_start, group_end = sentences[0]
+    for (left, right), score in zip(sentences[1:], adjacent_scores(texts), strict=True):
+        boundary = left != group_end or score < threshold
+        if boundary or not fits(document.text, group_start, right, size):
+            yield from windows(document, group_start, group_end, size, 0)
+            group_start = left
+        group_end = right
+    yield from windows(document, group_start, group_end, size, 0)
+
+
+def parent_child_pairs(document, size, overlap):
+    for left, right in section_spans(document):
+        for parent in windows(document, left, right, 3 * size, 0):
+            for child in windows(document, parent.start, parent.end, size, overlap):
+                yield child, parent
+
+
+def chunk_document(document, strategy, size=18, overlap=6):
+    if size < 1 or not 0 <= overlap < size:
+        raise ValueError("chunk size must exceed overlap")
+    end = len(document.text)
+    if strategy in {"fixed", "overlap"}:
+        return list(windows(document, 0, end, size, overlap if strategy == "overlap" else 0))
+    if strategy == "recursive":
+        return list(pack(document, recursive_spans(document, 0, end, size), size))
+    if strategy == "section":
+        return [chunk for left, right in section_spans(document)
+                for chunk in windows(document, left, right, size, overlap)]
+    if strategy == "semantic":
+        return list(semantic_chunks(document, size))
+    if strategy == "parent_child":
+        return [child for child, _ in parent_child_pairs(document, size, overlap)]
+    raise ValueError(f"unknown strategy: {strategy}")
 
 
 def visible(document, question):
@@ -230,18 +316,25 @@ def resolve_evidence(question, documents):
     return spans
 
 
-def load_data():
+def load_data(query_set="en"):
     corpus = json.loads((ROOT / "corpus.json").read_text(encoding="utf-8"))
     labels = json.loads((ROOT / "eval.json").read_text(encoding="utf-8"))
     if corpus["version"] != labels["corpus"]:
         raise ValueError("evaluation labels target a different corpus version")
     documents = {raw["id"]: parse(raw) for raw in corpus["documents"]}
-    questions = labels["queries"]
-    if len(documents) != len(corpus["documents"]) or len({q["id"] for q in questions}) != len(questions):
+    english = labels["queries"]
+    originals = {question["id"]: question for question in english}
+    crosslingual = [
+        {**originals[variant["source_id"]], **variant}
+        for variant in labels.get("crosslingual_queries", [])
+    ]
+    if len(documents) != len(corpus["documents"]) or len({q["id"] for q in english + crosslingual}) != len(english + crosslingual):
         raise ValueError("document and question IDs must be unique")
-    for question in questions:
+    for question in english + crosslingual:
         resolve_evidence(question, documents)
-    return documents, questions
+    if query_set == "crosslingual" and not crosslingual:
+        raise ValueError("this evaluation set has no crosslingual queries")
+    return documents, {"en": english, "crosslingual": crosslingual}[query_set]
 
 
 def embed(text, idf=None):
@@ -256,9 +349,13 @@ def cosine(left, right):
     return sum(weight * right.get(term, 0.0) for term, weight in left.items())
 
 
+def inverse_document_frequency(texts):
+    seen = Counter(term for text in texts for term in set(tokens(text)))
+    return {term: 1 + log((1 + len(texts)) / (1 + count)) for term, count in seen.items()}
+
+
 def make_sparse_ranker(chunks, method):
-    seen = Counter(term for chunk in chunks for term in set(tokens(chunk.text)))
-    idf = {term: 1 + log((1 + len(chunks)) / (1 + count)) for term, count in seen.items()} if method == "tfidf" else None
+    idf = inverse_document_frequency([chunk.text for chunk in chunks]) if method == "tfidf" else None
     vectors = [embed(chunk.text, idf) for chunk in chunks]
 
     def rank(query):
@@ -281,7 +378,7 @@ def covers(chunk, span):
     return chunk.doc == doc and chunk.start <= left and chunk.end >= right
 
 
-def evaluate(documents, questions, chunks, ranker_factory, k, explain=None):
+def evaluate(documents, questions, chunks, ranker_factory, k, explain=None, track_context=False):
     evidence_found = 0
     evidence_total = 0
     complete = 0
@@ -289,6 +386,7 @@ def evaluate(documents, questions, chunks, ranker_factory, k, explain=None):
     reciprocal = 0.0
     no_label = 0
     no_label_retrieved = 0
+    context_tokens = 0
 
     @cache
     def ranker_for(ids):
@@ -298,6 +396,8 @@ def evaluate(documents, questions, chunks, ranker_factory, k, explain=None):
         spans = resolve_evidence(question, documents)
         allowed = tuple(document.id for document in documents.values() if visible(document, question))
         ranked = ranker_for(allowed)(question["query"])[:k]
+        if track_context:
+            context_tokens += sum(len(tokens(chunk.text)) for chunk, _ in ranked)
         if any(chunk.doc not in allowed for chunk, _ in ranked):
             raise AssertionError(f"scope leak: {question['id']}")
         if explain == question["id"]:
@@ -319,18 +419,64 @@ def evaluate(documents, questions, chunks, ranker_factory, k, explain=None):
         answerable += 1
         reciprocal += 1 / first if first else 0
 
-    return {
+    result = {
         "evidence_recall": f"{evidence_found}/{evidence_total}",
         "complete_queries": f"{complete}/{answerable}",
         "mrr": round(reciprocal / answerable, 3) if answerable else 0,
         "unanswerable_with_candidates": f"{no_label_retrieved}/{no_label}",
     }
+    if track_context:
+        result["avg_context_tokens"] = round(context_tokens / len(questions), 1) if questions else 0
+    return result
 
 
 def all_chunks(documents, strategy, size, overlap):
     # Keep historical documents for the format lab. Index only active ones.
     return [chunk for doc in documents.values() if doc.active
             for chunk in chunk_document(doc, strategy, size, overlap)]
+
+
+def parent_ranker(chunks, parents):
+    rank_children = make_sparse_ranker(chunks, "tfidf")
+
+    def rank(query):
+        ranked = {}
+        for child, score in rank_children(query):
+            ranked.setdefault(parents[child], score)
+        return list(ranked.items())
+
+    return rank
+
+
+def chunk_experiment(documents, questions, strategy, size, overlap, k, explain, semantic_signal=None):
+    if semantic_signal is None:
+        chunks = all_chunks(documents, strategy, size, overlap)
+    else:
+        threshold, adjacent_scores = semantic_signal
+        chunks = [chunk for doc in documents.values() if doc.active
+                  for chunk in semantic_chunks(doc, size, threshold, adjacent_scores)]
+    if strategy == "parent_child":
+        parents = dict(pair for doc in documents.values() if doc.active
+                       for pair in parent_child_pairs(doc, size, overlap))
+        assert all(child.doc == parent.doc and parent.start <= child.start < child.end <= parent.end
+                   for child, parent in parents.items())
+
+        def ranker(allowed):
+            return parent_ranker(allowed, parents)
+
+        searchable = set(parents.values())
+    else:
+        def ranker(allowed):
+            return make_sparse_ranker(allowed, "tfidf")
+
+        searchable = chunks
+    spans = [span for question in questions for span in resolve_evidence(question, documents)]
+    ceiling = sum(any(covers(chunk, span) for chunk in searchable) for span in spans)
+    result = evaluate(documents, questions, chunks, ranker, k, explain, track_context=True)
+    result["coverage_ceiling"] = f"{ceiling}/{len(spans)}"
+    total_tokens = sum(len(tokens(chunk.text)) for chunk in chunks)
+    label = "semantic-dense" if semantic_signal is not None else strategy
+    print(f"{label}/tfidf: chunks={len(chunks)}, tokens={total_tokens}, {result}")
 
 
 def verify(documents, questions):
@@ -340,13 +486,18 @@ def verify(documents, questions):
     assert "REF-999" not in codes.text
     assert "June archive" not in documents["cancel-us"].text
     assert embed("") == {} and abs(cosine(embed("payment payment"), embed("payment")) - 1) < 1e-9
+    _, crosslingual = load_data("crosslingual")
+    assert all(question["answer"].strip() for question in questions + crosslingual)
     for doc in documents.values():
         for block in doc.blocks:
             assert doc.text[block.start:block.end] == block.text
-        for strategy in ("fixed", "overlap", "section"):
+        for strategy in CHUNK_STRATEGIES:
             for chunk in chunk_document(doc, strategy):
                 assert chunk.text == doc.text[chunk.start:chunk.end]
                 assert 0 < len(tokens(chunk.text)) <= 18
+        for child, parent in parent_child_pairs(doc, 18, 6):
+            assert parent.start <= child.start < child.end <= parent.end
+            assert len(tokens(parent.text)) <= 54
     assert not visible(documents["cancel-us-archive"], questions[0])
     ops_query = next(question for question in questions if question["id"] == "ops_queue")
     public_query = next(question for question in questions if question["id"] == "no_access")
@@ -355,6 +506,7 @@ def verify(documents, questions):
     chunks = all_chunks(documents, "section", 18, 6)
     result = evaluate(documents, questions, chunks, lambda rows: make_sparse_ranker(rows, "tfidf"), 3)
     assert result["complete_queries"] == "12/12", result
+    return len(crosslingual)
 
 
 def main():
@@ -364,29 +516,33 @@ def main():
     parser.add_argument("--size", type=int, default=18)
     parser.add_argument("--overlap", type=int, default=6)
     parser.add_argument("--top-k", type=int, default=3)
+    parser.add_argument("--query-set", choices=["en", "crosslingual"], default="en")
     parser.add_argument("--explain", help="show gold spans and candidate chunks for this query ID")
     args = parser.parse_args()
     if args.top_k < 1 or not 0 <= args.overlap < args.size:
         parser.error("top-k must be positive, and size must exceed overlap")
-    documents, questions = load_data()
+    if args.query_set != "en" and args.mode != "embed":
+        parser.error("crosslingual is only available for the embedding experiment")
+    documents, questions = load_data(args.query_set)
     if args.explain and args.explain not in {question["id"] for question in questions}:
         parser.error("unknown query ID")
     if args.mode == "verify":
-        verify(documents, questions)
-        print(f"Verified {len(documents)} documents and {len(questions)} labeled queries.")
+        crosslingual_count = verify(documents, questions)
+        print(f"Verified {len(documents)} documents, {len(questions)} English queries, "
+              f"and {crosslingual_count} crosslingual queries.")
     elif args.mode == "parse":
         if args.document not in documents:
             parser.error("unknown document ID")
         print(json.dumps(asdict(documents[args.document]), indent=2, ensure_ascii=False))
+    elif args.mode == "chunk":
+        for strategy in CHUNK_STRATEGIES:
+            chunk_experiment(documents, questions, strategy, args.size, args.overlap, args.top_k, args.explain)
     else:
-        matrix = [(name, "tfidf") for name in ("fixed", "overlap", "section")] if args.mode == "chunk" else [
-            ("section", "count"), ("section", "tfidf"),
-        ]
-        for strategy, method in matrix:
-            chunks = all_chunks(documents, strategy, args.size, args.overlap)
+        for method in ("count", "tfidf"):
+            chunks = all_chunks(documents, "section", args.size, args.overlap)
             total_tokens = sum(len(tokens(chunk.text)) for chunk in chunks)
             result = evaluate(documents, questions, chunks, lambda rows: make_sparse_ranker(rows, method), args.top_k, args.explain)
-            print(f"{strategy}/{method}: chunks={len(chunks)}, tokens={total_tokens}, {result}")
+            print(f"section/{method}: chunks={len(chunks)}, tokens={total_tokens}, {result}")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Embedding：从词项向量到双塔编码"
-description: "固定相同分块和评测集，比较词频、TF-IDF 与本地双塔编码，理解余弦相似和 ANN 的精确基线。"
+description: "固定分块和证据，实测英文与跨语言检索，解释双塔训练、余弦与点积、向量维度和模型选型。"
 date: 2026-11-19 21:02:00 +0800
 category: Tech
 engineering_topic: capabilities
@@ -27,6 +27,7 @@ outline:
   - {id: execution, title: "完整执行：把表示误差和搜索误差分开"}
   - {id: implementation, title: "标准库基线怎样运行？"}
   - {id: dense, title: "本地运行两个预训练模型"}
+  - {id: multilingual, title: "中文查询如何检索英文政策？"}
   - {id: tradeoffs, title: "何时用词项、用向量或两者一起？"}
   - {id: next, title: "候选返回了，答案仍要验收"}
 ---
@@ -39,13 +40,25 @@ outline:
 
 词频和 TF-IDF 通常以词项为维度，只保存非零权重。稠密编码器用模型输出固定维度的数组，比较向量时通常不直接操作词项。双塔检索允许分别编码查询和文档；两塔可以共享参数，也可以不同。文档可以离线编码而线上只编码用户查询，这是它比逐对交叉编码更容易扩大候选规模的原因。
 
-训练时常把查询、正样本和若干负样本一起比较，用对比目标提高正样本分值。难负样本（例如意思看似接近但条款不同的退款码）决定模型能否保留关键差异。通用模型也可能没有见过企业内部编号或术语，业务仍要测精确实体、时间、地区和否定条件。
+训练时常把一条查询分别和正样本、若干负样本打分，再用 softmax 计算正样本在候选中的概率。损失取这个概率的负对数。优化时，梯度会提高正样本分值、降低混淆样本分值。相似退款码可作为难负样本，让「意思相近但处理动作不同」体现到排序里。收集负例时还要核对它是否也能回答问题，避免把真实证据错误地作为负例。通用模型上线前仍需测内部编号、政策版本、地区和否定条件。
 
 ## 从分词、池化到余弦相似度 {#principles}
 
-以 TF-IDF 为例，本实验对每个可见文档集合统计块级文档频率 `df(t)`，并用 `tf(t,d) × [1 + ln((1+N)/(1+df(t)))]` 为词项加权。重合较常见的词权重较低。向量归一化后，余弦相似度就是点积 `q·d`。L2 归一化取各维平方和开方作为模长。无词项时代码返回空向量，避免除零或将没有匹配的文档当作候选。
+以 TF-IDF 为例，本实验对每个可见文档集合统计块级文档频率 `df(t)`，并用 `tf(t,d) × [1 + ln((1+N)/(1+df(t)))]` 为词项加权。越常见的词权重越低。无词项时返回空向量，避免除零或将没有匹配的文档当作候选。
 
-稠密编码器通常先用 tokenizer 生成子词 ID，再在编码器里得到各位置的上下文表示。平均池化会按注意力掩码只对有效位置求均值；有些模型使用特殊位置的向量或专有投影。选择应按模型定义。若兼容性允许，对查询和文档都进行 L2 归一化后，以点积做精确排序。对单位向量，平方欧氏距离等于 `2 - 2 × 点积`，所以两种指标同序。未经归一化时不能作同样推导。参见 [Stanford 向量空间检索教材](https://nlp.stanford.edu/IR-book/) 与 [Sentence Transformers 相似度说明](https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html)。
+稠密编码器先把文本切成子词 ID，再让每个位置的表示结合上下文。同一个词在「扣款待结算」和「退款已结算」中的位置向量会受周围文字影响。平均池化先用注意力掩码排除填充位置，再对其余位置向量求均值，得到固定的维度。另一些模型用特殊位置向量或投影层。池化方式、截断长度和查询及文档前缀都应和训练约定一致。
+
+点积把同一维度的乘积求和，同时受夹角和模长影响。余弦在分母用各自的 L2 模长抵消这个影响。
+
+<math display="block" aria-label="q 和 d 的余弦相似度等于点积除以两向量模长的乘积">
+  <mi>cos</mi><mo>(</mo><mi>q</mi><mo>,</mo><mi>d</mi><mo>)</mo><mo>=</mo>
+  <mfrac>
+    <mrow><mi>q</mi><mo>·</mo><mi>d</mi></mrow>
+    <mrow><mo>‖</mo><mi>q</mi><mo>‖</mo><mo>‖</mo><mi>d</mi><mo>‖</mo></mrow>
+  </mfrac>
+</math>
+
+例如查询向量为 `(1, 0)`，候选 A 为 `(2, 0)`，B 为 `(3, 4)`。点积把 B 排在前面，分数 3 对 2。余弦把 A 排在前面，分数 1 对 0.6。归一化后模长为 1，因此可用矩阵点积得到余弦。平方欧氏距离在单位向量上等于 `2 − 2 × 点积`，也给出相同排序。如果训练目标使用未归一化的点积，应先实验验证模长是否承载有用信号。参见 [Stanford 向量空间检索教材](https://nlp.stanford.edu/IR-book/) 与 [Sentence Transformers 相似度说明](https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html)。
 
 ## 离线文档编码与在线查询怎样对齐 {#architecture}
 
@@ -126,11 +139,34 @@ python dense_compare.py --cache-dir rag-model-cache --offline --explain intercep
 
 实测使用 Python 3.13、FastEmbed 0.9.1 与 ONNX Runtime 1.32.0。权重来自 Qdrant 的 [BGE 快照](https://huggingface.co/Qdrant/bge-small-en-v1.5-onnx-Q/tree/aa8f8b060edb00e03bfdd08813a2949946c8ba55) 和 [MiniLM 快照](https://huggingface.co/Qdrant/all-MiniLM-L6-v2-onnx/tree/d13954661f83248295ba75c1ed411eef3b7b936e)。脚本首次下载使用模型注册表的当前权重，表格对应这里记录的快照。
 
-这批合成问题短，错误码和政策用词与文档高度重合。TF-IDF 在此表现很好，不能由此得到模型的一般优劣。选实际模型应增加同义改写、长文截断、中文或跨语言、相近编号和版本冲突样本，再按场景比较质量、编码时间和模型体积。
+这批合成问题短，错误码和政策用词与文档高度重合。TF-IDF 在此表现很好。实际业务还要测同义改写、长文截断、相近编号和版本冲突。
+
+## 中文查询如何检索英文政策？ {#multilingual}
+
+同一编码器要让「退货标签在哪里创建」和对应的英语政策靠近，同时拉开「创建标签」与「追踪标签」这类容易混淆的动作。多语言模型可以用翻译对、跨语言查询和相关文档对学习这种对齐。以 Multilingual E5 为例，检索时需要分别添加 `query: ` 和 `passage: ` 前缀，包括非英语输入。前缀约定因模型而异，按模型卡和推理库入口确认。参见 [Multilingual E5 模型卡](https://huggingface.co/intfloat/multilingual-e5-base)与 [多语言 MiniLM 模型卡](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2)。
+
+实验增加了 6 条中文和 2 条西语查询。它们用 `source_id` 复用原英文题的权限和证据，各自提供对应语言的标准答案。库里的文档仍是英语。固定 Top-3 与同一套分块，英语 MiniLM 和多语言 MiniLM 都输出 384 维。然后对多语言模型的查询与文档同时乘同一固定随机矩阵，再归一化，将输出降到 128 维。随机投影用于观察降维，生产中优先按模型提供的降维接口和自己的评估验收。
+
+```bash
+python rag_lab.py embed --query-set crosslingual
+python dense_compare.py --cache-dir rag-model-cache --query-set crosslingual --explain zh_return_exception
+python dense_compare.py --cache-dir rag-model-cache --query-set crosslingual --model sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 --project-dim 128
+```
+
+| 表示 | 维度 | Top-3 证据覆盖 | 全证据题 | MRR |
+| --- | ---: | ---: | ---: | ---: |
+| TF-IDF（现有英语分词） | 词表大小 | 1/10 | 1/7 | 0.143 |
+| 英语 MiniLM | 384 | 2/10 | 2/7 | 0.214 |
+| 多语言 MiniLM | 384 | 8/10 | 5/7 | 0.786 |
+| 多语言 MiniLM，随机投影 | 128 | 8/10 | 5/7 | 0.714 |
+
+相同的 384 维下，两种模型的跨语言覆盖差了 6 段证据。降到 128 维后仍覆盖 8 段，但首个证据的排名整体有所下降。具体看中文的退货例外题，多语言模型将包含 30 天窗口的块排到第一，Top-3 仍缺定制商品的例外。用 `--top-k 5` 复跑时，多语言模型覆盖提升到 9/10，全证据题从 5/7 增至 6/7。两种稠密模型也都给无证据题返回了候选。实测权重见 [多语言 MiniLM 的 ONNX 快照](https://huggingface.co/Qdrant/paraphrase-multilingual-MiniLM-L12-v2/tree/faf4aa4225822f3bc6376869cb1164e8e3feedd0)。
 
 ## 何时用词项、用向量或两者一起？ {#tradeoffs}
 
-订单号、错误码、产品编号要保留精确通道。口语问法或同义表达可用双塔补召回。对跨语言输入先验证模型支持的语言与业务词汇，再看召回改进是否值得新推理成本。维度越大通常占用更多内存，`N × d × 4` 字节只是 float32 原始矩阵开销，索引结构、元数据和副本要另外计算。
+售后系统的订单号、错误码、产品编号适合走精确检索，口语问法可用双塔补召回。跨语言客服应按语言、编号类和多证据题分别报指标，再看编码延迟和部署体积。对 100 万个向量，384 维 float32 原始矩阵约为 1.54 GB，128 维约 0.51 GB，索引结构、元数据和副本另计。维度减少能节省内存和点积开销，是否保留近邻关系需要用同一批候选验证。
+
+排障时先打印实际输入和 tokenizer 长度，检查文档末尾是否在进入编码器前被截断。检查查询与文档索引的模型版本、前缀、池化方式和归一化是否配套。脚本的 `unit()` 会拒绝零向量和非有限值，`visible_passages @ query_vectors[query]` 在允许的索引子集内得到精确排序。模型升级时重建索引，保留旧版本用于对照和回滚。
 
 转向 ANN 前确定精确检索是否能满足数据量及延迟。保留检索对照，避免索引配置变化与换模型同时上。线上可以离线批量编码，查询按稳定的模型和权限策略缓存，按同一配置写索引和回滚。
 

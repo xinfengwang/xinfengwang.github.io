@@ -9,6 +9,8 @@
     {% endif %}
   {% endfor %}
 {% endcapture %}
-{% assign prose_size = reading_text | strip_html | normalize_whitespace | size %}
-{% assign reading_minutes = prose_size | plus: 499 | divided_by: 500 | at_least: 1 %}
+{% assign prose = reading_text | strip_html | normalize_whitespace %}
+{% assign character_minutes = prose | size | plus: 499 | divided_by: 500 %}
+{% assign word_minutes = prose | number_of_words | plus: 229 | divided_by: 230 %}
+{% assign reading_minutes = character_minutes | at_least: word_minutes | at_least: 1 %}
 <span id="reading-time">约 {{ reading_minutes }} 分钟</span>

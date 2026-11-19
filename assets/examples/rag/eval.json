@@ -1,5 +1,5 @@
 {
-  "version": "evidence-v1",
+  "version": "evidence-v2",
   "corpus": "support-v1",
   "queries": [
     {
@@ -7,6 +7,7 @@
       "query": "Can I cancel an order queued in the warehouse before release?",
       "region": "us",
       "role": "public",
+      "answer": "Yes. Cancel the order before the warehouse releases it.",
       "evidence": [
         {
           "doc": "cancel-us",
@@ -19,6 +20,7 @@
       "query": "Can the carrier still stop the parcel after handoff?",
       "region": "us",
       "role": "public",
+      "answer": "Online cancellation is unavailable after handoff. Ask support to request a shipment intercept.",
       "evidence": [
         {
           "doc": "cancel-us",
@@ -31,6 +33,7 @@
       "query": "For a shipment intercept after handoff, can support guarantee success?",
       "region": "us",
       "role": "public",
+      "answer": "No. Support can request an intercept, but the carrier can decline.",
       "evidence": [
         {
           "doc": "cancel-us",
@@ -47,6 +50,7 @@
       "query": "After carrier handoff, where should an EU buyer make a return?",
       "region": "eu",
       "role": "public",
+      "answer": "Use the EU return portal after tracking shows delivery.",
       "evidence": [
         {
           "doc": "cancel-eu",
@@ -59,6 +63,7 @@
       "query": "What action should I take for refund code REF-201?",
       "region": "us",
       "role": "public",
+      "answer": "Wait for payment settlement.",
       "evidence": [
         {
           "doc": "codes",
@@ -71,6 +76,7 @@
       "query": "How do I handle REF-210 duplicate request?",
       "region": "us",
       "role": "public",
+      "answer": "Look up the original refund receipt.",
       "evidence": [
         {
           "doc": "codes",
@@ -83,6 +89,7 @@
       "query": "What is the time limit for standard returns, and do personalized items qualify?",
       "region": "us",
       "role": "public",
+      "answer": "The window is 30 calendar days from confirmed delivery. Personalized items are excluded.",
       "evidence": [
         {
           "doc": "return-window",
@@ -99,6 +106,7 @@
       "query": "What deadline and photos are required for a damaged item?",
       "region": "us",
       "role": "public",
+      "answer": "Report within 48 hours of confirmed delivery. Attach photos of the outer packaging and the item.",
       "evidence": [
         {
           "doc": "return-window",
@@ -115,6 +123,7 @@
       "query": "How soon is a card refund visible after the receipt is issued?",
       "region": "us",
       "role": "public",
+      "answer": "It appears within 5 business days after the refund receipt is issued.",
       "evidence": [
         {
           "doc": "billing",
@@ -127,6 +136,7 @@
       "query": "Where do I get a return label and where does the refund go?",
       "region": "us",
       "role": "public",
+      "answer": "Create the return label on the Orders page after approval. The refund goes to the original payment method.",
       "evidence": [
         {
           "doc": "returns-guide",
@@ -143,6 +153,7 @@
       "query": "What internal queue handles a delayed carrier scan?",
       "region": "us",
       "role": "ops",
+      "answer": "Open the carrier reconciliation queue.",
       "evidence": [
         {
           "doc": "warehouse-ops",
@@ -155,6 +166,7 @@
       "query": "What internal queue handles a delayed carrier scan?",
       "region": "us",
       "role": "public",
+      "answer": "The available public policy does not specify an internal queue.",
       "evidence": []
     },
     {
@@ -162,6 +174,7 @@
       "query": "Can I still cancel automatically for two hours after carrier handoff?",
       "region": "us",
       "role": "public",
+      "answer": "No. Orders cannot be canceled online after carrier handoff.",
       "evidence": [
         {
           "doc": "cancel-us",
@@ -174,7 +187,66 @@
       "query": "What is the deadline for replacing a gift card lost abroad?",
       "region": "eu",
       "role": "public",
+      "answer": "The available policies do not establish a replacement deadline.",
       "evidence": []
+    }
+  ],
+  "crosslingual_queries": [
+    {
+      "id": "zh_intercept",
+      "source_id": "intercept",
+      "language": "zh",
+      "query": "包裹已经交给快递公司了，还能拦截吗？",
+      "answer": "交接后无法在网上取消。可以请客服申请拦截快递。"
+    },
+    {
+      "id": "zh_refund_201",
+      "source_id": "refund_201",
+      "language": "zh",
+      "query": "退款出现 REF-201，应该怎么处理？",
+      "answer": "等待付款结算。"
+    },
+    {
+      "id": "zh_return_exception",
+      "source_id": "return_exception",
+      "language": "zh",
+      "query": "普通退货的期限从哪一天算起？定制商品适用吗？",
+      "answer": "普通商品自确认送达起 30 个自然日内可退货。定制商品不适用这个窗口。"
+    },
+    {
+      "id": "zh_damaged",
+      "source_id": "damaged",
+      "language": "zh",
+      "query": "收到破损商品后多久要报备，需要拍哪些照片？",
+      "answer": "在确认送达后 48 小时内报备，并附上外包装及商品的照片。"
+    },
+    {
+      "id": "zh_return_and_refund",
+      "source_id": "return_and_refund",
+      "language": "zh",
+      "query": "哪里生成退货标签，退款退到哪个账户？",
+      "answer": "退货申请获批后，从订单页面创建退货标签。退款退回原支付方式。"
+    },
+    {
+      "id": "zh_no_access",
+      "source_id": "no_access",
+      "language": "zh",
+      "query": "物流扫描延迟应该转给哪个内部工单队列？",
+      "answer": "现有公开政策没有给出内部工单队列。"
+    },
+    {
+      "id": "es_eu_return",
+      "source_id": "eu_return",
+      "language": "es",
+      "query": "¿Dónde debe tramitar una devolución un comprador de la UE cuando el transportista ya tiene el paquete?",
+      "answer": "En el portal de devoluciones de la UE, una vez que el seguimiento indique que el pedido se ha entregado."
+    },
+    {
+      "id": "es_refund_days",
+      "source_id": "refund_days",
+      "language": "es",
+      "query": "¿Cuánto tarda en aparecer el abono en la tarjeta después del comprobante de reembolso?",
+      "answer": "Hasta 5 días hábiles desde la emisión del comprobante de reembolso."
     }
   ]
 }
