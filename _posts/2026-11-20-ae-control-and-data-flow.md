@@ -12,7 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"为什么知道所有模块仍无法判断系统能否恢复？","answer":"恢复取决于状态什么时候提交、外部写入谁能查询、节点重放如何区分未开始和已成功。组件清单没有描述这些转移和契约。"},{"question":"模型建议与业务事实应怎样分开？","answer":"候选建议应保存模型来源和待验收状态，业务事实应关联可信服务回执。二者可以同处任务状态，但字段、写入者和授权校验必须明确区分。"},{"question":"并行节点写同一个字段有什么风险？","answer":"最后到达的一个可能覆盖先到结果，重放顺序也可能变化。可以给节点分配独立字段、定义合并函数，或使用单写者应用版本检查。"},{"question":"Runtime 是否必须单独部署？","answer":"不必。与编排代码同进程依然能明确定义执行、状态、权限和恢复职责。规模和隔离要求变化后，再决定进程与服务边界。"},{"question":"什么时候更适合用固定工作流？","answer":"已知路径稳定、条件可确定且动作高影响时，固定工作流容易走查和验收。可以仅在需要语言解析或观察驱动的子环节引入模型。"}]
-engineering_reading: {"related":[{"title":"Agent 核心架构","url":"/agent-engineering/foundations/agent-components/"},{"title":"可靠性设计","url":"/agent-engineering/production/#reliability"}]}
+engineering_reading: {"related":[{"title":"Agent 核心架构","url":"/agent-engineering/foundations/agent-components/"},{"title":"可靠性设计","url":"/agent-engineering/production/#reliability"}],"next":[{"title":"单 Agent 架构","url":"/agent-engineering/architecture/single-agent-architectures/"},{"title":"有状态 Workflow","url":"/agent-engineering/architecture/stateful-workflows/"}]}
 ---
 
 ## 「查、判断、答」三格图为什么不够
@@ -53,6 +53,19 @@ flowchart TB
 ## 怎样从故障反推架构
 
 若任务经历进程重启，恢复应从已经提交的状态开始，外部副作用按回执或幂等契约核对。若资料库只返回一半数据，组件协议应让上层看到未完成与失败原因。若用户更改请求，重新确认不可复用的状态，避免沿用过期授权和结论。架构评审可把每个外部边列出身份、输入、超时、返回类型、并发语义和所有者。先用固定工作流让结构透明，再选择确有价值的自治节点。
+
+## 用状态版本区分业务成功和流程完成
+
+设任务 `S-21` 当前版本为 v6，三个检索分支已提交全部证据，审批也已完成。下一步是创建工单。编排器先持久化 `operation_id=O-8`、批准对应的参数摘要、资源范围和 `submitting` 状态。工具基于该操作标识调用业务 API。工单服务成功写入并返回编号 T-84。如果返回途中进程退出，任务记录仍停在 `submitting`。恢复时由工具 Adapter 查 O-8 的业务回执，编排器再将 v6 从 `submitting` 转到 `completed`。仅凭本地状态无法区分提交成功和未执行。
+
+| 模块 | 可以写入 | 到达失败边界如何反馈 |
+| --- | --- | --- |
+| Orchestrator | 任务状态、期望版本和下一节点 | 拒绝非法转移，旧事件不推进新任务 |
+| Model Adapter | 候选动作、模型版本和调用 ID | 返回拒绝、格式错误或超时，保留可判定状态 |
+| Tool Adapter | 调用 attempt、外部回执或待核对状态 | 区分明确失败与执行结果未知 |
+| 业务服务 | 工单事实和业务操作回执 | 使用提交前置条件与可信的版本或查询结果 |
+
+若此时另一工作进程已将任务更改为 v7，v6 的迟到工具回执仍可能表示真实业务写入。保留回执供审计和补偿判断，切勿用它覆盖 v7 的任务状态。把业务操作 ID 与运行版本一起记录，并让任务级状态转移比较预期版本。这样可以同时保留「发生了什么」与「当前运行是否还接受该结果」。
 
 ## 小结
 

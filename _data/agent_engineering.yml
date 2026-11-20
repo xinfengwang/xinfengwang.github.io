@@ -24,7 +24,7 @@
     - {id: llm, title: LLM 与 Transformer, goal: 从 Token、注意力和位置编码读到解码采样、KV Cache 和模型选型, articles: [transformer, model-inference]}
     - {id: prompt, title: Prompt Engineering, goal: 理解指令与数据的边界、示例、输出约束、模板和迭代评估, articles: [prompt-design, output-contracts]}
     - {id: tools, title: Function Calling 与 Tool Use, goal: 理解工具描述、注册、选择、参数、执行回填和结果验证, articles: [tool-calling, tool-runtime]}
-    - {id: rag, title: RAG 与知识检索, goal: 从原始资料走到可核对的回答，学会识别并定位检索链各层的错误, url: /agent-engineering/rag/, articles: [rag-foundations, document-ingestion, chunking, embeddings, vector-indexes, sparse-retrieval, hybrid-search, reranking, query-transformation, contextual-indexing, graph-rag, corrective-retrieval, multimodal-rag, agentic-rag, rag-evaluation]}
+    - {id: rag, title: RAG 与知识检索, goal: 从原始资料走到可核对的回答，学会识别并定位检索链各层的错误, url: /agent-engineering/rag/, articles: [rag-foundations, document-ingestion, chunking, embeddings, vector-indexes, sparse-retrieval, hybrid-search, reranking, context-assembly, query-transformation, contextual-indexing, graph-rag, corrective-retrieval, multimodal-rag, agentic-rag, rag-evaluation, rag-production]}
     - {id: memory, title: Memory 记忆系统, goal: 区分上下文、状态和不同类型的记忆，掌握检索、更新、遗忘与授权, articles: [memory-model, memory-lifecycle]}
     - {id: planning, title: Planning 任务规划, goal: 从目标和任务依赖推导执行顺序、优先级、重规划和完成条件, articles: [planning-and-replanning]}
     - {id: reasoning, title: Reasoning 推理机制, goal: 比较行动反馈、自我修正、一致性采样和树图搜索的效果与成本, articles: [reasoning-and-search]}
@@ -42,7 +42,7 @@
     - {id: architecture-basics, title: Agent 架构基础, goal: 拆清 Runtime、Orchestrator、数据流、控制流及模块契约, articles: [control-and-data-flow]}
     - {id: single-agent, title: 单 Agent 架构, goal: 分辨简单、工具型、规划型、反思型、检索型和记忆型架构, articles: [single-agent-architectures]}
     - {id: workflow, title: Workflow 架构, goal: 用顺序、分支、并行、循环及人工介入建模业务流程, articles: [stateful-workflows]}
-    - {id: patterns, title: 典型设计模式, goal: 分别分析 ReAct、Plan-and-Execute、Reflection、Router、Map-Reduce 和评估优化, articles: [react, plan-and-execute, review-and-routing]}
+    - {id: patterns, title: 典型设计模式, goal: 比较九种模式的控制流、职责边界、适用场景与组合方式, articles: [react, plan-and-execute, reflection, router, map-reduce, evaluator-optimizer, human-in-the-loop, supervisor, hierarchical]}
     - {id: multi-agent, title: Multi-Agent 架构, goal: 比较主管、分层、网络与点对点的信号和状态分配, articles: [multi-agent-topologies]}
     - {id: enterprise, title: 企业级 Agent 架构, goal: 设计多租户、统一工具、知识库、会话、权限、审计和扩展边界, articles: [enterprise-agent-architecture]}
 - id: frameworks
@@ -54,13 +54,13 @@
   stages: [模型与工具组件, 图编排和持久化, 知识接入框架, 多智能体框架, 跨进程协议]
   related: [capabilities, architecture, production]
   series:
-    - {id: langchain, title: LangChain, goal: 掌握 Model、Prompt、Runnable、LCEL、Retriever、解析器及回调的关系, articles: [langchain-composition]}
-    - {id: langgraph, title: LangGraph, goal: 理解 State、Node、Edge、Reducer、Checkpoint、Interrupt、子图与并行, articles: [langgraph-state, langgraph-recovery]}
+    - {id: langchain, title: LangChain, goal: 掌握 Model、Prompt、Runnable、LCEL、Retriever、解析器及回调的关系, articles: [langchain-composition, langchain-agent-runtime]}
+    - {id: langgraph, title: LangGraph, goal: 理解 State、Node、Edge、Reducer、Checkpoint、Interrupt、子图与并行, articles: [langgraph-state, langgraph-parallel, langgraph-recovery]}
     - {id: llamaindex, title: LlamaIndex, goal: 追踪 Document、Node、Index、Retriever、Query Engine 和合成答案, articles: [llamaindex-data-flow]}
     - {id: autogen, title: AutoGen, goal: 结合版本理解消息通信、Group Chat、角色和任务调度, articles: [autogen-collaboration]}
     - {id: crewai, title: CrewAI, goal: 理解 Agent、Task、Crew、Process 的契约和分层执行, articles: [crewai-process]}
     - {id: semantic-kernel, title: Semantic Kernel, goal: 理解 Kernel、Plugin、Function、Prompt 和 Process 的协作, articles: [semantic-kernel]}
-    - {id: mcp, title: MCP, goal: 理解 Host、Client、Server、JSON-RPC、能力协商、传输及工具安全, articles: [mcp-lifecycle, mcp-capabilities]}
+    - {id: mcp, title: MCP, goal: 理解新版无状态协议、旧版握手、能力协商、传输及工具安全, articles: [mcp-stateless, mcp-lifecycle, mcp-capabilities]}
     - {id: a2a, title: A2A, goal: 理解 Agent Card、Task、Message、Artifact 与对外协作生命周期, articles: [a2a-task-protocol]}
     - {id: ecosystem, title: 其他开发生态, goal: 按 SDK、低代码编排、模型路由和本地推理比较工具, articles: [agent-ecosystem]}
 - id: production
