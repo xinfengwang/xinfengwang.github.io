@@ -2,6 +2,7 @@
 .engineering-map [id], .engineering-anchor, #agent-knowledge-map { scroll-margin-top: 100px; }
 .engineering-anchor { display: block; }
 .engineering-lifecycle li { height: auto; }
+.engineering-learning-path span a { display: inline; }
 .engineering-topic-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

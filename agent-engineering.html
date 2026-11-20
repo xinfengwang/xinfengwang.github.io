@@ -40,15 +40,15 @@ permalink: /agent-engineering/
   </section>
 
   <section class="roadmap-section" aria-labelledby="deep-tutorials">
-    <h2 id="deep-tutorials">沿一条任务学完 Agent 工程</h2>
-    <p class="roadmap-hint">六篇教程沿用同一个合成售后案例。按顺序运行示例，观察同一项任务怎样从选择工具走到恢复和发布验收。</p>
-    <ol class="roadmap-build">
-      <li><a href="{{ '/2026/11/19/agent-engineering-foundations/' | relative_url }}">理论基础 · Agent 的运行机制</a><span>逐轮追踪观测、动作、状态和证据验收。</span></li>
-      <li><a href="{{ '/2026/11/19/agent-deep-dive-tool-use/' | relative_url }}">核心技术 · Function Calling</a><span>用五条提议核对调用编号、参数和授权。</span></li>
-      <li><a href="{{ '/2026/11/19/agent-deep-dive-plan-execute/' | relative_url }}">架构设计 · 计划执行</a><span>验证依赖图，以及政策换版时哪些步骤要重跑。</span></li>
-      <li><a href="{{ '/2026/11/19/agent-deep-dive-langgraph/' | relative_url }}">开发框架 · LangGraph</a><span>追踪审批中断后哪些节点会重新进入。</span></li>
-      <li><a href="{{ '/2026/11/19/agent-deep-dive-durability/' | relative_url }}">生产工程 · 写入恢复</a><span>在业务提交后退出 Worker，用目标回执补记完成。</span></li>
-      <li><a href="{{ '/2026/11/19/agent-case-support/' | relative_url }}">项目实战 · 智能客服验收</a><span>配对比较两条策略，检查工具轨迹与发布回归。</span></li>
+    <h2 id="deep-tutorials">Agent Engineering 学习路线</h2>
+    <p class="roadmap-hint">第一次接触 Agent，可以从模型调用读到生产系统。想解决眼前的问题，可以直接进入对应阶段。</p>
+    <ol class="roadmap-build engineering-learning-path">
+      <li><a href="{{ '/agent-engineering/foundations/' | relative_url }}">认识 Agent</a><span><a href="{{ '/2026/09/15/from-llm-to-agent/' | relative_url }}">从 LLM 到 Agent</a>，再跟着<a href="{{ '/2026/11/19/agent-engineering-foundations/' | relative_url }}">运行循环</a>理解动作、状态和验收。</span></li>
+      <li><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">掌握核心能力</a><span>先读 <a href="{{ '/2026/11/19/agent-deep-dive-llm-prompt/' | relative_url }}">LLM 与 Prompt</a>、<a href="{{ '/2026/11/19/agent-deep-dive-tool-use/' | relative_url }}">Function Calling</a> 和 <a href="{{ '/2026/11/19/agent-deep-dive-rag/' | relative_url }}">RAG</a>，再串联记忆、规划与推理。</span></li>
+      <li><a href="{{ '/agent-engineering/architecture/' | relative_url }}">设计系统架构</a><span>从固定工作流出发，比较 <a href="{{ '/2026/11/19/agent-deep-dive-react/' | relative_url }}">ReAct</a>、<a href="{{ '/2026/11/19/agent-deep-dive-plan-execute/' | relative_url }}">计划执行</a>和多 Agent 的决策边界。</span></li>
+      <li><a href="{{ '/agent-engineering/frameworks/' | relative_url }}">选择框架和协议</a><span>沿同一条执行链看 <a href="{{ '/2026/11/19/agent-deep-dive-langgraph/' | relative_url }}">LangGraph 的状态与恢复</a>，再看 <a href="{{ '/2026/11/19/agent-deep-dive-mcp-a2a/' | relative_url }}">MCP 与 A2A 的职责</a>。</span></li>
+      <li><a href="{{ '/agent-engineering/production/' | relative_url }}">从 Demo 走到生产</a><span>理解<a href="{{ '/2026/11/19/agent-deep-dive-durability/' | relative_url }}">写入恢复</a>、并发、部署和回滚，再读<a href="{{ '/agent-engineering/quality/' | relative_url }}">评估、安全与可观测性</a>。</span></li>
+      <li><a href="{{ '/agent-engineering/cases/' | relative_url }}">用案例检验设计</a><span>从<a href="{{ '/2026/11/19/agent-case-support/' | relative_url }}">智能客服</a>进入资料研究、多 Agent 开发和企业平台，之后继续读<a href="{{ '/agent-engineering/frontier/' | relative_url }}">长时运行等前沿方向</a>。</span></li>
     </ol>
   </section>
 

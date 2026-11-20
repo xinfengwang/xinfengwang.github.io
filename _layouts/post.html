@@ -83,6 +83,7 @@ layout: default
         <figure class="editorial-cover"><img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | escape }}" width="1200" height="600" fetchpriority="high"></figure>
       {% endif %}
       {{ content }}
+      {% include chapter-questions.html %}
     </div>
     {% include passage-tools.html %}
     {% include project-evidence.html %}

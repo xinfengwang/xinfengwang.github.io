@@ -2,8 +2,8 @@
   title: RAG 整体架构与核心原理
   prerequisite: 从用户问题到可引用证据
   focus: 认识离线入库与在线检索，区分候选命中、上下文送达和答案验收。
-  url: /2026/09/15/rag-basics/
-  note: 现有导读
+  url: /2026/11/19/agent-deep-dive-rag/
+  reference: /2026/09/15/rag-basics/
 - id: parsing
   title: 文档解析与数据预处理
   prerequisite: 理解离线索引的输入输出

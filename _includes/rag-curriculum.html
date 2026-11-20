@@ -1,6 +1,6 @@
 <section aria-labelledby="rag-curriculum">
   <h2 id="rag-curriculum">RAG 深度系列学习顺序</h2>
-  <p>从原始文档到可核验证据。每一章用相同的售后知识库复查上一步产物，明确这一层引入的新变量。</p>
+  <p>先沿一条售后政策读懂索引、检索和生成，再深入解析、分块、向量化以及排序。实验用于对照各层引入的变化。</p>
   <div class="article-table-scroll">
     <table>
       <thead><tr><th scope="col">专题</th><th scope="col">开始前应掌握</th><th scope="col">读完能解决什么</th></tr></thead>
@@ -9,7 +9,7 @@
         <tr id="rag-{{ item.id }}">
           <th scope="row">{% if item.url %}<a class="text-link" href="{{ item.url | relative_url }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }} <small>待深化</small>{% endif %}</th>
           <td>{{ item.prerequisite | escape }}</td>
-          <td>{{ item.focus | escape }}{% if item.note %} <small>{{ item.note | escape }}</small>{% endif %}{% if item.reference %} <a class="text-link" href="{{ item.reference | relative_url }}">已有相关笔记 →</a>{% endif %}</td>
+          <td>{{ item.focus | escape }}{% if item.note %} <small>{{ item.note | escape }}</small>{% endif %}{% if item.reference %} <a class="text-link" href="{{ item.reference | relative_url }}">{% if item.url %}前置导读{% else %}已有相关笔记{% endif %} →</a>{% endif %}</td>
         </tr>
         {% endfor %}
       </tbody>

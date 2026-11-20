@@ -24,6 +24,11 @@
     "source_sha256": "2b74c69722918f1b68a4b7ad5613d53c985c3910a294c828e16a87d51de9be21",
     "related": [
       {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
         "url": "/2026/09/15/few-shot-retrieval/",
         "title": "Few-shot Retrieval：怎么让历史轨迹真正帮助 Agent Planning？",
         "reason": "共同主题：Planning、RAG"
@@ -32,14 +37,14 @@
         "url": "/2026/09/15/rag-badcase-debugging/",
         "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
         "reason": "共同主题：RAG、Retrieval"
-      },
-      {
-        "url": "/2026/09/15/rag-context-overview/",
-        "title": "总纲：Agent 的上下文为什么比 Prompt 更重要",
-        "reason": "共同主题：RAG、Retrieval"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-deep-dive-rag/",
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？"
+      }
+    ]
   },
   "/2026/09/09/smart-home-agent-loop/": {
     "source_sha256": "b69704aa232cd3f3edd60525d128f2de410b0c2f2541d43290e03d2d8c41233a",
@@ -1108,13 +1113,13 @@
     "source_sha256": "18c5db37727c2a4d1240ea952f11cd69af0d32aea6e42c3b5ba38536174ca797",
     "related": [
       {
-        "url": "/2026/09/14/mcp-and-function-calling/",
-        "title": "MCP：为什么有 Function Calling 还需要协议层？",
-        "reason": "共同主题：Function-Calling、MCP"
-      },
-      {
         "url": "/2026/11/19/agent-deep-dive-tool-use/",
         "title": "Function Calling 实战，模型提出调用以后发生了什么？",
+        "reason": "这篇文章引用了本文"
+      },
+      {
+        "url": "/2026/09/14/mcp-and-function-calling/",
+        "title": "MCP：为什么有 Function Calling 还需要协议层？",
         "reason": "共同主题：Function-Calling、MCP"
       },
       {
@@ -1123,7 +1128,12 @@
         "reason": "共同主题：Function-Calling、Tool-Use"
       }
     ],
-    "backlinks": []
+    "backlinks": [
+      {
+        "url": "/2026/11/19/agent-deep-dive-tool-use/",
+        "title": "Function Calling 实战，模型提出调用以后发生了什么？"
+      }
+    ]
   },
   "/2026/09/15/workspace-context/": {
     "source_sha256": "ac8a95bc0fba89ca1e0cea03bcfb04822aec2ca7c1623b5d6126e5e075cccb9b",
@@ -1709,6 +1719,10 @@
         "title": "长时 Agent 怎么把目标、计划和外部回执一起带过重启？"
       },
       {
+        "url": "/2026/11/19/agent-deep-dive-tool-use/",
+        "title": "Function Calling 实战，模型提出调用以后发生了什么？"
+      },
+      {
         "url": "/2026/11/19/agent-engineering-foundations/",
         "title": "Agent 的运行机制与核心原理"
       }
@@ -1910,7 +1924,7 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-rag/": {
-    "source_sha256": "575011ae69cf1ee195d3a6437eb426ff40ef639cb4ea3193d454ed1583aa3dd5",
+    "source_sha256": "5098bb7f2244dcedb082ccc585277b52d711a94ed32bd01b76f520cb39a760f4",
     "related": [
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
@@ -1918,13 +1932,13 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/rag-chunking/",
-        "title": "Chunking：固定窗口、重叠与结构感知",
+        "url": "/2026/11/19/rag-document-parsing/",
+        "title": "RAG 文档解析：表头、章节和证据坐标",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/rag-document-parsing/",
-        "title": "RAG 文档解析：表头、章节和证据坐标",
+        "url": "/2026/09/08/rag-for-agent-planning/",
+        "title": "Agent Planning 的 RAG，为什么和普通问答 RAG 不一样？",
         "reason": "本文引用的延伸阅读"
       }
     ],
@@ -2051,16 +2065,16 @@
     ]
   },
   "/2026/11/19/agent-deep-dive-tool-use/": {
-    "source_sha256": "40ccc559d5ec02b143a541f2279494c19ee8adbba91a3d31e742c128a32bf70a",
+    "source_sha256": "974869d975169a1ec343165f4b8c10b4acc9a63bbbb8faebd1ca779d3e88f696",
     "related": [
       {
-        "url": "/2026/11/19/agent-engineering-foundations/",
-        "title": "Agent 的运行机制与核心原理",
+        "url": "/2026/09/15/tool-schema-router/",
+        "title": "Tool Schema 与 Tool Router：工具多了以后怎么办？",
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？",
+        "url": "/2026/11/19/agent-engineering-foundations/",
+        "title": "Agent 的运行机制与核心原理",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -2073,10 +2087,6 @@
       {
         "url": "/2026/11/19/agent-deep-dive-llm-prompt/",
         "title": "LLM 与 Prompt，怎样让 Agent 稳定输出可执行决策？"
-      },
-      {
-        "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？"
       },
       {
         "url": "/2026/11/19/agent-engineering-capabilities/",
@@ -2136,7 +2146,7 @@
       },
       {
         "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？",
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -2156,7 +2166,7 @@
       },
       {
         "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？"
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？"
       },
       {
         "url": "/2026/11/19/agent-engineering-architecture/",
@@ -2211,7 +2221,7 @@
     ]
   },
   "/2026/11/19/agent-engineering-foundations/": {
-    "source_sha256": "4c0f8a9ed1c1f50b5651de5f2214c0661544b9add7fa33a50b56ed9dbf590a96",
+    "source_sha256": "4f4de1cf3a5a78b85beb12144aff8db61b63ebbe01e840ad612085be5f0a982f",
     "related": [
       {
         "url": "/2026/11/19/agent-case-support/",
@@ -2449,7 +2459,7 @@
     ]
   },
   "/2026/11/19/rag-chunking/": {
-    "source_sha256": "dd41ad4bc0fe8b1e529a7ea00f9ae6b716f6dbc00bba29ae25a3159f3bdc437a",
+    "source_sha256": "8a5aceffaf8f06035f9996a204e86599f121554a23a673be10d12399ea7ea18a",
     "related": [
       {
         "url": "/2026/11/19/rag-embedding/",
@@ -2462,16 +2472,12 @@
         "reason": "本文引用的延伸阅读"
       },
       {
-        "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？",
-        "reason": "这篇文章引用了本文"
+        "url": "/2026/09/15/rag-badcase-debugging/",
+        "title": "RAG Badcase：知识库有答案却检索不到，怎么排查？",
+        "reason": "共同主题：Evaluation、RAG"
       }
     ],
     "backlinks": [
-      {
-        "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？"
-      },
       {
         "url": "/2026/11/19/rag-document-parsing/",
         "title": "RAG 文档解析：表头、章节和证据坐标"
@@ -2483,7 +2489,7 @@
     ]
   },
   "/2026/11/19/rag-document-parsing/": {
-    "source_sha256": "269541fe9722b555c03d5f3e94fce73c79b471ec9df143026a5d35c7e86cdb8e",
+    "source_sha256": "d3650a0373144cec0a29527f06c259d019fedd27ae7046c25aa186e0b065c677",
     "related": [
       {
         "url": "/2026/11/19/rag-chunking/",
@@ -2492,7 +2498,7 @@
       },
       {
         "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？",
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？",
         "reason": "本文引用的延伸阅读"
       },
       {
@@ -2508,7 +2514,7 @@
       },
       {
         "url": "/2026/11/19/agent-deep-dive-rag/",
-        "title": "RAG 实战，为什么正确的政策没进入模型？"
+        "title": "RAG 核心原理，为什么正确的政策没进入模型？"
       },
       {
         "url": "/2026/11/19/rag-chunking/",
@@ -2517,7 +2523,7 @@
     ]
   },
   "/2026/11/19/rag-embedding/": {
-    "source_sha256": "20bffbc6b0cb1ee8460ae075baae7f22ca23069337e34ded934fa5c6173d763f",
+    "source_sha256": "c36e47f62473ba6a4f79a950d6b56ec553d9aeed297ee3fb69497073b7bd82c7",
     "related": [
       {
         "url": "/2026/11/19/rag-chunking/",
