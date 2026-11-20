@@ -143,3 +143,7 @@
 | 前沿 | 补充 Agentic Workflow、Deep Research、Coding Agent、Browser 与 Computer Use、自主 Agent、实时多模态、记忆演进、互操作、具身智能及 Agent Runtime，深化长时任务恢复 |
 
 第八轮进行全站验收，覆盖课程入口、历史路由、正文覆盖、状态标注、图表、引用和触控交互。
+
+## 第八轮进展
+
+八大板块的 57 个专题完成本轮验收。已验证 94 篇课程正文、471 组折叠问答和历史跳转。新增、深化、保留与待补范围见[交付与验收记录](content-acceptance.md)。

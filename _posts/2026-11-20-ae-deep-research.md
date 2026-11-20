@@ -42,5 +42,5 @@ Deep Research 将搜索、证据账本和综合组织成长程任务。质量来
 
 ## 参考资料
 
-- [OpenAI：Introducing deep research](https://openai.com/index/introducing-deep-research/)
+- [OpenAI API：Web search 与 Deep Research](https://developers.openai.com/api/docs/guides/tools-web-search?api-mode=responses)
 - [Anthropic：How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
