@@ -1,0 +1,22 @@
+{% assign series = include.series %}
+{% assign published = site.posts | where: 'engineering_publish', true %}
+{% assign complete_count = 0 %}
+{% capture article_list %}
+  {% for article_id in series.articles %}
+    {% assign entry = published | where: 'engineering_id', article_id | first %}
+    {% if entry %}
+      {% assign complete_count = complete_count | plus: 1 %}
+      <li><a href="{{ entry.url | relative_url }}">{{ entry.title | escape }}</a><p>{{ entry.description | escape }}</p></li>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+<section class="engineering-series" id="{{ series.id | escape }}">
+  <h3>{{ series.title | escape }}</h3>
+  <p>{{ series.goal | escape }}。</p>
+  <p class="engineering-terms">{% if complete_count == series.articles.size %}已完成 · {{ complete_count }} 篇{% elsif complete_count == 0 %}建设中{% else %}建设中 · {{ complete_count }} / {{ series.articles.size }} 篇可读{% endif %}</p>
+  {% if series.url and include.expand != true and complete_count > 0 %}
+    <a class="text-link" href="{{ series.url | relative_url }}">进入{{ series.title | escape }} →</a>
+  {% elsif complete_count > 0 %}
+    <ol class="engineering-chapters">{{ article_list }}</ol>
+  {% endif %}
+</section>

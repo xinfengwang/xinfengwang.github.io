@@ -22,8 +22,8 @@
 
 ## 入库与验收
 
-- 在 `_posts/` 按[文章模板](templates/engineering-article.md)写作。`engineering_topic` 使用 `_data/agent_engineering.yml` 的板块 ID，必要时将文章 slug 登记为 `chapters`。
-- `outline` 要引用文章中真实的 H2 锚点。已用于分享和站内跳转的文章路由、手写锚点继续有效。
-- 在 `engineering_reading` 维护前置、后续和相关专题。正文有明确关联时就地链接。`continue_reading` 指向最适合下一步的文章。
-- 按[知识覆盖清单](engineering-content-map.md)更新专题状态和章节问答情况。重复定义由概览负责，细节由专题负责，案例只保留解读当前业务所需的背景。
+- 在 `_posts/` 按[文章模板](templates/engineering-article.md)写作。在 `_data/agent_engineering.yml` 为正文登记板块、专题与文章 ID，按知识依赖排序。
+- 草稿放在 `_drafts/`。正文讲清背景、概念、原理、关键细节、执行流程、技术关系和总结，并有 5–10 个完整问答、来源及必要图表后，再加入 `_posts/`，设 `engineering_publish: true`。
+- 专题从实际正文计算状态，有计划文章尚未发布时显示「建设中」。站内链接使用实际路由和锚点。前后阅读顺序来自专题，跨主题关系可以放在 `engineering_reading` 和正文。
+- 按照[分批验收记录](engineering-content-map.md)更新已发布与待补范围。相同知识由负责讲解的专题提供正文，案例只保留解读当前业务所需的背景。
 - 运行 `python scripts/build_connections.py` 更新关联数据，构建 Jekyll 后检查正文、目录定位、Mermaid、链接和阅读时间。在桌面与窄屏检查问答默认折叠，鼠标或键盘能展开、收起，八个入口及既有文章正常打开。

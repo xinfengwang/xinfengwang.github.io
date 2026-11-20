@@ -23,7 +23,7 @@ permalink: /about/
 
   <h2>这个博客记录什么</h2>
   <p>项目页展示具体作品与可公开的资料；文章分为项目拆解、工程方法和学习笔记。想先了解我的实践，可以从 ReproLab 和智能家居项目开始；想系统阅读，可以按学习路线选择主题。</p>
-  <p><a class="text-link" href="{{ '/projects/' | relative_url }}">浏览项目与作品 →</a> · <a class="text-link" href="{{ '/learning-map/' | relative_url }}">选择学习路线 →</a> · <a class="text-link" href="{{ '/experience/' | relative_url }}">完整实习经历 →</a></p>
+  <p><a class="text-link" href="{{ '/projects/' | relative_url }}">浏览项目与作品 →</a> · <a class="text-link" href="{{ '/agent-engineering/' | relative_url }}">阅读 Agent Engineering →</a> · <a class="text-link" href="{{ '/experience/' | relative_url }}">完整实习经历 →</a></p>
   <h2>实习与工程经历</h2>
   <div class="timeline">
     <div class="timeline-item"><div class="timeline-date">2026.07 — 2026.10</div><div><h3>华为 · AI 应用开发实习生</h3><p>参与 Agent Harness 的工作流编排、状态管理、上下文工程与评测体系建设。关注状态机、Manager Agent、工具约束、验证闭环与 Benchmark 驱动迭代。</p></div></div>

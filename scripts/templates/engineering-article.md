@@ -5,19 +5,15 @@ description: "说明读者会理解的原理，或者能解决的工程问题。
 date: YYYY-MM-DD 12:00:00 +0800
 category: Tech
 engineering_topic: foundations
-content_kind: 工程方法
-tags: [Agent]
-continue_reading: /existing-next/
+engineering_series: loop
+engineering_id: example-slug
+engineering_publish: false
+permalink: /agent-engineering/foundations/example-slug/
+content_kind: 技术教程
+tags: [Agent Engineering]
 engineering_reading:
-  prerequisites:
-    - {title: "前置文章的标题", url: /existing-prerequisite/}
-  next:
-    - {title: "下一篇文章的标题", url: /existing-next/}
   related:
     - {title: "相关专题的标题", url: /existing-related/}
-outline:
-  - {id: mechanism, title: "关键机制怎样工作？"}
-  - {id: decision, title: "怎样选方案并验证结果？"}
 chapter_questions:
   - question: "给出同一个场景，哪个组件负责做决定？"
     answer: >-
@@ -33,3 +29,11 @@ chapter_questions:
 ## 怎样选方案并验证结果？ {#decision}
 
 说明适用条件、代价、失败判断和工程验证。最后用一小段总结本篇如何连接下一主题。
+
+## 小结
+
+说明读者应能复述的机制与应用边界。
+
+## 参考资料
+
+提供与正文相关的官方文档、规范或论文。

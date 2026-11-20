@@ -1,10 +1,13 @@
-<div class="engineering-topic-grid">
+<ol class="engineering-topic-grid">
   {% for topic in site.data.agent_engineering %}
   {% assign topic_url = '/agent-engineering/' | append: topic.id | append: '/' %}
-  <article class="engineering-topic-card">
+  {% assign completed = site.posts | where: 'engineering_publish', true | where: 'engineering_topic', topic.id %}
+  <li class="engineering-topic-card">
+    {% if include.show_covers %}{% include engineering-cover.html image=topic.id alt=topic.visual %}{% endif %}
     <h3><a href="{{ topic_url | relative_url }}">{{ topic.title | escape }}</a></h3>
     <p>{{ topic.summary | escape }}</p>
-    <p class="engineering-terms">{{ topic.topics | join: ' · ' | escape }}</p>
-  </article>
+    {% if include.show_covers %}<p class="engineering-terms">{{ topic.goal | escape }}</p>{% endif %}
+    <p class="engineering-terms">{% if completed.size > 0 %}{{ completed.size }} 篇正文可读{% else %}建设中{% endif %}</p>
+  </li>
   {% endfor %}
-</div>
+</ol>

@@ -6,12 +6,20 @@ layout: default
   {% for s in site.data.series %}{% if s.id == page.series_key %}{% assign structured_series = s %}{% endif %}{% endfor %}
 {% endif %}
 {% assign engineering_topic = site.data.agent_engineering | where: 'id', page.engineering_topic | first %}
+{% if page.engineering_publish %}
+  {% assign engineering_series = engineering_topic.series | where: 'id', page.engineering_series | first %}
+  {% assign engineering_base = '/agent-engineering/' | append: engineering_topic.id | append: '/' %}
+  {% assign engineering_series_url = engineering_base | append: '#' | append: engineering_series.id %}
+  {% if engineering_series.url %}{% assign engineering_series_url = engineering_series.url %}{% endif %}
+{% endif %}
 {% assign document_lab = site.data.document_agent_labs | where: 'url', page.url | first %}
 <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
 <div class="article-layout">
   <article class="article" id="article">
     <header class="article-header">
-      {% if engineering_topic %}
+      {% if page.engineering_publish %}
+        <p class="eyebrow"><a href="{{ engineering_series_url | relative_url }}">{{ engineering_series.title | escape }}</a></p>
+      {% elsif engineering_topic %}
         {% assign engineering_topic_url = '/agent-engineering/' | append: engineering_topic.id | append: '/' %}
         <p class="eyebrow"><a href="{{ engineering_topic_url | relative_url }}">{{ engineering_topic.title | escape }}</a></p>
       {% elsif page.editorial %}
@@ -142,14 +150,17 @@ layout: default
       {% assign next_read = site.posts | where: 'url', page.continue_reading | first %}
     {% endif %}
 
+    {% if page.engineering_publish %}{% include engineering-article-path.html %}{% endif %}
     {% include engineering-reading.html %}
     {% include article-connections.html %}
     {% include feedback-records.html %}
     <nav class="post-nav" aria-label="继续阅读">
-      {% if engineering_topic %}
+      {% if page.engineering_publish %}
+      <a href="{{ engineering_series_url | relative_url }}"><small>← 返回专题</small><strong>{{ engineering_series.title | escape }}</strong></a>
+      {% elsif engineering_topic %}
       <a href="{{ engineering_topic_url | relative_url }}"><small>← 返回知识板块</small><strong>{{ engineering_topic.title | escape }}</strong></a>
       {% else %}
-      <a href="{{ '/agent-engineering/' | relative_url }}"><small>← 浏览开发流程</small><strong>Agent 开发知识地图</strong></a>
+      <a href="{{ '/agent-engineering/' | relative_url }}"><small>← 浏览教程</small><strong>Agent Engineering</strong></a>
       {% endif %}
       {% if next_read %}<a class="next" href="{{ next_read.url | relative_url }}"><small>继续阅读 →</small><strong>{{ next_read.title | escape }}</strong></a>{% endif %}
     </nav>

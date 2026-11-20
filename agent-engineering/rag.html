@@ -1,0 +1,40 @@
+---
+layout: default
+title: RAG 与知识检索
+description: 学习从文档解析、Chunking 和索引到混合检索、重排、Agentic RAG 与分层评估的完整流程。
+permalink: /agent-engineering/rag/
+engineering_topic: capabilities
+---
+{% assign capabilities = site.data.agent_engineering | where: 'id', 'capabilities' | first %}
+{% assign series = capabilities.series | where: 'id', 'rag' | first %}
+<div class="wide-page engineering-map">
+  <header class="roadmap-hero engineering-hero">
+    <div>
+      <p class="eyebrow"><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">Agent Engineering · 核心技术</a></p>
+      <h1>RAG 与知识检索</h1>
+      <p class="roadmap-intro">当模型需要回答当前版本的政策、运行手册或研究资料，系统必须先找到能支撑答案的证据。</p>
+      <p>沿企业政策问答这一案例学习从入库、检索和生成到评估的全过程。完成基础与检索篇后，再读多轮检索和高级方案。</p>
+    </div>
+    {% include engineering-cover.html image='rag' alt='文档片段、索引架和查询镜头' eager=true %}
+  </header>
+  <section class="roadmap-section engineering-diagram" aria-labelledby="rag-flow">
+    <h2 id="rag-flow">从原始资料到可以核对的答案</h2>
+    <pre><code class="language-mermaid">flowchart TB
+      A["原始资料"] --> B["解析和分块"] --> C["向量与倒排索引"]
+      D["用户问题"] --> E["按范围召回"] --> F["融合、重排和取证"]
+      C --> E
+      F --> G["组装上下文与生成"] --> H["答案、引用或缺证"]
+      H --> I["评估并定位故障层"]
+    </code></pre>
+    <p>入库阶段保留来源、权限与版本。在线阶段先约束检索范围，再决定哪些证据进上下文。评估分别检查证据有没有被找到、有没有传给模型，以及结论有没有被证据支持。</p>
+  </section>
+  <section class="roadmap-section" aria-labelledby="rag-chapters">
+    <h2 id="rag-chapters">阅读顺序</h2>
+    {% include engineering-series.html series=series expand=true %}
+    <p>相关学习方向 <a class="text-link" href="{{ '/agent-engineering/quality/#rag-eval' | relative_url }}">评估与质量保障</a> · <a class="text-link" href="{{ '/agent-engineering/cases/#starter' | relative_url }}">知识库问答案例</a></p>
+  </section>
+  <section class="roadmap-section" aria-labelledby="rag-lab">
+    <h2 id="rag-lab">可选实验材料</h2>
+    <p>这组模拟政策和标注问题用于比较分块与检索。下载 <a href="{{ '/assets/examples/rag/corpus.json' | relative_url }}">语料</a>、<a href="{{ '/assets/examples/rag/eval.json' | relative_url }}">评估样本</a>和 <a href="{{ '/assets/examples/rag/rag_lab.py' | relative_url }}">实验脚本</a>。对照正文里的证据坐标与指标定义，即可理解每一步在检查什么。</p>
+  </section>
+</div>

@@ -20,7 +20,7 @@ nav:
     url: /
   - title: 技术专题
     url: /agent-topics/
-  - title: Agent 开发知识地图
+  - title: Agent Engineering
     url: /agent-engineering/
   - title: 全部文章
     url: /archive/

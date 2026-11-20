@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="{{ page.redirect_to | absolute_url | escape }}">
+  <noscript><meta http-equiv="refresh" content="0;url={{ page.redirect_to | relative_url | escape }}"></noscript>
+  <title>Agent Engineering</title>
+</head>
+<body>
+  <main>
+    <h1>Agent Engineering</h1>
+    <p><a id="new-address" href="{{ page.redirect_to | relative_url | escape }}">继续阅读新教程</a></p>
+  </main>
+  <script>
+    const sections = {{ page.redirect_fragments | jsonify }} || {};
+    const fragment = location.hash.slice(1);
+    const alternate = Object.hasOwn(sections, fragment) ? sections[fragment] : null;
+    const base = {{ site.baseurl | default: '' | jsonify }};
+    const destination = new URL(alternate ? base + alternate : document.getElementById('new-address').href, location.origin);
+    destination.search = location.search;
+    location.replace(destination);
+  </script>
+</body>
+</html>

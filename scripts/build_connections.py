@@ -13,7 +13,10 @@ for file in sorted((ROOT / '_posts').glob('*.md')):
         return match.group(1).strip().strip('"\'') if match else ''
     year, month, day, slug = file.stem.split('-', 3)
     tags = [tag.strip().strip('"\'') for tag in value('tags').strip('[]').split(',') if tag.strip()]
-    posts.append(dict(url=f'/{year}/{month}/{day}/{slug}/', title=value('title'), series=value('series_key'), tags=tags, body=body, digest=hashlib.sha256(text.encode()).hexdigest()))
+    series = value('series_key')
+    if value('engineering_series'):
+        series = f"{value('engineering_topic')}/{value('engineering_series')}"
+    posts.append(dict(url=value('permalink') or f'/{year}/{month}/{day}/{slug}/', title=value('title'), series=series, tags=tags, body=body, digest=hashlib.sha256(text.encode()).hexdigest()))
 known = {post['url']: post for post in posts}
 for post in posts:
     body = re.sub(r'(?m)^```[^\n]*\n[\s\S]*?^```\s*$', '', post['body'])
@@ -29,7 +32,7 @@ for post in posts:
             targets.add(target)
     post['targets'] = targets
 output = {}
-generic = {'Agent', 'AI', 'Engineering', 'Project'}
+generic = {'Agent', 'AI', 'Engineering', 'Project', 'Agent Engineering'}
 for post in posts:
     backlinks = [other for other in posts if post['url'] in other['targets']]
     ranked = []

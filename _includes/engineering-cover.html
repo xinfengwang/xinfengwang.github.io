@@ -1,0 +1,5 @@
+{% assign cover_path = '/assets/img/agent-engineering/' | append: include.image | append: '.webp' %}
+{% assign cover_file = site.static_files | where: 'path', cover_path | first %}
+{% if cover_file %}
+<img class="engineering-cover" src="{{ cover_path | relative_url }}" alt="{{ include.alt | escape }}" {% if include.eager %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+{% endif %}

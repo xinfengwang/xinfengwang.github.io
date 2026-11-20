@@ -1,59 +1,129 @@
 - id: foundations
-  title: 基础理论与核心概念
-  summary: 追踪一次真实形状的执行循环，弄清模型怎样选动作、运行时如何验收，以及任务何时停止。
-  slug: agent-engineering-foundations
-  topics: [定义与演进, Chatbot 与 Workflow, 感知与反馈, 执行循环, 核心组件, 自主性边界]
-  chapters: [from-llm-to-agent, agent-engineering-foundations]
-  reading: [agent-foundations-overview, agent-runtime-overview, function-calling]
+  title: 基础理论与核心原理
+  summary: 从生成模型与普通问答出发，沿一次任务追踪观测、决策、行动、反馈和停止条件。
+  goal: 能从控制权、状态和环境交互三个维度判断一个系统的自主性，并画出运行循环。
+  prerequisite: 可以从这里开始，无需先学框架。
+  visual: 一个带观察窗口的透明计算核心
+  stages: [语言生成与能力边界, Agent 与工作流, 状态和运行时, 执行反馈与停止, 设计范式]
+  related: [capabilities, architecture]
+  series:
+    - {id: evolution, title: 从传统自动化到大语言模型, goal: 理解技术演进与模型能做什么, articles: [from-automation-to-llm]}
+    - {id: concepts, title: Agent 基础概念, goal: 辨别聊天机器人、固定工作流和不同自治程度的 Agent, articles: [what-is-an-agent]}
+    - {id: runtime, title: Agent 核心架构, goal: 拆清模型、上下文、状态、记忆、规划、工具和环境的职责, articles: [agent-components]}
+    - {id: loop, title: Agent 运行机制, goal: 跟踪任务循环、失败反馈和终止, articles: [agent-loop]}
+    - {id: paradigms, title: Agent 核心设计范式, goal: 依据任务不确定性比较 ReAct、计划执行、反思、工具调用和路由, articles: [choosing-agent-patterns]}
 - id: capabilities
   title: 核心技术与能力体系
-  summary: 拆开模型、工具、知识、记忆、规划、推理、协作和外部环境，理解它们在一次执行中的职责。
-  slug: agent-engineering-capabilities
-  learning_series:
-    title: RAG 深度系列
-    url: /series/rag-context/#rag-curriculum
-  topics: [LLM 与 Prompt, Tool Use, RAG, Memory, Planning, Reasoning, Multi-Agent, 外部环境交互]
-  chapters: [agent-deep-dive-llm-prompt, agent-deep-dive-tool-use, agent-deep-dive-rag, agent-deep-dive-agent-state, agent-memory, agent-planning-patterns, multi-agent-shared-context]
-  reading: [function-calling, tool-schema-router, rag-basics, hybrid-search, structured-plan-executor, gui-agent-function-tree]
+  summary: 理解模型、提示、工具、检索、记忆和规划怎样各自提供能力，并理解它们在运行中的输入与输出。
+  goal: 可以解释每个模块解决的故障类型，理解怎样把工具回执和检索证据交还给模型。
+  prerequisite: 建议先理解 Agent 的核心架构和执行循环。
+  visual: 文档、计算模块和记忆组件的层叠装置
+  stages: [模型与提示, 工具与环境, 检索与记忆, 规划和推理, 多智能体协作]
+  related: [foundations, architecture, quality]
+  series:
+    - {id: llm, title: LLM 与 Transformer, goal: 从 Token、注意力和位置编码读到解码采样、KV Cache 和模型选型, articles: [transformer, model-inference]}
+    - {id: prompt, title: Prompt Engineering, goal: 理解指令与数据的边界、示例、输出约束、模板和迭代评估, articles: [prompt-design, output-contracts]}
+    - {id: tools, title: Function Calling 与 Tool Use, goal: 理解工具描述、注册、选择、参数、执行回填和结果验证, articles: [tool-calling, tool-runtime]}
+    - {id: rag, title: RAG 与知识检索, goal: 从原始资料走到可核对的回答，学会识别并定位检索链各层的错误, url: /agent-engineering/rag/, articles: [rag-foundations, document-ingestion, chunking, embeddings, vector-indexes, sparse-retrieval, hybrid-search, reranking, query-transformation, contextual-indexing, graph-rag, corrective-retrieval, multimodal-rag, agentic-rag, rag-evaluation]}
+    - {id: memory, title: Memory 记忆系统, goal: 区分上下文、状态和不同类型的记忆，掌握检索、更新、遗忘与授权, articles: [memory-model, memory-lifecycle]}
+    - {id: planning, title: Planning 任务规划, goal: 从目标和任务依赖推导执行顺序、优先级、重规划和完成条件, articles: [planning-and-replanning]}
+    - {id: reasoning, title: Reasoning 推理机制, goal: 比较行动反馈、自我修正、一致性采样和树图搜索的效果与成本, articles: [reasoning-and-search]}
+    - {id: collaboration, title: Multi-Agent 多智能体, goal: 判断何时分工，理解角色、通信、冲突处理、共享状态和协作局限, articles: [multi-agent-collaboration]}
+    - {id: environment, title: Environment 与外部交互, goal: 识别浏览器、桌面、搜索、API、文件和数据库的观测方式与权限边界, articles: [environment-interaction]}
 - id: architecture
   title: 架构设计与设计模式
-  summary: 用任务路径、故障代价和状态边界判断何时用工作流、ReAct、规划执行或多 Agent。
-  slug: agent-engineering-architecture
-  topics: [单 Agent, Workflow, ReAct, Plan-and-Execute, Reflection, Router, Supervisor, 分层与点对点, 人工介入, 状态机]
-  chapters: [why-agent-workflow-needs-state-machine, agent-deep-dive-react, agent-deep-dive-plan-execute, agent-deep-dive-reflection-router, agent-deep-dive-supervisor]
-  reading: [agent-planning-patterns, artifact-driven-workflow, supervisor-manager-agent, multi-agent-badcases]
+  summary: 从控制流、数据流和状态所有权出发，设计能运行、能恢复并能验收的系统。
+  goal: 能比较固定工作流、单 Agent 和多 Agent，并说明决策、并发和人工介入的位置。
+  prerequisite: 建议掌握执行循环、工具调用以及状态和上下文的区别。
+  visual: 分层互联的模块化系统
+  stages: [划分运行边界, 建模状态和边, 选择执行模式, 处理协作和接管, 扩展到企业场景]
+  related: [foundations, frameworks, production]
+  series:
+    - {id: architecture-basics, title: Agent 架构基础, goal: 拆清 Runtime、Orchestrator、数据流、控制流及模块契约, articles: [control-and-data-flow]}
+    - {id: single-agent, title: 单 Agent 架构, goal: 分辨简单、工具型、规划型、反思型、检索型和记忆型架构, articles: [single-agent-architectures]}
+    - {id: workflow, title: Workflow 架构, goal: 用顺序、分支、并行、循环及人工介入建模业务流程, articles: [stateful-workflows]}
+    - {id: patterns, title: 典型设计模式, goal: 分别分析 ReAct、Plan-and-Execute、Reflection、Router、Map-Reduce 和评估优化, articles: [react, plan-and-execute, review-and-routing]}
+    - {id: multi-agent, title: Multi-Agent 架构, goal: 比较主管、分层、网络与点对点的信号和状态分配, articles: [multi-agent-topologies]}
+    - {id: enterprise, title: 企业级 Agent 架构, goal: 设计多租户、统一工具、知识库、会话、权限、审计和扩展边界, articles: [enterprise-agent-architecture]}
 - id: frameworks
   title: 开发框架与技术生态
-  summary: 从同一条执行链看框架、编排运行时、工具协议与跨 Agent 协议各自接管哪一层。
-  slug: agent-engineering-frameworks
-  topics: [LangChain, LangGraph, LlamaIndex, AutoGen, CrewAI, Semantic Kernel, MCP, A2A]
-  chapters: [agent-deep-dive-langgraph, agent-deep-dive-mcp-a2a]
-  reading: [langgraph-for-multi-agent, mcp-and-function-calling, mcp-tool-trust-boundary]
+  summary: 顺着一次执行，理解框架怎样组合组件、保存工作流状态，以及协议怎样跨进程交换能力或任务。
+  goal: 能根据任务的编排、知识接入和互操作需求挑选框架或协议。
+  prerequisite: 建议先理解工具调用、状态和工作流。
+  visual: 以连接器和适配器组成的模块架
+  stages: [模型与工具组件, 图编排和持久化, 知识接入框架, 多智能体框架, 跨进程协议]
+  related: [capabilities, architecture, production]
+  series:
+    - {id: langchain, title: LangChain, goal: 掌握 Model、Prompt、Runnable、LCEL、Retriever、解析器及回调的关系, articles: [langchain-composition]}
+    - {id: langgraph, title: LangGraph, goal: 理解 State、Node、Edge、Reducer、Checkpoint、Interrupt、子图与并行, articles: [langgraph-state, langgraph-recovery]}
+    - {id: llamaindex, title: LlamaIndex, goal: 追踪 Document、Node、Index、Retriever、Query Engine 和合成答案, articles: [llamaindex-data-flow]}
+    - {id: autogen, title: AutoGen, goal: 结合版本理解消息通信、Group Chat、角色和任务调度, articles: [autogen-collaboration]}
+    - {id: crewai, title: CrewAI, goal: 理解 Agent、Task、Crew、Process 的契约和分层执行, articles: [crewai-process]}
+    - {id: semantic-kernel, title: Semantic Kernel, goal: 理解 Kernel、Plugin、Function、Prompt 和 Process 的协作, articles: [semantic-kernel]}
+    - {id: mcp, title: MCP, goal: 理解 Host、Client、Server、JSON-RPC、能力协商、传输及工具安全, articles: [mcp-lifecycle, mcp-capabilities]}
+    - {id: a2a, title: A2A, goal: 理解 Agent Card、Task、Message、Artifact 与对外协作生命周期, articles: [a2a-task-protocol]}
+    - {id: ecosystem, title: 其他开发生态, goal: 按 SDK、低代码编排、模型路由和本地推理比较工具, articles: [agent-ecosystem]}
 - id: production
   title: 工程化与生产实践
-  summary: 把演示脚本变成可恢复的服务，逐层讲任务状态、队列、写入回执、部署和成本。
-  slug: agent-engineering-production
-  topics: [项目结构与依赖, State 与 Session, Checkpoint 与持久化, 异步与队列, 超时与降级, HTTP 与流式响应, 签核与接管, Worker 与调度, 容器与部署, 性能与成本]
-  chapters: [agent-deep-dive-durability, agent-deep-dive-deployment]
-  reading: [agent-checkpoint-idempotency, retry-rollback-replan, document-agent-durable-write, document-agent-release, agent-demo-to-system, vllm-serving-notes]
+  summary: 从一次请求追到一次可恢复的任务，处理持久化、并发、交付、容量与成本。
+  goal: 能明确状态和副作用的恢复边界，设计可被监控、回放和迭代的生产服务。
+  prerequisite: 建议先了解运行时、工具调用和状态机。
+  visual: 按队列组织的服务器和处理单元
+  stages: [模块与配置, 会话和存储, 并发与流式接口, 可靠交付, 部署和成本]
+  related: [architecture, frameworks, quality]
+  series:
+    - {id: project, title: 项目架构与代码组织, goal: 明确依赖方向、配置、版本、日志和模块契约, articles: [agent-project-structure]}
+    - {id: state, title: 状态与会话管理, goal: 解释 State、Thread、Session、Conversation、Checkpoint 及并发版本, articles: [session-state]}
+    - {id: storage, title: 数据持久化, goal: 根据任务、会话、记忆和制品选择关系库、缓存、向量索引或对象存储, articles: [storage-for-agents]}
+    - {id: concurrency, title: 异步与并发, goal: 解释 async/await、并行工具、Worker、队列、背压和流式事件, articles: [asynchronous-agent-runtime]}
+    - {id: reliability, title: 可靠性设计, goal: 处理超时、退避、降级、幂等、补偿与断点续跑, articles: [recoverable-writes]}
+    - {id: api, title: API 服务, goal: 设计任务 API、SSE、WebSocket、鉴权、会话隔离和限流, articles: [streaming-agent-api]}
+    - {id: deployment, title: 部署与运维, goal: 管理容器、发布、环境隔离、状态版本和回滚, articles: [deployment-and-rollbacks]}
+    - {id: optimization, title: 性能与成本优化, goal: 衡量 Token、模型路由、缓存、并发和尾部延迟, articles: [latency-and-cost]}
+    - {id: platform, title: 企业级 Agent 平台, goal: 理解调度、多租户、工具及知识管理、审计和治理, articles: [governed-agent-platform]}
 - id: quality
   title: 评估、安全与可观测性
-  summary: 用固定样本判断改动，沿 Trace 找到偏差，再让权限和审批规则在工具执行前生效。
-  slug: agent-engineering-quality
-  topics: [任务成功率, 工具及检索评估, Benchmark 与回归, 权限与沙箱, Prompt Injection 防御, 安全审计, Trace 与监控]
-  chapters: [agent-deep-dive-evaluation, agent-deep-dive-security-gates, agent-deep-dive-observability]
-  reading: [agent-benchmark, deterministic-agent-evaluation, llm-as-judge, rag-badcase-debugging, permission-aware-rag, agent-safety-hitl, agent-tracing]
+  summary: 建立能解释失败的评估，使用 Trace 还原系统行为，并把安全策略落在执行边界。
+  goal: 能为一类任务指定成功条件、质量指标和权限边界，并借助运行记录定位回归。
+  prerequisite: 建议理解 Agent 的运行循环。RAG 评估需要了解召回和生成流程。
+  visual: 覆盖诊断面板的检查镜头与边界锁
+  stages: [定义成功, 拆分故障层, 构建回归用例, 执行权限检查, Trace 回流]
+  related: [capabilities, production, cases]
+  series:
+    - {id: agent-eval, title: Agent Evaluation, goal: 区分任务成功、工具选择、参数、延迟、成本和评估器可靠性, articles: [agent-evaluation]}
+    - {id: rag-eval, title: RAG Evaluation, goal: 从排名指标一直诊断到上下文相关性、答案支持与任务覆盖, url: /agent-engineering/rag/rag-evaluation/, articles: [rag-evaluation]}
+    - {id: testing, title: 测试体系, goal: 按单元、集成、端到端、回归和长任务建立分层验证, articles: [testing-agent-systems]}
+    - {id: security, title: 安全治理, goal: 理解间接提示注入、工具越权、数据外泄防御、最小权限和审计, articles: [agent-trust-boundaries]}
+    - {id: observability, title: 可观测性, goal: 建立日志、Tracing、Metrics、Token、延迟及成本的关联, articles: [agent-observability]}
+    - {id: tooling, title: 评估与监控工具, goal: 比较 LangSmith、Langfuse、Phoenix、OpenTelemetry、Prometheus、Grafana 和 Sentry 的职责, articles: [observability-tools]}
 - id: cases
   title: 项目实战与案例拆解
-  summary: 从客服和资料研究出发，逐步做到分工协作、多租户路由和平台治理。
-  slug: agent-engineering-cases
-  topics: [智能客服 Agent, Research Agent, Multi-Agent 开发系统, 企业级 Agent 平台]
-  chapters: [agent-case-support, agent-case-research, agent-case-development, agent-case-platform]
-  reading: [build-a-document-agent, gui-agent-function-tree, reprolab-agent-boundaries, agent-orchestration-after-delegation]
+  summary: 结合真实形态的业务约束，追踪 Agent 的架构、执行路径、技术选型和可验证的取舍。
+  goal: 能把运行、检索、权限和验收组织到同一份系统设计中。
+  prerequisite: 建议先理解核心技术、工作流和基本评估。
+  visual: 带有小型工作流组件的工程工作台
+  stages: [业务目标, 输入证据与权限, 模块和控制流, 异常与人工接管, 验收和迭代]
+  related: [architecture, quality, frontier]
+  series:
+    - {id: starter, title: 基础 Agent, goal: 比较对话、工具、检索问答和带记忆的基础应用, articles: [kb-question-answering, memory-assistant]}
+    - {id: advanced, title: 进阶 Agent, goal: 从研究、浏览、SQL、文档和数据分析看执行与证据, articles: [research-assistant, data-analysis-assistant]}
+    - {id: team, title: 多智能体项目, goal: 设计角色分工、Supervisor、研究协作和开发任务交接, articles: [development-agent-team]}
+    - {id: enterprise, title: 企业级 Agent, goal: 理解知识库、客服、业务自动化、研究平台和 Agent 管理平台, articles: [support-agent, enterprise-workflows]}
 - id: frontier
-  title: 前沿技术与趋势
-  summary: 从长任务、跨应用协作和多模态执行出发，拆解哪些变化值得做验证。
-  slug: agent-engineering-frontier
-  topics: [Agentic Workflow, Deep Research, Coding Agent, Browser 与 Computer Use, 长时任务, MCP 与 A2A, 多模态, 具身智能, 持续学习]
-  chapters: [agent-deep-dive-long-running]
-  reading: [coding-agent-harness, agent-case-research, smart-home-agent-loop, coding-agent-project-ontology, agent-replay-reading-notes]
+  title: 前沿技术与发展趋势
+  summary: 围绕长期运行、跨应用协作、多模态和物理环境交互，辨明能力进展与尚待验证的限制。
+  goal: 能根据可核查的实现与评估判断一项能力的成熟度。
+  prerequisite: 建议具备工程化、评估或相应案例的基础。
+  visual: 光学单元和混合媒介组成的实验装置
+  stages: [研究与编码, 浏览与桌面, 长时自治, 多模态和实时, 互操作与物理环境]
+  related: [frameworks, production, cases]
+  series:
+    - {id: agentic, title: Agentic AI 与 Agentic Workflow, goal: 看清自主工作流的控制点和落地边界, articles: [agentic-workflow]}
+    - {id: research-coding, title: Deep Research 与 Coding Agent, goal: 比较资料研究和软件变更的证据、验证和回访, articles: [deep-research, coding-agent]}
+    - {id: ui, title: Browser Agent 与 Computer Use, goal: 比较 DOM、可访问性树和视觉界面的观测与交互, articles: [browser-and-computer-use]}
+    - {id: long-running, title: Long-running 与 Autonomous Agent, goal: 区分持续任务、反馈循环、运行时和自治边界, articles: [long-running-agents, autonomous-agents]}
+    - {id: multimodal, title: 多模态、语音与实时 Agent, goal: 理解感知融合、流式交互、打断与延迟预算, articles: [realtime-multimodal]}
+    - {id: adaptation, title: 自我改进与 Memory Evolution, goal: 检查记忆、反馈、经验复用与离线更新的验证机制, articles: [agent-adaptation]}
+    - {id: interoperability, title: MCP、A2A 与 Agent Interoperability, goal: 跟踪工具、上下文和跨 Agent 任务协作的协议演进, articles: [agent-interoperability]}
+    - {id: physical-ai, title: 具身智能与 Physical AI, goal: 理解感知、控制、仿真与真实环境的差距, articles: [physical-agents]}
+    - {id: runtime, title: Agent Runtime 与 Agent Operating System, goal: 分辨任务执行器、资源调度、隔离与可迁移状态, articles: [agent-runtime-evolution]}

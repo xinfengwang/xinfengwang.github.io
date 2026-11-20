@@ -17,7 +17,7 @@ permalink: /search/
 <script>
 window.SEARCH_INDEX = [
 {% for post in site.posts %}{"title":{{ post.title | jsonify }},"url":{{ post.url | relative_url | jsonify }},"excerpt":{{ post.description | default: post.subtitle | default: post.excerpt | strip_html | strip_newlines | jsonify }},"content":{{ post.content | strip_html | strip_newlines | jsonify }},"tags":{{ post.tags | join:' ' | jsonify }},"kind":{{ post.content_kind | default: '工程方法' | jsonify }} },{% endfor %}
-{% assign searchable_pages = site.pages | where_exp: 'p', 'p.title' %}{% for item in searchable_pages %}{% if item.url != page.url %}{"title":{{ item.title | jsonify }},"url":{{ item.url | relative_url | jsonify }},"excerpt":{{ item.description | default: item.title | jsonify }},"content":{{ item.content | strip_html | strip_newlines | jsonify }},"tags":"","kind":"站内页面"},{% endif %}{% endfor %}
+{% assign searchable_pages = site.pages | where_exp: 'p', 'p.title' %}{% for item in searchable_pages %}{% if item.url != page.url and item.redirect_to == nil %}{"title":{{ item.title | jsonify }},"url":{{ item.url | relative_url | jsonify }},"excerpt":{{ item.description | default: item.title | jsonify }},"content":{{ item.content | strip_html | strip_newlines | jsonify }},"tags":"","kind":"站内页面"},{% endif %}{% endfor %}
 ];
 </script>
 <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

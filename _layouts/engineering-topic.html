@@ -2,54 +2,41 @@
 layout: default
 ---
 {% assign topic = site.data.agent_engineering | where: 'id', page.engineering_topic | first %}
-{% assign topic_suffix = '/' | append: topic.slug | append: '/' %}
-{% assign chapter = site.posts | where_exp: 'post', 'post.url contains topic_suffix' | first %}
 <div class="wide-page engineering-map">
-  <header class="roadmap-hero">
-    <p class="eyebrow"><a href="{{ '/agent-engineering/#topics' | relative_url }}">Agent 开发知识地图</a></p>
-    <h1>{{ topic.title | escape }}</h1>
-    <p class="roadmap-intro">{{ topic.summary | escape }}</p>
-    <div class="roadmap-actions"><a class="button primary" href="{{ chapter.url | relative_url }}">阅读专题正文 →</a></div>
+  <header class="roadmap-hero engineering-hero">
+    <div>
+      <p class="eyebrow"><a href="{{ '/agent-engineering/#topics' | relative_url }}">Agent Engineering</a></p>
+      <h1>{{ topic.title | escape }}</h1>
+      <p class="roadmap-intro">{{ topic.summary | escape }}</p>
+      <p><strong>学完之后</strong> {{ topic.goal | escape }}</p>
+      <p class="engineering-terms">{{ topic.prerequisite | escape }}</p>
+    </div>
+    {% include engineering-cover.html image=topic.id alt=topic.visual eager=true %}
   </header>
-  <div class="engineering-topic-layout">
-    <section class="roadmap-section" aria-labelledby="topic-content">
-      <h2 id="topic-content">本专题讲什么</h2>
-      <p>{{ chapter.description | escape }}</p>
-      <p class="engineering-terms">{{ topic.topics | join: ' · ' | escape }}</p>
-      {% if topic.learning_series %}
-      <p><a class="text-link" href="{{ topic.learning_series.url | relative_url }}">{{ topic.learning_series.title | escape }} →</a></p>
-      {% endif %}
-      {% if topic.chapters %}
-      <h3>专题文章</h3>
-      <ol>
-        {% for slug in topic.chapters %}
-        {% assign suffix = '/' | append: slug | append: '/' %}
-        {% assign entry = site.posts | where_exp: 'post', 'post.url contains suffix' | first %}
-        {% if entry %}<li><a class="text-link" href="{{ entry.url | relative_url }}">{{ entry.title | escape }}</a></li>{% endif %}
-        {% endfor %}
-      </ol>
-      {% endif %}
-      {% if topic.reading %}
-      <h3>延伸阅读</h3>
-      <ul>
-        {% for slug in topic.reading %}
-        {% assign suffix = '/' | append: slug | append: '/' %}
-        {% assign reading = site.posts | where_exp: 'post', 'post.url contains suffix' | first %}
-        {% if reading %}<li><a class="text-link" href="{{ reading.url | relative_url }}">{{ reading.title | escape }}</a></li>{% endif %}
-        {% endfor %}
-      </ul>
-      {% endif %}
+  <section class="roadmap-section" aria-labelledby="topic-path">
+    <h2 id="topic-path">学习顺序</h2>
+    <ol class="engineering-stages">
+      {% for stage in topic.stages %}<li>{{ stage | escape }}</li>{% endfor %}
+    </ol>
+    {% assign topic_diagram = site.data.engineering_diagrams[topic.id] %}
+    {% if topic_diagram %}<div class="engineering-diagram"><pre><code class="language-mermaid">{{ topic_diagram | escape }}</code></pre></div>{% endif %}
+  </section>
+  <div class="engineering-topic-layout roadmap-section">
+    <section aria-labelledby="topic-content">
+      <h2 id="topic-content">专题与正文</h2>
+      {% for series in topic.series %}{% include engineering-series.html series=series %}{% endfor %}
     </section>
     <aside class="engineering-sidebar" aria-labelledby="topic-outline">
-      <h2 id="topic-outline">文章目录</h2>
-      <nav aria-label="专题文章小节">
-        {% for section in chapter.outline %}
-          {% assign section_url = chapter.url | append: '#' | append: section.id %}
-          <a href="{{ section_url | relative_url }}">{{ section.title | escape }}</a>
+      <h2 id="topic-outline">专题目录</h2>
+      <nav aria-label="板块专题">
+        {% for series in topic.series %}<a href="#{{ series.id }}">{{ series.title | escape }}</a>{% endfor %}
+      </nav>
+      <h2>相关板块</h2>
+      <nav aria-label="相关板块">
+        {% for topic_id in topic.related %}
+          {% assign other = site.data.agent_engineering | where: 'id', topic_id | first %}
+          <a href="{{ '/agent-engineering/' | append: other.id | append: '/' | relative_url }}">{{ other.title | escape }}</a>
         {% endfor %}
-        {% if chapter.chapter_questions and chapter.chapter_questions.size > 0 %}
-          <a href="{{ chapter.url | append: '#chapter-questions' | relative_url }}">本章重点问题</a>
-        {% endif %}
       </nav>
     </aside>
   </div>

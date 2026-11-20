@@ -17,7 +17,7 @@ permalink: /reading-guide/
 | 你想做什么 | 建议入口 |
 | --- | --- |
 | 了解我的研发能力 | [代表项目](/projects/) → [工程经历](/experience/) |
-| 第一次系统学习 Agent | [Agent 开发知识地图](/agent-engineering/) → [基础理论](/agent-engineering/foundations/) → [四个实战案例](/agent-engineering/cases/) |
+| 第一次系统学习 Agent | [Agent Engineering](/agent-engineering/) → [基础理论](/agent-engineering/foundations/) → [项目实战](/agent-engineering/cases/) |
 | 排查检索和执行故障 | [检索 Badcase](/2026/09/15/rag-badcase-debugging/) → [Tracing](/2026/09/11/agent-tracing/) |
 | 查某个具体概念 | [全文搜索](/search/)或[文章筛选](/archive/) |
 

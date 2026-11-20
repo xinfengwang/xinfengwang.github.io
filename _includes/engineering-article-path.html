@@ -1,0 +1,28 @@
+{% assign published = site.posts | where: 'engineering_publish', true %}
+{% assign previous_chapter = nil %}
+{% assign next_chapter = nil %}
+{% assign reached_current = false %}
+{% for series in engineering_topic.series %}
+  {% for article_id in series.articles %}
+    {% assign entry = published | where: 'engineering_id', article_id | first %}
+    {% if entry and entry.engineering_topic == page.engineering_topic %}
+      {% if entry.url == page.url %}
+        {% assign reached_current = true %}
+      {% elsif reached_current %}
+        {% assign next_chapter = entry %}
+        {% break %}
+      {% else %}
+        {% assign previous_chapter = entry %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% if next_chapter %}{% break %}{% endif %}
+{% endfor %}
+<section class="article-connections" aria-labelledby="curriculum-path">
+  <h2 id="curriculum-path">专题阅读顺序</h2>
+  <ul>
+    {% if previous_chapter %}<li>前一篇 <a href="{{ previous_chapter.url | relative_url }}">{{ previous_chapter.title | escape }}</a></li>{% endif %}
+    <li>当前专题 <a href="{{ engineering_series_url | relative_url }}">{{ engineering_series.title | escape }}</a></li>
+    {% if next_chapter %}<li>后一篇 <a href="{{ next_chapter.url | relative_url }}">{{ next_chapter.title | escape }}</a></li>{% endif %}
+  </ul>
+</section>

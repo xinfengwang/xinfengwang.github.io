@@ -1,61 +1,64 @@
 ---
 layout: default
-title: Agent 开发知识地图
-description: 从需求分析到生产迭代，沿七步开发闭环和八个专题学习 Agent Engineering。
+title: Agent Engineering
+description: 从基础原理到生产级系统，系统学习 Agent 开发。沿八大板块阅读逐篇完成的技术教程。
 permalink: /agent-engineering/
 ---
+{% assign curriculum = site.posts | where: 'engineering_publish', true %}
 <div class="wide-page engineering-map">
-  <header class="roadmap-hero">
-    <h1>Agent 开发知识地图</h1>
-    <p class="roadmap-intro">从一份能验收的需求开始，做出能调用工具、处理异常、稳定交付的 Agent。按开发流程走一遍，也可以从当前遇到的问题进入专题。</p>
-    <div class="roadmap-actions">
-      <a class="button primary" href="#lifecycle">看完整开发流程</a>
-      <a class="button" href="#topics">浏览八个知识板块</a>
+  <header class="roadmap-hero engineering-hero">
+    <div>
+      <h1>Agent Engineering</h1>
+      <p class="roadmap-intro">从基础原理到生产级系统，系统掌握 Agent 开发。</p>
+      <p>从一次模型决策开始，理解工具、知识检索和执行状态，再把这些能力组织成可交付、可评估的系统。</p>
+      <div class="roadmap-actions">
+        <a class="button primary" href="{{ '/agent-engineering/foundations/' | relative_url }}">从基础理论开始</a>
+        <a class="button" href="{{ '/agent-engineering/rag/' | relative_url }}">阅读 RAG 技术专栏</a>
+      </div>
+      <p class="roadmap-stats">{{ curriculum.size }} 篇正文已发布，目录中的建设中专题会随正文更新。</p>
     </div>
-    <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
+    {% include engineering-cover.html image='cover' alt='玻璃计算中枢与周围独立的基础设施组件' eager=true %}
   </header>
+  <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
 
-  <section class="roadmap-section" aria-labelledby="lifecycle">
-    <span id="scope" class="engineering-anchor"></span><span id="full-path" class="engineering-anchor"></span>
-    <h2 id="lifecycle">Agent 全生命周期开发流程</h2>
-    <p class="roadmap-hint">线上失败进入回归集，再回到需求、架构或能力实现。交付目标变了，就重新定义验收条件。</p>
-    <pre><code class="language-mermaid">flowchart TB
-      A["需求分析与场景定义"] --> B["Agent 架构设计"]
-      B --> C["核心能力开发"]
-      C --> D["编排与协作"]
-      D --> E["评估与安全治理"]
-      E --> F["部署与生产运维"]
-      F --> G["持续优化与迭代"]
-      G -->|按失败原因修订| A
-    </code></pre>
-    <ol class="roadmap-build engineering-lifecycle">
-      <li><a href="{{ '/2026/11/19/agent-engineering-foundations/#task-contract' | relative_url }}">需求分析与场景定义</a><span>确认用户、输入、交付物、权限边界和成功标准，写出正常、缺信息及越界用例。</span></li>
-      <li id="planning"><a href="{{ '/agent-engineering/architecture/' | relative_url }}">Agent 架构设计</a><span>确定谁决定下一步，任务状态存在哪里，工具、模型和记忆怎么分工。</span></li>
-      <li id="tools"><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">核心能力开发</a><span>做出模型调用、工具、检索、记忆和规划的最小链路，并保留可核对的中间结果。</span></li>
-      <li id="state"><a href="{{ '/2026/11/19/agent-engineering-architecture/#state-machine' | relative_url }}">Agent 编排与协作</a><span>串接状态迁移、角色交接和人工审批，验证中断后能否按预期恢复。</span></li>
-      <li id="verification"><a href="{{ '/agent-engineering/quality/' | relative_url }}">评估与安全治理</a><span>用固定任务做回归，在工具执行前检查权限，用 Trace 定位失败环节。</span></li>
-      <li id="release"><a href="{{ '/agent-engineering/production/' | relative_url }}">部署与生产运维</a><span>上线服务和 Worker，配置超时、监控、灰度与回滚，并量化延迟和成本。</span></li>
-      <li id="evaluation"><a href="{{ '/2026/11/19/agent-engineering-quality/#feedback-loop' | relative_url }}">持续优化与迭代</a><span>收集真实失败，重放并找出最早的偏差。修复进入下一轮回归和发布。</span></li>
-    </ol>
-  </section>
-
-  <section class="roadmap-section" aria-labelledby="deep-tutorials">
-    <h2 id="deep-tutorials">Agent Engineering 学习路线</h2>
-    <p class="roadmap-hint">第一次接触 Agent，可以从模型调用读到生产系统。想解决眼前的问题，可以直接进入对应阶段。</p>
-    <ol class="roadmap-build engineering-learning-path">
-      <li><a href="{{ '/agent-engineering/foundations/' | relative_url }}">认识 Agent</a><span><a href="{{ '/2026/09/15/from-llm-to-agent/' | relative_url }}">从 LLM 到 Agent</a>，再跟着<a href="{{ '/2026/11/19/agent-engineering-foundations/' | relative_url }}">运行循环</a>理解动作、状态和验收。</span></li>
-      <li><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">掌握核心能力</a><span>先读 <a href="{{ '/2026/11/19/agent-deep-dive-llm-prompt/' | relative_url }}">LLM 与 Prompt</a>、<a href="{{ '/2026/11/19/agent-deep-dive-tool-use/' | relative_url }}">Function Calling</a> 和 <a href="{{ '/2026/11/19/agent-deep-dive-rag/' | relative_url }}">RAG</a>，再串联记忆、规划与推理。</span></li>
-      <li><a href="{{ '/agent-engineering/architecture/' | relative_url }}">设计系统架构</a><span>从固定工作流出发，比较 <a href="{{ '/2026/11/19/agent-deep-dive-react/' | relative_url }}">ReAct</a>、<a href="{{ '/2026/11/19/agent-deep-dive-plan-execute/' | relative_url }}">计划执行</a>和多 Agent 的决策边界。</span></li>
-      <li><a href="{{ '/agent-engineering/frameworks/' | relative_url }}">选择框架和协议</a><span>沿同一条执行链看 <a href="{{ '/2026/11/19/agent-deep-dive-langgraph/' | relative_url }}">LangGraph 的状态与恢复</a>，再看 <a href="{{ '/2026/11/19/agent-deep-dive-mcp-a2a/' | relative_url }}">MCP 与 A2A 的职责</a>。</span></li>
-      <li><a href="{{ '/agent-engineering/production/' | relative_url }}">从 Demo 走到生产</a><span>理解<a href="{{ '/2026/11/19/agent-deep-dive-durability/' | relative_url }}">写入恢复</a>、并发、部署和回滚，再读<a href="{{ '/agent-engineering/quality/' | relative_url }}">评估、安全与可观测性</a>。</span></li>
-      <li><a href="{{ '/agent-engineering/cases/' | relative_url }}">用案例检验设计</a><span>从<a href="{{ '/2026/11/19/agent-case-support/' | relative_url }}">智能客服</a>进入资料研究、多 Agent 开发和企业平台，之后继续读<a href="{{ '/agent-engineering/frontier/' | relative_url }}">长时运行等前沿方向</a>。</span></li>
-    </ol>
+  <section class="roadmap-section" aria-labelledby="map">
+    <h2 id="map">知识全景</h2>
+    <p>基础理论和核心技术解释组件如何工作。架构和框架决定怎样组合组件。工程实践与质量保障贯穿部署、实战和后续演进。</p>
+    {% include engineering-cover.html image='ecosystem' alt='' %}
+    <div class="engineering-dependencies" aria-label="板块依赖关系">
+      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/foundations/' | relative_url }}">基础理论</a><span>→</span><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">核心技术</a></div>
+      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
+      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/architecture/' | relative_url }}">架构设计</a><span>→</span><a href="{{ '/agent-engineering/frameworks/' | relative_url }}">开发框架</a></div>
+      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
+      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/production/' | relative_url }}">工程实践</a><span>↔</span><a href="{{ '/agent-engineering/quality/' | relative_url }}">评估与安全</a></div>
+      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
+      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/cases/' | relative_url }}">项目实战</a><span>→</span><a href="{{ '/agent-engineering/frontier/' | relative_url }}">前沿技术</a></div>
+    </div>
   </section>
 
   <section class="roadmap-section" aria-labelledby="topics">
-    <span id="context" class="engineering-anchor"></span><span id="practice" class="engineering-anchor"></span>
-    <h2 id="topics">八个知识板块</h2>
-    <p class="roadmap-hint">每个板块都有主文与小节目录。工具调用、RAG、记忆和架构模式另有专题详解，项目实战提供四个独立案例。</p>
-    {% include engineering-topics.html %}
+    <span id="deep-tutorials" class="engineering-anchor"></span>
+    <h2 id="topics">八大板块与学习顺序</h2>
+    <p>先学基础与核心能力。开始设计系统时，把架构和框架配对阅读，再用工程与评估专题检查方案。每个板块列出前置知识和后续阅读方向。</p>
+    {% include engineering-topics.html show_covers=true %}
+  </section>
+
+  <section class="roadmap-section" aria-labelledby="lifecycle">
+    <span id="scope" class="engineering-anchor"></span><span id="full-path" class="engineering-anchor"></span>
+    <h2 id="lifecycle">Agent 开发全生命周期</h2>
+    <p>以企业政策问答为例，先约定答案必须可核对，再构建检索和生成链路。上线后发现的失败要能对应到一个待修复环节，并回到评估集。</p>
+    {% include engineering-cover.html image='lifecycle' alt='' %}
+    <ol class="roadmap-build engineering-lifecycle">
+      <li><strong>需求分析</strong><span>明确谁在什么情境下使用系统，以及什么算任务完成。</span></li>
+      <li><strong>场景定义</strong><span>列出可回答的问题、可访问的数据和需要升级人工处理的情况。</span></li>
+      <li id="planning"><strong>架构设计</strong><span>划分模型决策、程序校验、数据权限和人工授权的责任。</span></li>
+      <li id="tools"><strong>核心能力建设</strong><span>分别验证工具、检索、记忆和上下文组装，确定模块契约。</span></li>
+      <li id="state"><strong>工作流编排</strong><span>定义任务状态、分支、循环反馈与停止条件。</span></li>
+      <li id="context"><strong>系统实现</strong><span>实现模型和工具适配、持久化、并发、幂等及回执。</span></li>
+      <li id="verification"><strong>评估与安全</strong><span>用代表性任务验证结果、权限和故障恢复，记录已知边界。</span></li>
+      <li id="release"><strong>部署上线</strong><span>按版本逐步放量，配置运行监控、回滚路径和容量限制。</span></li>
+      <li id="evaluation"><strong>监控与迭代</strong><span>根据线上轨迹找到最早的错误，把修复验证写进回归集。</span></li>
+    </ol>
+    <span id="practice" class="engineering-anchor"></span>
   </section>
 </div>
