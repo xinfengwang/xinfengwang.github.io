@@ -132,3 +132,14 @@
 | 可观测性与工具 | [Agent 可观测性](https://xinfengwang.github.io/agent-engineering/quality/agent-observability/) · [评估与监控工具](https://xinfengwang.github.io/agent-engineering/quality/observability-tools/) |
 
 下一轮继续项目实战与前沿专题，以可验证案例和技术成熟度为组织主线。
+
+## 第七轮进展
+
+项目实战与案例拆解的四个专题及前沿技术与发展趋势的九个专题均已有正文。本轮新增 16 篇、深化 2 篇。课程共 94 篇、471 组折叠问答。案例使用虚构或受控场景说明数据、流程与验收，前沿文章用公开来源区分已有实现和待验证能力。
+
+| 板块 | 新增与深化 |
+| --- | --- |
+| 项目实战 | 补充记忆助手、研究助手、数据分析助手、开发 Agent 团队、客服 Agent 和企业工作流，深化知识库问答的故障诊断 |
+| 前沿 | 补充 Agentic Workflow、Deep Research、Coding Agent、Browser 与 Computer Use、自主 Agent、实时多模态、记忆演进、互操作、具身智能及 Agent Runtime，深化长时任务恢复 |
+
+第八轮进行全站验收，覆盖课程入口、历史路由、正文覆盖、状态标注、图表、引用和触控交互。
