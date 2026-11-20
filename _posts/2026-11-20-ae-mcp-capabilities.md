@@ -1,7 +1,7 @@
 ---
 layout: "post"
 title: "MCP 能力模型：Tools、Resources、Prompts、Roots 与 Sampling"
-description: "按照 2025-11-25 规范区分能力方向、使用意图和授权边界。"
+description: "以 2025-11-25 为例解释能力方向，并对照 2026-07-28 的补问和弃用规则。"
 date: "2026-11-20 12:00:00 +0800"
 category: "Tech"
 permalink: "/agent-engineering/frameworks/mcp-capabilities/"
@@ -12,6 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"文档作为 Resource 和通过 Tool 读有什么区别？","answer":"Resource 表达应用按标识能读取的数据。Tool 表达经过参数的动作调用，适合查询、筛选和产生副作用。两者均需访问校验，可以按实际交互组合。"},{"question":"为什么 Roots 不能当作沙箱？","answer":"它在协议上表达客户端希望使用的范围，服务器是否真正受限由运行环境权限决定。宿主应配置文件和进程隔离，避免越过工作目录。"},{"question":"Sampling 请求前为什么要在宿主核查上下文？","answer":"请求会触发模型处理，并可能将结果返回服务。附加上下文容易含与任务无关的用户资料，宿主要按授权和最小必要原则决定能使用什么。"},{"question":"服务器发现列表新增了工具，是否直接对模型开放？","answer":"列表变化表示服务能力变化。宿主仍需识别服务与新增能力，核对风险、授权和参数范围，再决定是否让当前模型看到。"},{"question":"什么情况下需要绑定人工批准的动作摘要？","answer":"例如审批、发信、删除、导出、修改共享资料。批准应关联目标、参数和有效期，否则在动作被重新规划后可能被误用。"}]
+engineering_reading: {"related":[{"title":"MCP 2026-07-28","url":"/agent-engineering/frameworks/mcp-stateless/"},{"title":"A2A 任务协议","url":"/agent-engineering/frameworks/a2a-task-protocol/"}]}
 ---
 
 ## 同样来自 MCP 服务，为什么处理方式不同
@@ -50,11 +51,17 @@ Sampling 允许服务请求客户端发起模型生成。是否允许、所用�
 
 版本敏感的开发先约定支持协议及传输，再按实际协商结果测试未声明能力、列表变化、断开重连、安全拒绝和数据最小化。应用也可以即使服务支持 Sampling 仍禁用，用可见且明确授权的方式提供相同业务功能。
 
+## 从旧服务端请求迁移到 MRTR
+
+以工具需要核对合同年份为例，2025-11-25 在协商后可由服务发起对应请求。2026-07-28 使用 MRTR 将补问包含在 `input_required` 结果中，由客户端请求用户输入，再在续发调用中带回 `inputResponses` 和相关状态。Roots、Sampling 与 Logging 在 2026-07-28 已标记弃用。现有项目用能力和版本判断兼容行为，新项目应依据所需功能选用保留的能力与扩展。协议层的申请不授予文件读取、模型上下文外发或业务操作权限。
+
 ## 小结
 
 读资料使用 Resource，获取交互模板使用 Prompt，执行动作使用 Tool。Roots 和 Sampling 是客户端提供的能力。所有可选交互均要经过协商和宿主策略。
 
 ## 参考资料
+
+- [MCP 2026-07-28 发布说明](https://blog.modelcontextprotocol.io/posts/2026-07-28/)
 
 - [MCP 2025-11-25：Server capabilities](https://modelcontextprotocol.io/specification/2025-11-25/server)
 - [MCP：Roots](https://modelcontextprotocol.io/specification/2025-11-25/client/roots)

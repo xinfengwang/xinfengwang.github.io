@@ -12,7 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"thread_id 能当访问令牌使用吗？","answer":"不能。它只是与快照关联的标识。查询、恢复和中断接口都需要独立验证用户对任务和目标的权限。"},{"question":"为什么写操作不宜放在 interrupt 前面？","answer":"相同节点恢复时可能从头执行，审批前副作用也更难解释。将写动作放在后续节点，并用稳定幂等键保护重放与崩溃恢复。"},{"question":"Checkpoint 已经指向下一步，能证明外部服务成功吗？","answer":"图状态能记录已接收的回执。若只有本地步骤名而没有可验证的业务回执，不能证明执行结果，关键动作仍需要可查的回执。"},{"question":"回放为何可能得到不同结果？","answer":"模型采样、文档版本、外部服务状态和时间都可能改变。要复盘历史事实应读取当时保存的证据和结果，重跑用于对照。"},{"question":"审批后目标金额发生变化，怎样恢复？","answer":"把审批绑定到动作摘要与状态版本。恢复时验证版本与授权，发生实质变化重新审批或回到明确的决策分支。"}]
-engineering_reading: {"related":[{"title":"可靠性设计与幂等回执","url":"/agent-engineering/production/recoverable-writes/"}]}
+engineering_reading: {"related":[{"title":"可靠性设计与幂等回执","url":"/agent-engineering/production/recoverable-writes/"},{"title":"LangGraph 并行与子图","url":"/agent-engineering/frameworks/langgraph-parallel/"}]}
 ---
 
 ## 等人工批准期间不应让进程一直等待
@@ -40,6 +40,12 @@ flowchart TB
 Interrupt 会暂停并等待外部输入。官方文档所述模式通常使用同一 thread_id，通过 Command(resume=…) 继续。恢复时被中断的节点可从开头重执行，interrupt 前的代码不能假定只执行一次。因此，将不可重复的写操作放在审批之后的独立节点，并且用稳定操作标识和幂等后端保护。节点在 interrupt 前若已创建待审批记录，需要确保重入能够读取同一记录而不再创建。
 
 审批应绑定动作内容、任务版本、人员和有效期限。用户审批后，运行时仍需确认金额、目标和授权未变化。按一个布尔值继续执行可能让批准意图绑定到另一条后来改写的动作。可在更新后要求重新审批，拒绝时走明确的取消、退回或交给人工的分支。
+
+## Thread、Checkpoint 与跨线程 Store 分别留什么
+
+一个用户可能在早上的咨询线程等待审批，下午另开一个会话查询其他条款。Checkpointer 保存每个 Thread 的图状态、可恢复位置和历史快照。Store 可保存应用定义的跨线程信息，例如已确认的用户偏好。业务工单服务保存真正的写入回执。部署时分别制定租户权限、保留期与过期清理，不用 Thread ID 代替认证。
+
+同一步骤有两个并行节点时，若第一个成功且更新已记录为 pending writes，而第二个抛错，恢复可复用已记录的成功结果。若节点正在调用业务服务却没有任何可核对结果，就不能凭图进度判断动作发生与否。用持久后端做进程退出演练：分别在批准后、外部写入后、保存回执后中断，恢复时对照图版本、批准参数和业务操作标识。
 
 ## 练习怎样从失败恢复
 

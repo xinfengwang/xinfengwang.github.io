@@ -12,7 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"为什么一个节点只返回部分状态更新？","answer":"这能让节点明确只拥有部分字段，减少全量产生的数据覆盖。图根据字段约定合并更新，其他节点可独立增加证据或元数据。"},{"question":"Reducer 能不能让任意并行写入都正确？","answer":"Reducer 只是应用定义的合并函数。如果它丢失来源、依赖不稳定的执行顺序或覆盖冲突，结果仍可能错。应明确字段的数据语义与并发约束。"},{"question":"什么时候使用 Send 比固定并行边合适？","answer":"每次输入的任务数量和输入各不相同时，例如根据用户选择为若干地区分派政策核查。固定分支的并行，直接画边通常更直观。"},{"question":"为什么使用 Command 后仍要检查已有边？","answer":"路由命令与静态边可能同时导致目标被调度。若节点只应动态选择下一步，配置时不要无意保留一条另行触发的固定路径。"},{"question":"什么时候把逻辑封装为子图？","answer":"当组内有独立流程和状态、可在多个父流程复用，或者需要明确接入协议时。父图应能识别其完成、失败和证据输出。"}]
-engineering_reading: {"related":[{"title":"控制流与数据流","url":"/agent-engineering/architecture/control-and-data-flow/"}]}
+engineering_reading: {"related":[{"title":"控制流与数据流","url":"/agent-engineering/architecture/control-and-data-flow/"},{"title":"LangGraph Agent","url":"/agent-engineering/frameworks/langchain-agent-runtime/"},{"title":"LangGraph 并行与子图","url":"/agent-engineering/frameworks/langgraph-parallel/"}]}
 ---
 
 ## 当工作流需要看见路径、状态和合并规则
@@ -35,6 +35,16 @@ flowchart TB
   E --> F
   F --> G["生成可核对的回答"]
 ```
+
+### 举例看状态字段的写入契约
+
+| State 字段 | 节点更新 | 合并规则 |
+| --- | --- | --- |
+| `question` | 入口节点写入 | 单写者，沿途只读 |
+| `evidence` | 通用制度与地区例外各自追加结果 | 按来源 ID 和版本合并，重复回执去重 |
+| `approval` | 验证节点负责确认 | 比较任务版本，过滤迟到批准 |
+
+若两个查询都返回同一个 `P-17@v3`，合并后只保留一个证据。若其中之一同时出现了 `P-17@v2`，可保留旧版本供核查，验收依据生效时间选择当前有效版本。不要用分支完成先后来判版本。若同一 superstep 的两个分支未经 Reducer 写入相同状态键，LangGraph 可能报并发更新错误。为节点单测部分更新，再用编译图验证真实合流。
 
 ## 条件边、Command、Send 与 Subgraph
 

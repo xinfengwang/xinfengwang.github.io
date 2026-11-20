@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "MCP 通信：Host、Client、Server 与初始化生命周期"
+title: "MCP 旧版通信：Host、Client、Server 与 2025-11-25 握手"
 description: "以协议版本 2025-11-25 说明 JSON-RPC、能力协商、工具调用和传输边界。"
 date: "2026-11-20 12:00:00 +0800"
 category: "Tech"
@@ -12,8 +12,10 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"Host 与 Client 在 MCP 架构中有什么差别？","answer":"Host 管理模型、用户交互、授权和多连接。Client 处理与其中一个 Server 的通信与生命周期，Host 可以持有多个 Client。"},{"question":"为什么要协商版本和能力？","answer":"不同实现可能支持不同协议版本和可选能力。协商避免一方调用另一方不支持的方法，并让宿主能明确选择停止或降级。"},{"question":"为什么 JSON-RPC 通知没有业务响应？","answer":"通知在协议中不携带可匹配的请求 ID。它表达无需响应的事件，例如初始化通知。客户端不能把发送通知当作业务成功回执。"},{"question":"stdio 能给 MCP Server 任意的本地文件权限吗？","answer":"权限来自启动时的系统账户、容器和宿主策略。stdio 只是通道。受信任的安装、进程权限和必要的读写范围仍要控制。"},{"question":"工具在列表里显示之后，谁决定能否执行？","answer":"列表说明服务器提供能力。宿主根据用户和任务校验是否暴露、允许参数范围和业务动作，服务器还需根据自己的权限和校验策略确认执行。"}]
-engineering_reading: {"related":[{"title":"Function Calling","url":"/agent-engineering/capabilities/tool-calling/"}]}
+engineering_reading: {"related":[{"title":"Function Calling","url":"/agent-engineering/capabilities/tool-calling/"},{"title":"MCP 2026-07-28","url":"/agent-engineering/frameworks/mcp-stateless/"},{"title":"MCP 能力模型","url":"/agent-engineering/frameworks/mcp-capabilities/"}]}
 ---
+
+> 版本范围为 MCP **2025-11-25**。已采用 **2026-07-28** 协议的系统使用逐请求版本与能力声明，见[无状态请求与兼容性](/agent-engineering/frameworks/mcp-stateless/)。
 
 ## 为什么接了五个工具服务，宿主还要写五套适配
 
@@ -36,7 +38,7 @@ sequenceDiagram
   S-->>H: 关联请求 ID 的结果
 ```
 
-消息使用 JSON-RPC 2.0。请求有 ID，响应使用同一 ID；通知没有 ID，也没有对应的 JSON-RPC 响应。创建传输后，客户端先发送 initialize，携带协议版本、应用信息和能力。服务器回复支持的协议版本、服务信息和能力集合。如果版本不相容或关键能力缺失，应用应停止或走受控降级。客户端随后发送 notifications/initialized，连接进入正常操作。只有协商过的可选能力才能按规范使用。
+消息使用 JSON-RPC 2.0。请求有 ID，响应使用同一 ID。通知没有 ID，也没有对应的 JSON-RPC 响应。创建传输后，客户端先发送 initialize，携带协议版本、应用信息和能力。服务器回复支持的协议版本、服务信息和能力集合。如果版本不相容或关键能力缺失，应用应停止或走受控降级。客户端随后发送 notifications/initialized，连接进入正常操作。只有协商过的可选能力才能按规范使用。
 
 对于工具调用，客户端可通过 tools/list 获取名称、说明和输入模式，再以 tools/call 请求服务执行实际操作。列表的缓存、更新通知和分页行为依规范与能力声明处理。协议级错误和工具执行返回的错误状态不同，前者描述请求或协议问题，后者描述工具操作失败。接入多个服务时，用服务身份和工具名共同标识能力，避免同名工具被错误路由。
 

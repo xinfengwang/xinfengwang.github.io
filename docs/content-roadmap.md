@@ -91,3 +91,17 @@
 | 企业级架构 | [企业级 Agent 架构](https://xinfengwang.github.io/agent-engineering/architecture/enterprise-agent-architecture/) |
 
 架构板块共 70 组折叠问答。课程共有 56 篇、281 组问答。原有课程路由、专题锚点及历史跳转全部延用。下一轮以状态、并行、持久化、生命周期与协议消息为主线，建设框架与生态专题。
+
+## 第四轮进展
+
+开发框架与技术生态现有 14 篇正文，九个专题均具备正文。新增 10 篇并更新 4 篇已有文章。课程合计 66 篇，331 组折叠问答。
+
+| 专题 | 本轮覆盖 |
+| --- | --- |
+| LangChain | [Runnable 与 LCEL](https://xinfengwang.github.io/agent-engineering/frameworks/langchain-composition/) · [Agent 循环和中间件](https://xinfengwang.github.io/agent-engineering/frameworks/langchain-agent-runtime/) |
+| LangGraph | 补充状态写入、合流与故障恢复，新增 [superstep、Send、Command 与子图](https://xinfengwang.github.io/agent-engineering/frameworks/langgraph-parallel/) |
+| MCP | 新增 [2026-07-28 无状态协议与迁移](https://xinfengwang.github.io/agent-engineering/frameworks/mcp-stateless/)，保留 2025-11-25 握手与能力模型并标出版本 |
+| A2A | [v1.0 Agent Card、Task、Message 和 Artifact](https://xinfengwang.github.io/agent-engineering/frameworks/a2a-task-protocol/) |
+| 其他框架 | [LlamaIndex](https://xinfengwang.github.io/agent-engineering/frameworks/llamaindex-data-flow/) · [AutoGen](https://xinfengwang.github.io/agent-engineering/frameworks/autogen-collaboration/) · [CrewAI](https://xinfengwang.github.io/agent-engineering/frameworks/crewai-process/) · [Semantic Kernel](https://xinfengwang.github.io/agent-engineering/frameworks/semantic-kernel/) · [生态选型](https://xinfengwang.github.io/agent-engineering/frameworks/agent-ecosystem/) |
+
+框架文章按可核查的官方版本说明语义，MCP 与 A2A 使用明确协议修订。下一轮继续工程化与生产实践，优先补齐项目分层、会话与持久化、并发、流式服务和部署。

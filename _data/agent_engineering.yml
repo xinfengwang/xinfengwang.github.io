@@ -54,13 +54,13 @@
   stages: [模型与工具组件, 图编排和持久化, 知识接入框架, 多智能体框架, 跨进程协议]
   related: [capabilities, architecture, production]
   series:
-    - {id: langchain, title: LangChain, goal: 掌握 Model、Prompt、Runnable、LCEL、Retriever、解析器及回调的关系, articles: [langchain-composition]}
-    - {id: langgraph, title: LangGraph, goal: 理解 State、Node、Edge、Reducer、Checkpoint、Interrupt、子图与并行, articles: [langgraph-state, langgraph-recovery]}
+    - {id: langchain, title: LangChain, goal: 掌握 Model、Prompt、Runnable、LCEL、Retriever、解析器及回调的关系, articles: [langchain-composition, langchain-agent-runtime]}
+    - {id: langgraph, title: LangGraph, goal: 理解 State、Node、Edge、Reducer、Checkpoint、Interrupt、子图与并行, articles: [langgraph-state, langgraph-parallel, langgraph-recovery]}
     - {id: llamaindex, title: LlamaIndex, goal: 追踪 Document、Node、Index、Retriever、Query Engine 和合成答案, articles: [llamaindex-data-flow]}
     - {id: autogen, title: AutoGen, goal: 结合版本理解消息通信、Group Chat、角色和任务调度, articles: [autogen-collaboration]}
     - {id: crewai, title: CrewAI, goal: 理解 Agent、Task、Crew、Process 的契约和分层执行, articles: [crewai-process]}
     - {id: semantic-kernel, title: Semantic Kernel, goal: 理解 Kernel、Plugin、Function、Prompt 和 Process 的协作, articles: [semantic-kernel]}
-    - {id: mcp, title: MCP, goal: 理解 Host、Client、Server、JSON-RPC、能力协商、传输及工具安全, articles: [mcp-lifecycle, mcp-capabilities]}
+    - {id: mcp, title: MCP, goal: 理解新版无状态协议、旧版握手、能力协商、传输及工具安全, articles: [mcp-stateless, mcp-lifecycle, mcp-capabilities]}
     - {id: a2a, title: A2A, goal: 理解 Agent Card、Task、Message、Artifact 与对外协作生命周期, articles: [a2a-task-protocol]}
     - {id: ecosystem, title: 其他开发生态, goal: 按 SDK、低代码编排、模型路由和本地推理比较工具, articles: [agent-ecosystem]}
 - id: production
