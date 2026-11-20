@@ -12,7 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["RAG","Agent Engineering"]
 chapter_questions: [{"question":"Recall@K 与 MRR 分别适合看什么？","answer":"Recall@K 看所有标注证据有多少进了前 K。MRR 看第一条相关证据排到哪里。单段问答可关注首条，多段依赖题更看重多证据覆盖和整体排序。"},{"question":"为什么 nDCG 的理想排序需要完整标注？","answer":"归一分母来自该查询在评估深度上的理想相关等级顺序。如果只在系统返回的候选中重排，就可能漏掉未召回的高等级证据，分母变小并高估表现。"},{"question":"答案忠实就一定正确吗？","answer":"答案可以忠实利用过期、错误或不适用的上下文。应把证据支持与任务正确性、时间适用性以及安全规则分开衡量。"},{"question":"没有标注相关证据的问题如何加入评估？","answer":"对确实不可答的任务，报告正确拒答、是否说明缺证、权限遵守和错误引用。未标注而不是不可答的样本需补标注，不能一律当作无证据。"},{"question":"为何要保留模型最终收到的上下文？","answer":"候选在重排、去重、压缩或 Token 截断后可能变化。只有最终输入能判断模型有没有获得足够依据，并准确区分检索问题和生成问题。"}]
-engineering_reading: {"related":[{"title":"Agent 系统评估板块","url":"/agent-engineering/quality/"}],"prerequisites":[{"title":"上下文组装","url":"/agent-engineering/rag/context-assembly/"}],"next":[{"title":"生产 RAG","url":"/agent-engineering/rag/rag-production/"}]}
+engineering_reading: {"related":[{"title":"Agent 系统评估板块","url":"/agent-engineering/quality/"},{"title":"Agent 评估","url":"/agent-engineering/quality/agent-evaluation/"}],"prerequisites":[{"title":"上下文组装","url":"/agent-engineering/rag/context-assembly/"}],"next":[{"title":"生产 RAG","url":"/agent-engineering/rag/rag-production/"}]}
 ---
 
 ## 同一个错误答案可以来自四处
@@ -51,6 +51,12 @@ nDCG 允许按证据价值分等级。每个位置 i 的增益经 log₂(i+1) �
 假设基线和候选版在固定回归集上都是 90/100。基线的 20 条跨段规则题正确 17 条，候选版只正确 12 条。它恰好在 80 条其他题多答对 5 道。总准确率不变，跨段查询却从 85% 降到 60%。用同一问题复放，检查正确例外在哪一步丢失。评估记录里预先约定关键切片的最低门槛及错误增长上限，样本过少的切片先人工复核或扩充数据。
 
 相关证据标注不是已知全部可支持出处。遇到新索引返回不同但有效的正式条款，先由审查人核对版本与适用范围，将合理替代纳入标注，再以相同版本重跑新旧系统。对于撤权与拒绝样本可以设严格门禁，失败直接保留证据 ID 和 Trace。对于候选相关性和答案表述，分别保留自动评判和人工复核结果。
+
+## 同一组证据如何区分覆盖、支持和引用准确
+
+一个问题需要两条政策：P4 规定通常由部门负责人审批，P9 规定跨区例外必须财务复核。设检索前五条包含两者，检索覆盖是 2/2。若预算组装仅保留 P4，上下文覆盖变成 1/2。模型只写「由部门负责人审批」且引用 P4，可以得到局部声明支持，却未完成用户问题。如果上下文包含两条，模型正确说出例外但将来源指成 P4，则事实内容覆盖较好，引用仍有错误。
+
+在同一条样本中记录三个独立结果：证据是否进实际上下文，结论是否被授权原文支持，引用是否准确定位到对应条款。另将无权与确实无资料的任务分开标注，专门验收正确拒绝和说明缺口。这样可以避免一个看起来合理的综合分掩盖错误链条。
 
 ## 小结
 

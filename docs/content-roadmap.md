@@ -119,3 +119,16 @@
 | 部署、成本与平台 | [部署与回滚](https://xinfengwang.github.io/agent-engineering/production/deployment-and-rollbacks/) · [性能与成本](https://xinfengwang.github.io/agent-engineering/production/latency-and-cost/) · [企业级 Agent 平台](https://xinfengwang.github.io/agent-engineering/production/governed-agent-platform/) |
 
 下一轮是评估、安全与可观测性，重点覆盖测试分层、失败数据、权限边界、Tracing 和观测工具。
+
+## 第六轮进展
+
+评估、安全与可观测性的六个专题均已有正文。新增四篇，并深化 Agent 评估和 RAG 评估。课程共 78 篇、391 组折叠问答。RAG 评估沿用 RAG 专栏中的同一篇正文。
+
+| 专题 | 正文与补充内容 |
+| --- | --- |
+| Agent Evaluation | [Agent 评估](https://xinfengwang.github.io/agent-engineering/quality/agent-evaluation/)补充指标分母、配对发布对照与关键失败 |
+| RAG Evaluation | [RAG 分层评估](https://xinfengwang.github.io/agent-engineering/rag/rag-evaluation/)补充对覆盖、支持和引用准确性的同案例比较 |
+| 测试与安全 | [Agent 测试体系](https://xinfengwang.github.io/agent-engineering/quality/testing-agent-systems/) · [Agent 安全边界](https://xinfengwang.github.io/agent-engineering/quality/agent-trust-boundaries/) |
+| 可观测性与工具 | [Agent 可观测性](https://xinfengwang.github.io/agent-engineering/quality/agent-observability/) · [评估与监控工具](https://xinfengwang.github.io/agent-engineering/quality/observability-tools/) |
+
+下一轮继续项目实战与前沿专题，以可验证案例和技术成熟度为组织主线。
