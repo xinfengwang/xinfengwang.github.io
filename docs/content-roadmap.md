@@ -46,3 +46,35 @@
 
 每一轮在真实构建出的页面上验收后再进入下一轮。每篇课程正文至少包含可理解的背景、内部机制、架构或流程、关键权衡、适用场景和可追溯来源。问答用共享组件呈现 5～10 个问题和解释性答案。A 类文章继续发布，B 类补足缺口，D 类在保留路由的前提下重组阅读入口。专题有未完成正文或待补的必要章节时保持建设中。
 
+
+## 前两轮进展
+
+第一轮已完成。审查 99 篇基线正文，并核对 109 个线上入口，包括首页、八个板块和 RAG 专栏。桌面和手机窄屏均检查了课文图表、公式、导航和可交互问答。
+
+第二轮新增 8 篇课程正文，每篇都有独立技术图和 5～6 道折叠题。
+
+| 新增专题 | 文章 |
+| --- | --- |
+| Prompt | [结构化输出与输出契约](https://xinfengwang.github.io/agent-engineering/capabilities/output-contracts/) |
+| Tool Use | [工具运行时](https://xinfengwang.github.io/agent-engineering/capabilities/tool-runtime/) |
+| Memory | [记忆生命周期](https://xinfengwang.github.io/agent-engineering/capabilities/memory-lifecycle/) |
+| Reasoning | [Agent 推理与搜索](https://xinfengwang.github.io/agent-engineering/capabilities/reasoning-and-search/) |
+| Multi-Agent | [多 Agent 协作](https://xinfengwang.github.io/agent-engineering/capabilities/multi-agent-collaboration/) |
+| Environment | [Agent 与外部环境](https://xinfengwang.github.io/agent-engineering/capabilities/environment-interaction/) |
+| RAG | [上下文组装](https://xinfengwang.github.io/agent-engineering/rag/context-assembly/) · [生产 RAG 架构](https://xinfengwang.github.io/agent-engineering/rag/rag-production/) |
+
+已深化 Transformer、模型推理、Prompt、Function Calling、Memory 表示、任务规划，以及 RAG 的文档解析、分块、向量索引、GraphRAG、多模态和评估，共 12 篇。全部 35 篇基线课程和历史文章保留原路由，其余 23 篇课程正文保持原稿。本批没有整篇重写。课程共 43 篇、216 组折叠问答，RAG 17 篇。仍待补充的内容详见分轮交付，历史博客的问答迁移另行逐篇处理。
+
+| 板块 | 独立正文 | 当前专题正文齐备 | 下一批重点 |
+| --- | ---: | ---: | --- |
+| 基础理论与核心原理 | 5 | 5 / 5 | 继续以原入口引导读者进入架构模式 |
+| 核心技术与能力体系 | 29 | 9 / 9 | 用案例与架构文章承接核心机制 |
+| 架构设计与设计模式 | 1 | 1 / 6 | 单 Agent、Workflow、独立模式和系统拓扑 |
+| 开发框架与技术生态 | 4 | 2 / 9 | LangChain、LangGraph、MCP、A2A 和其余框架 |
+| 工程化与生产实践 | 1 | 1 / 9 | 项目、持久状态、并发、服务和演进 |
+| 评估、安全与可观测性 | 1 | 2 / 6 | 测试、权限治理、Trace 和观测工具 |
+| 项目实战与案例拆解 | 1 | 0 / 4 | 从工具与记忆开始的完整案例 |
+| 前沿技术与发展趋势 | 1 | 0 / 9 | 自治任务、研究、Coding 与互操作 |
+
+正文按归属只计一次。RAG 评估也出现在质量板块，因此独立正文与专题齐备数不直接对应。尚缺正文的专题继续显示建设中。
+
