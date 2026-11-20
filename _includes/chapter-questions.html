@@ -1,0 +1,11 @@
+{% if page.chapter_questions and page.chapter_questions.size > 0 %}
+<section class="chapter-questions" aria-labelledby="chapter-questions">
+  <h2 id="chapter-questions">本章重点问题</h2>
+  {% for item in page.chapter_questions %}
+  <details class="chapter-question">
+    <summary>{{ item.question | escape }}</summary>
+    <div class="chapter-answer">{{ item.answer | markdownify }}</div>
+  </details>
+  {% endfor %}
+</section>
+{% endif %}

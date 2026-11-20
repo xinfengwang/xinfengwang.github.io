@@ -17,7 +17,7 @@
   const readingTime = document.getElementById('reading-time');
   if (article && readingTime) {
     const prose = article.cloneNode(true);
-    prose.querySelectorAll('pre, .mermaid, figure, svg, script, style, [hidden]').forEach(node => node.remove());
+    prose.querySelectorAll('pre, .mermaid, figure, svg, script, style, [hidden], .chapter-questions').forEach(node => node.remove());
     const walker = document.createTreeWalker(prose, NodeFilter.SHOW_TEXT);
     const parts = [];
     while (walker.nextNode()) parts.push(walker.currentNode.textContent);

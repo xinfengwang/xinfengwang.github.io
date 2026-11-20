@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Function Calling 实战，模型提出调用以后发生了什么？"
-description: "用一个可运行的 Python 批处理器验证参数、任务授权、拒绝回执和多调用关联。"
+description: "从工具定义到回执回填，解释模型如何提出调用、运行时如何授权，以及如何追踪多工具调用。"
 date: 2026-11-19 20:00:00 +0800
 updated: 2026-11-19
 category: Tech
@@ -26,15 +26,41 @@ outline:
   - {id: tradeoffs, title: "串行调用、并行调用和固定查询怎么选？"}
   - {id: debugging, title: "工程实践：日志只记能定位断点的字段"}
   - {id: next, title: "从动作协议继续到知识证据"}
+chapter_questions:
+  - question: "模型怎么看到工具，又是哪个组件真的发请求？"
+    answer: >-
+      应用从工具注册表筛出本轮可用的工具，把名字、说明和参数 Schema 随模型请求发送。模型依据任务和描述选择工具并生成参数，运行时收到的是一个调用提议。运行时根据可信会话、任务范围和业务规则校验，通过后才由应用调用后端。
+  - question: "为什么 Schema 校验通过，查单请求仍可能被拒绝？"
+    answer: >-
+      Schema 校验确认参数结构，比如 `order_id` 是合法字符串。任务范围还要确认本轮确实允许查询这个订单，后端要检查登录主体对它是否有读取权限。把身份从认证会话传到后端，就能独立判断这两层业务条件。
+  - question: "call_id、order_id 和 operation_id 各解决什么问题？"
+    answer: >-
+      `call_id` 把一次模型提议和它的回执配对，`order_id` 指向被操作的业务资源，`operation_id` 则标识同一个已批准的写入及其重试。两个不同的操作可以指向同一订单，而同一已批准操作在恢复时应继续用原操作键。
+  - question: "两个读取并行返回，为什么不能按实际返回顺序回填？"
+    answer: >-
+      先发出的调用可能后完成，按位置对齐会把 B 的数据交给 A。运行时应按 `call_id` 匹配，显式检查缺失、重复和意外编号，并按接口要求发送对应回执。单个调用失败也要有可关联的终态，供下一轮决定是否补查。
+  - question: "查单成功了，为何模型还可能回复查不到？"
+    answer: >-
+      后端成功只证明执行阶段拿到了数据。继续核对原来的 `call_id` 是否匹配、结果是否回填到同一段对话，以及下一次模型请求是否真的包含这条结果。还要检查回执是否保留了回答所需的事实，例如订单状态或可读取的证据编号。
+  - question: "写入工具在网络超时后，为什么不能直接发一条新调用？"
+    answer: >-
+      请求超时只说明调用方没等到响应，目标端可能已经提交。应先拿原业务操作键核对回执，或者在目标端明确支持幂等的前提下重发同一个操作键。对无法查回执且没有幂等保证的写入，应交给人工核对。
+  - question: "查政策与查扫描什么时候适合并行？"
+    answer: >-
+      两个请求的目标、权限和输入都已经确定，且各自是独立读取时，可以并行并按编号汇总。如果政策适用范围取决于扫描返回的地区或签收状态，就先查扫描，再带着结果查政策。固定且可枚举的依赖可以由程序直接编排。
 ---
 
 ## 工具调用为什么经常在第二轮出错？ {#problem}
 
 模型发出查单请求，业务接口也返回了订单，客服回复却说「无法查到」。先检查运行时是否把工具回执发到了同一条调用上。另一个常见问题出在请求入口，模型可以输出一个形状完全正确但超出任务范围的订单号。工具链要同时守住消息配对与业务权限。
 
+直接在提示词里让模型「需要时查订单」，最多得到一句自然语言建议。要让程序接手，双方需要约定可调用的名称、参数和回执。Function Calling 定义了模型提出动作所用的接口，Tool Use 还包括工具发现、执行、回填和结果验证。
+
 ## 核心概念：三个编号与两种校验 {#contract}
 
-工具定义包含名称、说明和参数形状。调用编号对应模型的某次提议，订单号指出业务资源，写入操作键把重试绑定到同一次批准。参数结构允许字符串订单号，服务端还要校验这确实是当前请求允许的目标，随后根据会话身份确认归属。
+工具定义包含名称、说明和参数形状。应用在注册表登记 `read_order` 的输入约定和处理函数，在请求时按会话权限、任务阶段和工具可用性选出一小组定义发给模型。模型根据工具说明选择名称并生成参数。说明要区分易混淆的动作，例如 `read_order` 查订单快照，`read_carrier_scan` 查物流扫描。传给模型的结构化定义与运行时的实际工具处理函数通过名字关联。
+
+调用编号对应模型的某次提议，订单号指出业务资源，写入操作键把重试绑定到同一次批准。严格结构校验可以发现缺字段或类型错误，服务端仍要确认目标是否属于当前任务、登录主体是否有权限。工具注册和动态筛选可以独立演进。[Tool Schema 与 Tool Router](/2026/09/15/tool-schema-router/)
 
 | 字段 | 由谁赋值 | 跨什么范围 |
 | --- | --- | --- |
@@ -61,6 +87,21 @@ flowchart TB
 
 ## 一次调用如何回填？ {#flow}
 
+```mermaid
+sequenceDiagram
+  participant R as 运行时
+  participant M as 模型
+  participant T as 订单服务
+  R->>M: 发送任务与可用工具定义
+  M-->>R: m1 read_order，目标 A12
+  R->>T: 校验目标后按会话身份查单
+  T-->>R: 返回状态和证据 ID
+  R->>M: 回填 m1 的结果
+  M-->>R: 根据这条事实决定补查或答复
+```
+
+工具服务只看到执行查单所需的数据。运行时把服务响应归一为面向模型的回执，留下足够决策的状态和来源。拒绝或超时也要有明确状态，模型才能区分「当前订单无可用记录」与「服务暂时不可用」。
+
 | 提议 | 执行器判断 | 回填状态 |
 | --- | --- | --- |
 | m1 读取 A12 | 当前任务目标且本人有权限 | `ok` |
@@ -69,11 +110,11 @@ flowchart TB
 | m4 要求退款 | 本轮没有这个工具 | `unknown_tool` |
 | m5 改查 B13 | 超出此次任务目标 | `invalid_target` |
 
-在 OpenAI Responses API 中，用原调用的 `call_id` 对应 `function_call_output`。并行机制、调用字段和错误表示要以提供方文档为准。参考 [OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)。
+在 OpenAI Responses API 中，模型返回的 `function_call` 带有 `call_id`，应用用同一个 `call_id` 构造 `function_call_output`。这种字段形状属于提供方协议，文章中的配对、授权和结果验证则属于应用运行时的职责。[OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)
 
 ## Python 实现：乱序回执也能重新配对 {#implementation}
 
-把 [tool_protocol.py](/assets/examples/agent-engineering/tool_protocol.py) 和 [agent_loop.py](/assets/examples/agent-engineering/agent_loop.py) 放在同一个目录，运行 `python tool_protocol.py`。需要 Python 3.11 或更高版本。脚本将五个回执反序后重新配对，并故意制造重复编号和缺回执。
+下面的代码展示结果如何按提议顺序重排。对应回执的完成顺序可能是 `m2`、`m1`，但 `m1` 仍必须拿到自己的订单数据。集合校验负责发现同样数量、不同编号的错误。
 
 ```python
 def correlate(proposals: list[Proposal], results: list[Reply]) -> list[Reply]:
@@ -84,7 +125,7 @@ def correlate(proposals: list[Proposal], results: list[Reply]) -> list[Reply]:
     return [replies[proposal.call_id] for proposal in proposals]
 ```
 
-模拟器在调用业务后端前拒绝额外字段，已成功的回执只含证据 ID。重复批次按整个批次拒绝，避免一半已发出、另一半才发现关联错误。
+模拟器在发出调用前拒绝重复的提议编号，以免执行一半才发现无法区分回执。它也会用缺回执和乱序回执验证关联逻辑。可选的本地示例需要 Python 3.11 及以上，两个文件放在同一目录。[工具协议脚本](/assets/examples/agent-engineering/tool_protocol.py) · [执行循环](/assets/examples/agent-engineering/agent_loop.py)
 
 ## 串行调用、并行调用和固定查询怎么选？ {#tradeoffs}
 
@@ -93,6 +134,8 @@ def correlate(proposals: list[Proposal], results: list[Reply]) -> list[Reply]:
 ## 工程实践：日志只记能定位断点的字段 {#debugging}
 
 排查顺序是模型是否提议、运行时是否接受、业务服务是否返回、回填是否命中，以及模型请求里实际送出了什么。记录任务 ID、调用编号、工具类型、状态和耗时。参数带身份或订单正文时，保留经脱敏的关联标识。瞬时错误由工具层在任务预算内重试，业务拒绝返回清楚的状态。工具服务有副作用时还要追操作键和业务回执。
+
+每次调用的超时与总任务预算分别管理，防止一批工具把剩余时间用完。对于写操作，若超时后不知道是否已提交，先用同一个操作键查业务回执。工具回传的正文仍是来自外部的数据，进入上下文前只留下当前任务需要且已确认可见的字段。[写入恢复与幂等](/2026/11/19/agent-deep-dive-durability/)
 
 ## 从动作协议继续到知识证据 {#next}
 

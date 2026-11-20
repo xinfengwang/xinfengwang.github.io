@@ -47,6 +47,9 @@ layout: default
           {% assign section_url = chapter.url | append: '#' | append: section.id %}
           <a href="{{ section_url | relative_url }}">{{ section.title | escape }}</a>
         {% endfor %}
+        {% if chapter.chapter_questions and chapter.chapter_questions.size > 0 %}
+          <a href="{{ chapter.url | append: '#chapter-questions' | relative_url }}">本章重点问题</a>
+        {% endif %}
       </nav>
     </aside>
   </div>
