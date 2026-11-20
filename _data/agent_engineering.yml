@@ -42,7 +42,7 @@
     - {id: architecture-basics, title: Agent 架构基础, goal: 拆清 Runtime、Orchestrator、数据流、控制流及模块契约, articles: [control-and-data-flow]}
     - {id: single-agent, title: 单 Agent 架构, goal: 分辨简单、工具型、规划型、反思型、检索型和记忆型架构, articles: [single-agent-architectures]}
     - {id: workflow, title: Workflow 架构, goal: 用顺序、分支、并行、循环及人工介入建模业务流程, articles: [stateful-workflows]}
-    - {id: patterns, title: 典型设计模式, goal: 分别分析 ReAct、Plan-and-Execute、Reflection、Router、Map-Reduce 和评估优化, articles: [react, plan-and-execute, review-and-routing]}
+    - {id: patterns, title: 典型设计模式, goal: 比较九种模式的控制流、职责边界、适用场景与组合方式, articles: [react, plan-and-execute, reflection, router, map-reduce, evaluator-optimizer, human-in-the-loop, supervisor, hierarchical]}
     - {id: multi-agent, title: Multi-Agent 架构, goal: 比较主管、分层、网络与点对点的信号和状态分配, articles: [multi-agent-topologies]}
     - {id: enterprise, title: 企业级 Agent 架构, goal: 设计多租户、统一工具、知识库、会话、权限、审计和扩展边界, articles: [enterprise-agent-architecture]}
 - id: frameworks

@@ -78,3 +78,16 @@
 
 正文按归属只计一次。RAG 评估也出现在质量板块，因此独立正文与专题齐备数不直接对应。尚缺正文的专题继续显示建设中。
 
+## 第三轮进展
+
+架构设计与设计模式已有 14 篇正文，六个专题均已具备正文。基础篇补充了状态写入所有权、版本冲突和业务回执恢复示例。下列 13 篇为本轮新增。
+
+| 专题 | 新增正文 |
+| --- | --- |
+| 单 Agent 架构 | [单 Agent 架构](https://xinfengwang.github.io/agent-engineering/architecture/single-agent-architectures/) |
+| Workflow | [有状态 Workflow](https://xinfengwang.github.io/agent-engineering/architecture/stateful-workflows/) |
+| Agent 设计模式 | [ReAct](https://xinfengwang.github.io/agent-engineering/architecture/react/) · [Plan-and-Execute](https://xinfengwang.github.io/agent-engineering/architecture/plan-and-execute/) · [Reflection](https://xinfengwang.github.io/agent-engineering/architecture/reflection/) · [Router](https://xinfengwang.github.io/agent-engineering/architecture/router/) · [Map-Reduce](https://xinfengwang.github.io/agent-engineering/architecture/map-reduce/) · [Evaluator–Optimizer](https://xinfengwang.github.io/agent-engineering/architecture/evaluator-optimizer/) · [Human-in-the-Loop](https://xinfengwang.github.io/agent-engineering/architecture/human-in-the-loop/) · [Supervisor](https://xinfengwang.github.io/agent-engineering/architecture/supervisor/) · [Hierarchical](https://xinfengwang.github.io/agent-engineering/architecture/hierarchical/) |
+| 多 Agent 架构 | [多 Agent 拓扑](https://xinfengwang.github.io/agent-engineering/architecture/multi-agent-topologies/) |
+| 企业级架构 | [企业级 Agent 架构](https://xinfengwang.github.io/agent-engineering/architecture/enterprise-agent-architecture/) |
+
+架构板块共 70 组折叠问答。课程共有 56 篇、281 组问答。原有课程路由、专题锚点及历史跳转全部延用。下一轮以状态、并行、持久化、生命周期与协议消息为主线，建设框架与生态专题。
