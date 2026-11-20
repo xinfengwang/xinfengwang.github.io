@@ -105,3 +105,17 @@
 | 其他框架 | [LlamaIndex](https://xinfengwang.github.io/agent-engineering/frameworks/llamaindex-data-flow/) · [AutoGen](https://xinfengwang.github.io/agent-engineering/frameworks/autogen-collaboration/) · [CrewAI](https://xinfengwang.github.io/agent-engineering/frameworks/crewai-process/) · [Semantic Kernel](https://xinfengwang.github.io/agent-engineering/frameworks/semantic-kernel/) · [生态选型](https://xinfengwang.github.io/agent-engineering/frameworks/agent-ecosystem/) |
 
 框架文章按可核查的官方版本说明语义，MCP 与 A2A 使用明确协议修订。下一轮继续工程化与生产实践，优先补齐项目分层、会话与持久化、并发、流式服务和部署。
+
+## 第五轮进展
+
+工程化与生产实践补齐九个专题，新写八篇并深化可靠性篇。课程合计 74 篇、371 组折叠问答。生产板块有九篇、45 组问答。
+
+| 专题 | 正文 |
+| --- | --- |
+| 项目架构 | [Agent 项目分层](https://xinfengwang.github.io/agent-engineering/production/agent-project-structure/) |
+| 会话与持久化 | [状态与会话](https://xinfengwang.github.io/agent-engineering/production/session-state/) · [数据持久化](https://xinfengwang.github.io/agent-engineering/production/storage-for-agents/) |
+| 并发与服务 | [异步与并发](https://xinfengwang.github.io/agent-engineering/production/asynchronous-agent-runtime/) · [流式 Agent API](https://xinfengwang.github.io/agent-engineering/production/streaming-agent-api/) |
+| 可靠性 | [生产可靠性](https://xinfengwang.github.io/agent-engineering/production/recoverable-writes/)补充重试放大、熔断、降级和恢复演练 |
+| 部署、成本与平台 | [部署与回滚](https://xinfengwang.github.io/agent-engineering/production/deployment-and-rollbacks/) · [性能与成本](https://xinfengwang.github.io/agent-engineering/production/latency-and-cost/) · [企业级 Agent 平台](https://xinfengwang.github.io/agent-engineering/production/governed-agent-platform/) |
+
+下一轮是评估、安全与可观测性，重点覆盖测试分层、失败数据、权限边界、Tracing 和观测工具。

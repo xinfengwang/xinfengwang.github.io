@@ -12,7 +12,7 @@ engineering_publish: true
 content_kind: "技术教程"
 tags: ["Agent Engineering"]
 chapter_questions: [{"question":"超时后为什么不能把操作改成失败重新提交？","answer":"调用方只知道响应没有按时收到，外部系统可能已经完成写入。先查询同一业务操作的回执，必要时用原幂等键重试。"},{"question":"同一个幂等键为什么要验证参数？","answer":"键指向同一逻辑动作。不同对象或金额复用同一个键时，直接返回旧结果会掩盖新意图。比对规范参数可防止这种冲突。"},{"question":"Checkpoint 可以保证外部副作用只发生一次吗？","answer":"不能。Checkpoint 表示应用本地状态。崩溃可能发生在外部成功与本地记录之间，跨边界一致性需后端幂等、查询或显式协调。"},{"question":"Outbox 发出了一样的消息两次，是否说明机制失效？","answer":"Outbox 常提供可恢复发布，转发器在发送后记录成功之前退出仍可能重复。消费者按可重复识别的事件 ID 做幂等处理。"},{"question":"重试和补偿有哪种本质差别？","answer":"重试继续同一逻辑意图，使用原操作 ID。补偿产生新的业务动作，例如取消交易，需要自己的授权和可追踪回执。"}]
-engineering_reading: {"related":[{"title":"运行循环","url":"/agent-engineering/foundations/agent-loop/"},{"title":"Agent 评估","url":"/agent-engineering/quality/#agent-eval"}]}
+engineering_reading: {"related":[{"title":"运行循环","url":"/agent-engineering/foundations/agent-loop/"},{"title":"Agent 评估","url":"/agent-engineering/quality/#agent-eval"}],"prerequisites":[{"title":"异步与并发","url":"/agent-engineering/production/asynchronous-agent-runtime/"}],"next":[{"title":"流式 Agent API","url":"/agent-engineering/production/streaming-agent-api/"}]}
 ---
 
 ## 工单服务超时后，重复提交可能开出两张单
@@ -47,6 +47,23 @@ Checkpoint 保存工作流在何处以及可用的状态，并不证明外部写
 
 给每次请求设截止时间，再给任务设总预算，防止多层 HTTP SDK、队列和执行器各自反复重试。对容量波动等临时错误使用指数退避加随机抖动。权限错误和合法性校验失败通常要修正输入或流程。限流尊重服务端返回的等待提示，并控制在任务期限内。为「响应丢失但写入成功」设计恢复样本，也测试重复消息、并发 Worker、重启和键保存过期。验收以实际外部数据、应用状态和回执一致为准。
 
+## 重试、熔断和降级解决三种失败
+
+假设 HTTP 客户端、工具包装器、Worker 各自最多执行 3 次。最坏情况下一个逻辑请求会触发 27 次下游调用。让最了解动作安全语义的一层持有重试预算，其他层透传错误。总截止为 2 秒且必须预留 300 毫秒回执核对时，最多只用 1.7 秒尝试和等待。指数退避配合随机抖动，避免同批任务同时重复打到容量不足的服务。
+
+| 观测 | 控制方式 | 需要保留的结果 |
+| --- | --- | --- |
+| 只读接口偶发超时 | 有余量时退避重试 | 尝试次数、最后错误 |
+| 下游持续高失败率 | 熔断快速失败，稍后允许限量探测 | 拒绝原因和恢复时刻 |
+| 非关键依赖不可用 | 降级到经验证的替代，或交付部分结果 | 证据范围、缺口和数据版本 |
+| 已批准写入结果未知 | 暂停推进，以同一操作 ID 查权威回执 | 动作参数摘要、批准、业务记录 |
+
+熔断可以保护下游容量，常见做法是在阈值和时间窗口内转换到快速拒绝，冷却后只让少量探测通过。降级路径不能绕过授权或回执验收。例如重排服务不可用时，可在已授权证据及版本可核对的前提下使用融合排序。若提交草稿超时，替代模型不能重建一份新的草稿并宣布完成，应先查询原操作。
+
+### 用并发故障定位回执与数据库事务的边界
+
+让两个 Worker 同时领取相同操作，再模拟第一次写入成功但回包丢失。检查业务系统只有一个对象，同键同参数可返回原回执，同键新参数被拒绝。发出的通知可能重复，通知消费方也要按事件身份去重。若下游既没有幂等语义又无法查操作结果，则让任务停留在可追溯的待人工核对状态。
+
 ## 小结
 
 外部副作用以可信回执验收。把确定失败和结果未知分开，提供有业务语义的幂等键与查询能力，再用持久化意图、重试预算和人工路径补齐恢复。
@@ -55,3 +72,4 @@ Checkpoint 保存工作流在何处以及可用的状态，并不证明外部写
 
 - [AWS Builders’ Library：Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
 - [AWS Prescriptive Guidance：Transactional Outbox](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html)
+- [AWS Builders’ Library：Timeouts, retries, and backoff with jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/)
