@@ -1,0 +1,33 @@
+---
+layout: default
+---
+{% assign track = site.data.ai_engineering | where: 'id', page.track | first %}
+{% assign track_posts = site.posts | where: 'engineering_publish', true %}
+<div class="wide-page engineering-map">
+  <header class="roadmap-hero">
+    <p><a href="{{ '/#knowledge' | relative_url }}">知识体系</a></p>
+    <h1>{{ track.title | escape }}</h1>
+    <p class="roadmap-intro">{{ track.summary | escape }}</p>
+    <p><strong>学完之后</strong> {{ track.outcome | escape }}</p>
+  </header>
+  <section class="roadmap-section engineering-diagram" aria-labelledby="track-overview">
+    <h2 id="track-overview">系统总览</h2>
+    <pre><code class="language-mermaid">{{ track.diagram | escape }}</code></pre>
+  </section>
+  <section class="roadmap-section" aria-labelledby="track-reading">
+    <h2 id="track-reading">专题与阅读顺序</h2>
+    {% for unit in track.units %}
+    <section class="engineering-series">
+      <h3>{{ unit.title | escape }}</h3>
+      <p>{{ unit.scope | escape }}</p>
+      <ol class="engineering-chapters">
+        {% for article_id in unit.articles %}
+          {% assign article = track_posts | where: 'engineering_id', article_id | first %}
+          {% if article %}<li><a href="{{ article.url | relative_url }}">{{ article.title | escape }}</a><p>{{ article.description | escape }}</p></li>{% endif %}
+        {% endfor %}
+      </ol>
+      {% if unit.pending %}<p class="engineering-terms"><strong>建设中</strong> {{ unit.pending | escape }}</p>{% endif %}
+    </section>
+    {% endfor %}
+  </section>
+</div>

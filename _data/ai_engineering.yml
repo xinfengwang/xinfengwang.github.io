@@ -1,0 +1,64 @@
+- id: agent
+  title: Agent Engineering
+  url: /agent-engineering/
+  summary: 从执行闭环和工具调用学到记忆、规划、架构、框架与协议。
+- id: rag
+  title: RAG Engineering
+  url: /agent-engineering/rag/
+  summary: 沿着文档解析、分块、索引、召回与重排，把可引用证据送入模型。
+- id: evaluation
+  title: Agent Evaluation
+  url: /agent-engineering/quality/
+  summary: 按任务结果、工具轨迹和证据定位失败，再用评测集与监控验证改动。
+- id: full-stack
+  title: AI Full-Stack Engineering
+  url: /ai-full-stack/
+  summary: 组织用户交互、任务 API、数据存储和实时结果，交付完整的 AI 应用。
+  outcome: 能画出一次请求跨越浏览器、应用服务、任务执行与存储的路径，明确状态、权限和失败由谁负责。
+  diagram: |
+    flowchart TB
+      A["浏览器与身份"] --> B["应用 API"]
+      B --> C["持久化任务状态"]
+      B --> D["Worker 与 Agent"]
+      D --> C
+      C --> E["事件流与结果查询"]
+      E --> A
+  units:
+    - title: 前端、实时通信与任务 API
+      scope: 区分交互状态、运行事件和最终结果，理解流重连与恢复。
+      articles: [streaming-agent-api, session-state]
+    - title: 后端服务、数据与 Agent 集成
+      scope: 分离业务规则、编排与外部适配，明确数据库和缓存职责。
+      articles: [agent-project-structure, storage-for-agents]
+    - title: 文件入口、认证与应用交付
+      scope: 以文档解析和版本回滚为基础，梳理应用权限、文件生命周期与部署。
+      articles: [document-ingestion, deployment-and-rollbacks]
+      pending: 文件上传与处理、用户认证、前端状态与全栈端到端交付。
+- id: infrastructure
+  title: AI Infrastructure
+  url: /ai-infrastructure/
+  summary: 从推理与 GPU 资源出发，理解并发、部署、服务监控与成本。
+  outcome: 能解释一次推理慢在排队、Prefill 还是 Decode，并把资源约束联系到并发、部署和成本。
+  diagram: |
+    flowchart TB
+      A["请求与预算"] --> B["队列与调度"]
+      B --> C["模型推理"]
+      C --> D["GPU 与显存"]
+      C --> E["服务观测"]
+      E --> B
+  units:
+    - title: 推理机制与 GPU 容量
+      scope: 理解 Prefill、Decode、KV Cache，连接推理时间与显存资源。
+      articles: [model-inference]
+      pending: 服务调度、模型量化与 GPU 容量规划。
+    - title: 并发、部署和回滚
+      scope: 管理请求积压、Worker 租约、应用镜像与持久状态的演进。
+      articles: [asynchronous-agent-runtime, deployment-and-rollbacks]
+      pending: 模型容器、云端部署与分布式服务。
+    - title: 服务监控、性能与成本
+      scope: 分辨延迟来自模型、队列还是工具，以及对应的用户影响与成本。
+      articles: [agent-observability, latency-and-cost]
+- id: practice
+  title: AI Projects & Practice
+  url: /agent-engineering/cases/
+  summary: 用企业知识库、研究助手、开发协作与业务流程检验设计。

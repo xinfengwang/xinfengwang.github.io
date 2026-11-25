@@ -3,54 +3,33 @@ layout: default
 ---
 <section class="hero">
   <p class="eyebrow">王新峰的技术博客</p>
-  <h1>AI Agent 技术专栏</h1>
-  <p class="hero-copy">从模型与工具的工作原理出发，学习 Agent 的检索、编排、评估和生产工程。</p>
+  <h1>AI Engineering 技术教程</h1>
+  <p class="hero-copy">从 Agent 怎样决定下一步开始，沿着检索、评估和应用交付，理解一个 AI 系统是怎样建成的。</p>
   <div class="hero-actions">
-    <a class="button primary" href="{{ '/agent-engineering/' | relative_url }}">进入 Agent Engineering →</a>
-    <a class="button" href="{{ '/agent-topics/' | relative_url }}">阅读技术专题</a>
+    <a class="button primary" href="{{ '/agent-engineering/foundations/' | relative_url }}">从 Agent 基础开始 →</a>
+    <a class="button" href="{{ '/search/' | relative_url }}">搜索技术文章</a>
   </div>
 </section>
 
 <section class="reading-return" data-reading-return hidden aria-label="继续阅读"></section>
-<section class="roadmap-section" id="agent-knowledge-map" aria-labelledby="knowledge-map-title">
-  <div class="section-heading"><h2 id="knowledge-map-title">Agent Engineering</h2><span class="rule"></span><a href="{{ '/agent-engineering/' | relative_url }}">完整教程 →</a></div>
-  {% include engineering-topics.html %}
-</section>
-
-{% assign editorial_posts = site.posts | where: 'editorial', true %}
-<section class="editorial-featured" aria-labelledby="editorial-featured-title">
-  <div class="section-heading"><h2 id="editorial-featured-title">技术专题</h2><span class="rule"></span><a href="{{ '/agent-topics/' | relative_url }}">全部专题 →</a></div>
-  <div class="editorial-article-grid">
-    {% for post in editorial_posts limit: 4 %}
-      {% include editorial-card.html article=post %}
+<section class="roadmap-section" id="agent-knowledge-map" aria-labelledby="knowledge">
+  <h2 id="knowledge">知识体系</h2>
+  <p>初学者可以先读 Agent 和 RAG，再用评估章节检查系统表现。已有应用经验也可以直接进入全栈、基础设施或案例。</p>
+  <ul class="engineering-topic-grid">
+    {% for section in site.data.ai_engineering %}
+    <li class="engineering-topic-card">
+      <h3><a href="{{ section.url | relative_url }}">{{ section.title | escape }}</a></h3>
+      <p>{{ section.summary | escape }}</p>
+    </li>
     {% endfor %}
-  </div>
+  </ul>
 </section>
 
-<div class="content-grid">
-  <section class="post-column">
-    <div class="section-heading"><span>更多文章</span><span class="rule"></span></div>
-    {% assign latest_posts = site.posts | where_exp: 'post', 'post.editorial != true' %}
-    {% for post in latest_posts limit: 5 %}{% include post-card.html post=post %}{% endfor %}
-    <div class="home-more-links"><a class="button" href="{{ '/archive/' | relative_url }}">全部文章 →</a><a class="text-link" href="{{ '/tech/' | relative_url }}">按主题浏览 →</a></div>
-  </section>
-  {% include sidebar.html %}
-</div>
-
-<section class="home-projects" aria-labelledby="selected-projects">
-  <div class="section-heading"><span id="selected-projects">项目拆解</span><span class="rule"></span><a href="{{ '/projects/' | relative_url }}">全部项目 →</a></div>
-  <div class="home-project-grid">
-    {% for project in site.data.projects %}{% if project.featured %}
-    <article class="home-project-card">
-      <a class="home-project-image" href="{{ '/projects/#' | append: project.id | relative_url }}"><img src="{{ project.image }}" alt="{{ project.name }}界面预览" loading="lazy" width="960" height="540"></a>
-      <div class="home-project-content">
-        <p class="project-kicker">{{ project.group }} · {{ project.status }}</p>
-        <h2><a href="{{ '/projects/#' | append: project.id | relative_url }}">{{ project.name }}</a></h2>
-        <p>{{ project.summary }}</p>
-        {% if project.focus %}<p class="project-focus"><strong>工程重点：</strong>{{ project.focus }}</p>{% endif %}
-        <div class="project-card-links"><a href="{{ project.article | relative_url }}">阅读项目拆解 →</a><a href="https://github.com/xinfengwang/{{ project.repo }}" target="_blank" rel="noreferrer">查看仓库 ↗</a></div>
-      </div>
-    </article>
-    {% endif %}{% endfor %}
-  </div>
+<section class="roadmap-section" aria-labelledby="more-reading">
+  <h2 id="more-reading">技术专题与个人项目</h2>
+  <ul class="engineering-chapters">
+    <li><a href="{{ '/agent-topics/' | relative_url }}">技术专题</a><p>阅读 AI Coding、Agent Harness 等深度文章。</p></li>
+    <li><a href="{{ '/projects/' | relative_url }}">项目展示</a><p>查看个人项目、架构拆解和代码仓库。</p></li>
+    <li><a href="{{ '/experience/' | relative_url }}">个人经历</a><p>查看个人介绍、学习与工程实践经历。</p></li>
+  </ul>
 </section>

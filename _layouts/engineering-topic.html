@@ -5,8 +5,14 @@ layout: default
 <div class="wide-page engineering-map">
   <header class="roadmap-hero engineering-hero">
     <div>
+      {% assign track = site.data.ai_engineering | where: 'url', page.url | first %}
+      {% if track %}
+      <p class="eyebrow"><a href="{{ '/#knowledge' | relative_url }}">知识体系</a></p>
+      <h1>{{ track.title | escape }}</h1>
+      {% else %}
       <p class="eyebrow"><a href="{{ '/agent-engineering/#topics' | relative_url }}">Agent Engineering</a></p>
       <h1>{{ topic.title | escape }}</h1>
+      {% endif %}
       <p class="roadmap-intro">{{ topic.summary | escape }}</p>
       <p><strong>学完之后</strong> {{ topic.goal | escape }}</p>
       <p class="engineering-terms">{{ topic.prerequisite | escape }}</p>

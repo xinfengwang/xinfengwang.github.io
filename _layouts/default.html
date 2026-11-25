@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="{{ "/assets/css/reading-tools.css" | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/learning.css' | relative_url }}">
   {% if page.url == "/experience/" %}<link rel="stylesheet" href="{{ '/assets/css/experience.css' | relative_url }}?v=badge-row-2">{% endif %}
-  {% if page.url == "/" or page.url contains "/agent-engineering/" %}
+  {% if page.url == "/" or page.url contains "/agent-engineering/" or page.track %}
   <link rel="stylesheet" href="{{ '/assets/css/roadmap.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/engineering.css' | relative_url }}">
   {% endif %}
@@ -63,7 +63,7 @@
   <script>window.MathJax = {tex: {inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']]}};</script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
   {% endif %}
-  {% if page.layout == 'post' or page.engineering_topic %}
+  {% if page.layout == 'post' or page.engineering_topic or page.track or page.url == '/agent-engineering/' %}
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
     document.querySelectorAll('pre code.language-mermaid').forEach((code) => {

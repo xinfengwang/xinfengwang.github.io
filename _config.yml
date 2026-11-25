@@ -1,5 +1,5 @@
 title: "Wang Xinfeng's Blog"
-description: "王新峰的 AI Agent 技术博客。从开发全流程出发，系统讲解基础、核心能力、架构、框架、生产工程、质量保障、案例与前沿。"
+description: "王新峰的 AI Engineering 技术博客，系统讲解 Agent、RAG、评测、全栈、基础设施与项目实践。"
 url: "https://xinfengwang.github.io"
 baseurl: ""
 lang: zh-CN
@@ -18,23 +18,21 @@ profile:
 nav:
   - title: 首页
     url: /
-  - title: 技术专题
-    url: /agent-topics/
-  - title: Agent Engineering
-    url: /agent-engineering/
+  - title: 知识体系
+    url: /#knowledge
   - title: 全部文章
     url: /archive/
   - title: 面经
     url: /interviews/
   - title: 项目
     url: /projects/
-  - title: 个人经历
-    url: /experience/
   - title: 关于我
     url: /about/
 
 exclude:
   - scripts
+  - docs
+  - PROJECT_PROGRESS.md
   - README.md
   - preview.html
   - xinfeng-blog.zip

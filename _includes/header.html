@@ -3,7 +3,7 @@
     <a class="brand" href="{{ '/' | relative_url }}">WX<span class="brand-dot">.</span></a>
     <nav class="main-nav" aria-label="主导航">
       {% for item in site.nav %}
-      <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active" aria-current="page"{% elsif item.url == "/agent-engineering/" %}{% if page.engineering_topic or page.url == "/learning-map/" %}class="active" aria-current="location"{% endif %}{% endif %}>{{ item.title }}</a>
+      <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active" aria-current="page"{% elsif item.url == '/#knowledge' %}{% if page.engineering_topic or page.track or page.url == '/agent-engineering/' or page.url == '/learning-map/' %}class="active" aria-current="location"{% endif %}{% endif %}>{{ item.title }}</a>
       {% endfor %}
       <a href="{{ site.profile.github }}" target="_blank" rel="noreferrer">GitHub ↗</a>
       <a class="search-link" href="{{ '/search/' | relative_url }}" aria-label="站内搜索（Ctrl 或 Command 加 K）">搜索 <kbd>⌘ K</kbd></a>
