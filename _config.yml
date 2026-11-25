@@ -31,7 +31,7 @@ nav:
 
 exclude:
   - scripts
-  - docs
+  - docs/restructure-audit.md
   - PROJECT_PROGRESS.md
   - README.md
   - preview.html

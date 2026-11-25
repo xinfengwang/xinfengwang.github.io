@@ -1,5 +1,5 @@
 .engineering-map { max-width: 1120px; margin-inline: auto; }
-.engineering-map [id], .engineering-anchor, #agent-knowledge-map { scroll-margin-top: 100px; }
+.engineering-map [id], .engineering-anchor, #agent-knowledge-map, #knowledge { scroll-margin-top: 100px; }
 .engineering-anchor { display: block; }
 .engineering-lifecycle li { height: auto; }
 .engineering-learning-path span a { display: inline; }
@@ -58,29 +58,6 @@
   margin: 16px auto;
   aspect-ratio: 2 / 1;
 }
-.engineering-dependencies {
-  display: grid;
-  gap: 8px;
-  max-width: 520px;
-  margin: 20px auto;
-  text-align: center;
-}
-.engineering-dependency-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-}
-.engineering-dependency-row a {
-  display: block;
-  padding: 8px 6px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--paper);
-  text-decoration: underline;
-  text-underline-offset: .22em;
-}
-.engineering-dependency-arrow { color: var(--muted); }
 .engineering-stages {
   display: flex;
   flex-wrap: wrap;
@@ -106,3 +83,8 @@
   .engineering-sidebar { position: static; }
   .engineering-hero .engineering-cover { max-width: 360px; }
 }
+
+#agent-knowledge-map .engineering-topic-grid { margin-block: 1.5rem 0; }
+#agent-knowledge-map .engineering-topic-card p { max-width: 38ch; color: var(--muted); }
+#agent-knowledge-map .engineering-topic-card { padding-block: 1rem; }
+.engineering-map .roadmap-hero > :is(p, div) { min-width: 0; }

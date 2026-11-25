@@ -26,15 +26,14 @@ permalink: /agent-engineering/
     <h2 id="map">知识全景</h2>
     <p>基础理论和核心技术解释组件如何工作。架构和框架决定怎样组合组件。工程实践与质量保障贯穿部署、实战和后续演进。</p>
     {% include engineering-cover.html image='ecosystem' alt='' %}
-    <div class="engineering-dependencies" aria-label="板块依赖关系">
-      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/foundations/' | relative_url }}">基础理论</a><span>→</span><a href="{{ '/agent-engineering/capabilities/' | relative_url }}">核心技术</a></div>
-      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
-      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/architecture/' | relative_url }}">架构设计</a><span>→</span><a href="{{ '/agent-engineering/frameworks/' | relative_url }}">开发框架</a></div>
-      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
-      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/production/' | relative_url }}">工程实践</a><span>↔</span><a href="{{ '/agent-engineering/quality/' | relative_url }}">评估与安全</a></div>
-      <div class="engineering-dependency-arrow" aria-hidden="true">↓</div>
-      <div class="engineering-dependency-row"><a href="{{ '/agent-engineering/cases/' | relative_url }}">项目实战</a><span>→</span><a href="{{ '/agent-engineering/frontier/' | relative_url }}">前沿技术</a></div>
-    </div>
+    <div class="engineering-diagram"><pre><code class="language-mermaid">flowchart TB
+      A["基础理论"] --> B["工具、检索与记忆"]
+      B --> C["架构设计与框架"]
+      C --> D["生产实践"]
+      C --> E["评估与安全"]
+      D --> F["项目案例"]
+      E --> F
+    </code></pre></div>
   </section>
 
   <section class="roadmap-section" aria-labelledby="topics">

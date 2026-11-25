@@ -64,3 +64,20 @@
 
 .chapter-answer > :first-child { margin-top: 0; }
 .chapter-answer > :last-child { margin-bottom: 0; }
+
+/* Give technical diagrams a consistent canvas across reading themes. */
+.mermaid.rendered-diagram {
+  max-width: 100%;
+  background: #fff;
+  color: #202124;
+  text-align: center;
+}
+.mermaid.rendered-diagram svg { display: block; height: auto; margin-inline: auto; }
+.main-nav a:focus-visible, .main-nav button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (max-width: 680px) {
+  .main-nav a, .main-nav button { min-height: 24px; }
+  .main-nav kbd { display: none; }
+}

@@ -3,6 +3,7 @@
 {% assign next_chapter = nil %}
 {% assign reached_current = false %}
 {% for series in engineering_topic.series %}
+  {% if engineering_series.url and series.id != engineering_series.id %}{% continue %}{% endif %}
   {% for article_id in series.articles %}
     {% assign entry = published | where: 'engineering_id', article_id | first %}
     {% if entry and entry.engineering_topic == page.engineering_topic %}
