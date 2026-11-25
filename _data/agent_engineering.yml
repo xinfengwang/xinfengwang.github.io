@@ -77,9 +77,9 @@
     - {id: storage, title: 数据持久化, goal: 根据任务、会话、记忆和制品选择关系库、缓存、向量索引或对象存储, articles: [storage-for-agents]}
     - {id: concurrency, title: 异步与并发, goal: 解释 async/await、并行工具、Worker、队列、背压和流式事件, articles: [asynchronous-agent-runtime]}
     - {id: reliability, title: 可靠性设计, goal: 处理超时、退避、降级、幂等、补偿与断点续跑, articles: [recoverable-writes]}
-    - {id: api, title: API 服务, goal: 设计任务 API、SSE、WebSocket、鉴权、会话隔离和限流, articles: [streaming-agent-api]}
+    - {id: api, title: API 服务, goal: 设计任务 API、SSE、WebSocket、鉴权、会话隔离和限流, articles: [streaming-agent-api, document-upload-lifecycle]}
     - {id: deployment, title: 部署与运维, goal: 管理容器、发布、环境隔离、状态版本和回滚, articles: [deployment-and-rollbacks]}
-    - {id: optimization, title: 性能与成本优化, goal: 衡量 Token、模型路由、缓存、并发和尾部延迟, articles: [latency-and-cost]}
+    - {id: optimization, title: 性能与成本优化, goal: 衡量 Token、模型路由、缓存、并发和尾部延迟, articles: [latency-and-cost, llm-serving-capacity]}
     - {id: platform, title: 企业级 Agent 平台, goal: 理解调度、多租户、工具及知识管理、审计和治理, articles: [governed-agent-platform]}
 - id: quality
   title: 评估、安全与可观测性
@@ -90,7 +90,7 @@
   stages: [定义成功, 拆分故障层, 构建回归用例, 执行权限检查, Trace 回流]
   related: [capabilities, production, cases]
   series:
-    - {id: agent-eval, title: Agent Evaluation, goal: 区分任务成功、工具选择、参数、延迟、成本和评估器可靠性, articles: [agent-evaluation]}
+    - {id: agent-eval, title: Agent Evaluation, goal: 区分任务成功、工具选择、参数、延迟、成本和评估器可靠性, articles: [agent-evaluation, evaluation-calibration]}
     - {id: rag-eval, title: RAG Evaluation, goal: 从排名指标一直诊断到上下文相关性、答案支持与任务覆盖, url: /agent-engineering/rag/rag-evaluation/, articles: [rag-evaluation]}
     - {id: testing, title: 测试体系, goal: 按单元、集成、端到端、回归和长任务建立分层验证, articles: [testing-agent-systems]}
     - {id: security, title: 安全治理, goal: 理解间接提示注入、工具越权、数据外泄防御、最小权限和审计, articles: [agent-trust-boundaries]}

@@ -32,8 +32,8 @@
       articles: [agent-project-structure, storage-for-agents]
     - title: 文件入口、认证与应用交付
       scope: 以文档解析和版本回滚为基础，梳理应用权限、文件生命周期与部署。
-      articles: [document-ingestion, deployment-and-rollbacks]
-      pending: 文件上传与处理、用户认证、前端状态与全栈端到端交付。
+      articles: [document-upload-lifecycle, document-ingestion, deployment-and-rollbacks]
+      pending: 用户认证、前端状态与全栈端到端交付。
 - id: infrastructure
   title: AI Infrastructure
   url: /ai-infrastructure/
@@ -49,8 +49,8 @@
   units:
     - title: 推理机制与 GPU 容量
       scope: 理解 Prefill、Decode、KV Cache，连接推理时间与显存资源。
-      articles: [model-inference]
-      pending: 服务调度、模型量化与 GPU 容量规划。
+      articles: [model-inference, llm-serving-capacity]
+      pending: 模型量化、服务并行与多 GPU 容量规划。
     - title: 并发、部署和回滚
       scope: 管理请求积压、Worker 租约、应用镜像与持久状态的演进。
       articles: [asynchronous-agent-runtime, deployment-and-rollbacks]
